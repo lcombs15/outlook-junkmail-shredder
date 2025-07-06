@@ -20,7 +20,6 @@ const tokenRequest: DeviceCodeRequest = {
         "https://graph.microsoft.com/User.Read",
         "offline_access"
     ],
-    correlationId: "lucas-local"
 };
 
 export async function getAccessToken(): Promise<string> {
@@ -33,7 +32,7 @@ export async function getAccessToken(): Promise<string> {
         const result = await pca.acquireTokenByDeviceCode(tokenRequest);
 
         if (result) {
-            console.log({scopes: result.scopes})
+            console.debug({scopes: result.scopes})
             return result.accessToken
         }
     } catch (error) {
