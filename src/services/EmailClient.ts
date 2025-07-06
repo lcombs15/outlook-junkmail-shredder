@@ -7,8 +7,7 @@ export class EmailClient {
 
     public constructor(accessToken: string) {
         this.graphClient = Client.init({
-            authProvider: (done) => done(null, accessToken),
-
+            authProvider: (done) => done(null, accessToken)
         });
     }
 
@@ -16,6 +15,7 @@ export class EmailClient {
         const response = await this.graphClient
             .api("/me/mailFolders/junkemail/messages")
             .select("subject,from,receivedDateTime,id,sender,body,toRecipients,ccRecipients,bccRecipients")
+            .top(100)
             .orderby('receivedDateTime desc')
             .get();
 
@@ -23,5 +23,7 @@ export class EmailClient {
     }
 
     public async deleteEmail(email: Email): Promise<void> {
+        await this.graphClient.api(`/me/messages/${email.id}`).delete();
+        console.log(`Deleted: ${email.subject.trim()}`)
     }
 }

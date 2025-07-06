@@ -11,16 +11,17 @@ async function run() {
 
     const emails = await emailClient.listJunkEmails();
 
-    junkReportService.printReport(
-        junkReportService.getReport(
-            emails.map(email => {
-                return {
-                    email,
-                    evaluation: junkService.evaluate(email)
-                };
-            })
-        )
-    );
+    const junkEvaluations = emails.map(email => {
+        return {
+            email,
+            evaluation: junkService.evaluate(email)
+        };
+    });
+
+    junkReportService.printReport(junkReportService.getReport(junkEvaluations));
+
+    await Promise.all(junkEvaluations.filter(evaluation => evaluation.evaluation.isJunk)
+        .map(({email}) => emailClient.deleteEmail(email)))
 }
 
 run().catch(console.error);
