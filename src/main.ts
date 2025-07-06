@@ -11,6 +11,11 @@ async function run() {
 
     const emails = await emailClient.listJunkEmails();
 
+    if (!emails.length) {
+        console.log('All junk clean!!!');
+        return;
+    }
+
     const junkEvaluations = emails.map(email => {
         return {
             email,

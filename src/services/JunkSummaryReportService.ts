@@ -34,6 +34,7 @@ export class JunkSummaryReportService {
                     .replace(/[\r\n]+| {2,}/g, ''))
             })
         })
+        console.log(new Array(80).fill('=').join(''))
     }
 
     private getSectionSize(section: JunkReportSection): number {

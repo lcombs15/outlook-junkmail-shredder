@@ -2,6 +2,7 @@ import Email from "../../entity/email";
 import {JunkStrategy} from "./strategy/JunkStrategy";
 import {BogusNewsletterStrategy} from "./strategy/BogusNewsletterStrategy";
 import {IllegalTopLevelDomainStrategy} from "./strategy/IllegalTopLevelDomainStrategy";
+import {IllegalDomainStrategy} from "./strategy/IllegalDomainStrategy";
 
 export interface JunkEvaluation {
     isJunk: boolean,
@@ -12,7 +13,8 @@ export class JunkService {
 
     constructor(private strategies: Array<JunkStrategy> = [
         new BogusNewsletterStrategy(),
-        new IllegalTopLevelDomainStrategy()
+        new IllegalTopLevelDomainStrategy(),
+        new IllegalDomainStrategy()
     ]) {
     }
 
