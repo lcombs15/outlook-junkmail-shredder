@@ -26,13 +26,18 @@ export class JunkSummaryReportService {
     }
 
     private printSection(title: string, section: JunkReportSection): void {
-        console.log(`${title}:`);
+        console.log(`${title} (${this.getSectionSize(section)}):`);
         Object.entries(section).forEach(([reason, emails]) => {
-            console.log(`\t${reason}`);
+            console.log(`\t${reason} (${emails.length})`);
             emails.forEach(email => {
                 console.log(`\t\t+ ${email.from.emailAddress.name.trim()}<${email.from.emailAddress.address}>: ${email.subject}`
                     .replace(/[\r\n]+| {2,}/g, ''))
             })
         })
+    }
+
+    private getSectionSize(section: JunkReportSection): number {
+        const counts = Object.values(section).map(section => section.length)
+        return counts.reduce((sum, count) => sum + count, 0);
     }
 }
