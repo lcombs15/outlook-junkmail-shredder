@@ -2,22 +2,25 @@ import "isomorphic-fetch";
 import {getAccessToken} from "./auth/getToken";
 import {EmailClient} from "./services/EmailClient";
 import {JunkService} from "./services/junk/JunkService";
+import {JunkSummaryReportService} from "./services/JunkSummaryReportService";
 
 async function run() {
-    const token = await getAccessToken();
-    const emailClient = new EmailClient(token);
+    const emailClient = new EmailClient(await getAccessToken());
     const junkService = new JunkService();
-    (await emailClient.listJunkEmails()).map(junkEmail => {
-        return {email: junkEmail, evaluation: junkService.evaluate(junkEmail)}
-    }).sort((a, b) => {
-        if (a.evaluation.isJunk === b.evaluation.isJunk) {
-            return 0;
-        }
+    const junkReportService = new JunkSummaryReportService();
 
-        return a.evaluation.isJunk ? -1 : 1;
-    }).forEach(({email, evaluation}) => {
-        console.log(`${evaluation.isJunk ? 'JUNK' : 'NOT JUNK'}: reason: ${evaluation.reason} - ${email.from.emailAddress.name}<${email.from.emailAddress.address}>: ${email.subject}`.trim().replace(/[\r\n]+| {2,}/g, ''))
-    })
+    const emails = await emailClient.listJunkEmails();
+
+    junkReportService.printReport(
+        junkReportService.getReport(
+            emails.map(email => {
+                return {
+                    email,
+                    evaluation: junkService.evaluate(email)
+                };
+            })
+        )
+    );
 }
 
 run().catch(console.error);
