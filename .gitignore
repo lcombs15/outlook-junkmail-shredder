@@ -8,3 +8,7 @@ node_modules/
 
 .idea/
 .DS_Store
+
+# Refresh token files
+*token.json
+*cache.json
