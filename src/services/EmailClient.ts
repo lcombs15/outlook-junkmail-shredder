@@ -22,8 +22,21 @@ export class EmailClient {
         return response.value as Array<Email>;
     }
 
-    public async deleteEmail(email: Email): Promise<void> {
-        await this.graphClient.api(`/me/messages/${email.id}`).delete();
-        console.log(`Deleted: ${email.subject.trim()}`)
+    public async deleteEmails(emails: Array<Email>): Promise<void> {
+        if (!emails.length) {
+            return;
+        }
+
+        await this.graphClient.api('/$batch').post({
+            requests: emails.map((email, index) => ({
+                id: String(index),
+                method: "DELETE",
+                url: `/me/messages/${email.id}`
+            }))
+        });
+
+        emails.forEach(email => {
+            console.log(`Deleted: ${email.subject.trim()}`);
+        });
     }
 }

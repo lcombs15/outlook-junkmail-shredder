@@ -25,8 +25,9 @@ async function run() {
 
     junkReportService.printReport(junkReportService.getReport(junkEvaluations));
 
-    await Promise.all(junkEvaluations.filter(evaluation => evaluation.evaluation.isJunk)
-        .map(({email}) => emailClient.deleteEmail(email)))
+    await emailClient.deleteEmails(junkEvaluations
+        .filter(evaluation => evaluation.evaluation.isJunk)
+        .map(({email}) => email));
 }
 
 run().catch(console.error);
