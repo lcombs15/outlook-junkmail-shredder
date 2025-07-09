@@ -31,7 +31,10 @@ const tokenRequest: DeviceCodeRequest = {
     deviceCodeCallback: (response) => {
         console.log("\n🔑 DEVICE CODE LOGIN:");
         console.log(response.message); // Shows where to go and what code to enter
-        clipboard.writeSync(response.userCode)
+        try {
+            clipboard.writeSync(response.userCode)
+        } catch (ignore) {
+        }
     },
     scopes: [
         "https://graph.microsoft.com/Mail.ReadWrite",
