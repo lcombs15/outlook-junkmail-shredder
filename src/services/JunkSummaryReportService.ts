@@ -25,12 +25,16 @@ export class JunkSummaryReportService {
         this.printSection('NOT JUNK', report.notJunkReport);
     }
 
+    public formatEmailOneLine(email: Email): string {
+        return `${email.from.emailAddress.name.trim()} <${email.from.emailAddress.address}> : ${email.subject}`
+    }
+
     private printSection(title: string, section: JunkReportSection): void {
         console.log(`${title} (${this.getSectionSize(section)}):`);
         Object.entries(section).forEach(([reason, emails]) => {
             console.log(`\t${reason} (${emails.length})`);
             emails.forEach(email => {
-                console.log(`\t\t+ ${email.from.emailAddress.name.trim()}<${email.from.emailAddress.address}>: ${email.subject}`
+                console.log(`\t\t+ ${this.formatEmailOneLine(email)}`
                     .replace(/[\r\n]+| {2,}/g, ''))
             })
         })
