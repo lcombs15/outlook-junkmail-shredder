@@ -8,13 +8,40 @@ This project includes a Dockerfile that:
 1. Runs the application immediately when the container starts
 2. Sets up a cron job to run the application every hour from 9am to 5pm, 7 days a week
 
-### Building the Docker Image
+### Using Docker Compose (Recommended)
+
+This project includes a Docker Compose configuration that uses Docker secrets for secure credential management.
+
+1. Create a directory for your secrets:
+   ```bash
+   mkdir -p secrets
+   ```
+
+2. Create the secret files:
+   ```bash
+   echo "your_client_id_here" > secrets/client_id.txt
+   echo "your_discord_webhook_url_here" > secrets/discord_url.txt
+   ```
+
+3. Start the container using Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
+
+The Docker Compose configuration:
+- Sets the timezone to America/New_York
+- Uses Docker secrets for secure credential management
+- Persists the authentication cache between restarts
+
+### Building and Running with Docker (Alternative)
+
+#### Building the Docker Image
 
 ```bash
 docker build -t hotmail-junk-removal-tool .
 ```
 
-### Running the Docker Container
+#### Running the Docker Container
 
 ```bash
 docker run -d --name hotmail-junk-removal \

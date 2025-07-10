@@ -3,9 +3,7 @@ FROM node:20-slim
 
 ENV TZ=America/New_York
 # Install cron
-RUN apt-get update && apt-get install -y cron tzdata && rm -rf /var/lib/apt/lists/*
-
-RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
+RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
 WORKDIR /app
@@ -20,7 +18,7 @@ RUN npm install
 COPY . .
 
 # Create crontab file
-RUN echo "0,15,30,45 9-17 * * * cd /app && npm run run >> /var/log/cron.log 2>&1" > /etc/cron.d/app-cron && \
+RUN echo "*/2 * * * * cd /app && npm run run >> /var/log/cron.log 2>&1" > /etc/cron.d/app-cron && \
     chmod 0644 /etc/cron.d/app-cron && \
     crontab /etc/cron.d/app-cron
 

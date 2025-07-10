@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  hotmail-junk-removal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TZ=America/New_York
+    secrets:
+      - hotmail_client_id
+      - discord_url
+    restart: unless-stopped
+
+secrets:
+  hotmail_client_id:
+    environment: CLIENT_ID
+  discord_url:
+    environment: DISCORD_URL
