@@ -8,7 +8,7 @@ const cacheFile = path.join(process.cwd(), "msal-cache.json");
 
 const msalConfig: Configuration = {
     auth: {
-        clientId: process.env.CLIENT_ID || 'NO CLIENT ID',
+        clientId: fs.readFileSync(process.env.CLIENT_ID_FILE || '').toString().trim() || 'NO CLIENT ID',
         authority: "https://login.microsoftonline.com/consumers", // For Live.com personal accounts
     },
     cache: {
