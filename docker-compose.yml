@@ -14,6 +14,6 @@ services:
 
 secrets:
   hotmail_client_id:
-    external: true
+    name: hotmail_client_id
   discord_url:
-    external: true
+    name: discord_url
