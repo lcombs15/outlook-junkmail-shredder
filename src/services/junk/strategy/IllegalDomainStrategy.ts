@@ -7,7 +7,8 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "martingifts.com",
         "myelectroshops.com",
         "adaptiveinfrastructuremanagement.info",
-        "langballig.info"
+        "langballig.info",
+        "unhjkuion.com"
     ];
 
     appliesTo(email: Email): boolean {
