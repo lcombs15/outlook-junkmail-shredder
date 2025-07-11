@@ -7,6 +7,9 @@ export >> /etc/profile
 # Confirm timezone
 date
 
+# Run right away to auth
+npm run main
+
 # Start cron
 echo "Starting cron service..." && cron
 
