@@ -1,6 +1,7 @@
 node_modules/
 .npm
 
+/bin
 *.js
 *.js.map
 

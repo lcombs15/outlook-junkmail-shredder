@@ -1,4 +1,5 @@
 # Use Node.js LTS as the base image
+FROM ubuntu
 FROM node:20-slim
 
 ENV TZ=America/New_York
@@ -17,8 +18,11 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
+# Build
+RUN npm run build
+
 # Create crontab file
-RUN echo "*/2 * * * * cd /app && npm run run >> /var/log/cron.log 2>&1" > /etc/cron.d/app-cron && \
+RUN echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" > /etc/cron.d/app-cron && echo "*/2 * * * * cd /app && printenv && /usr/local/bin/npm run run >> /var/log/cron.log 2>&1" >> /etc/cron.d/app-cron && \
     chmod 0644 /etc/cron.d/app-cron && \
     crontab /etc/cron.d/app-cron
 

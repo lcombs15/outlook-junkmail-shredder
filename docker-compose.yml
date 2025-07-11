@@ -1,19 +1,19 @@
 services:
   hotmail-junk-removal:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: hotmail-junk-removal-tool
     environment:
       - TZ=America/New_Yorks
-      - CLIENT_ID_FILE=/run/secrets/client_id.txt
-      - DISCORD_URL_FILE=/run/secrets/discord_url.txt
+      - CLIENT_ID_FILE=/run/secrets/hotmail_client_id
+      - DISCORD_URL_FILE=/run/secrets/discord_url
     secrets:
       - hotmail_client_id
       - discord_url
-    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
 
 secrets:
   hotmail_client_id:
-    name: hotmail_client_id
+    external: true
   discord_url:
-    name: discord_url
+    external: true
