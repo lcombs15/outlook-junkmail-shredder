@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 export class DiscordNotificationService {
     private readonly url: string;
 
-    constructor(url_file: string = process.env.DISCORD_URL_FILE || '') {
+    constructor(url_file: string = process.env.DISCORD_URL_FILE || 'no discord file') {
         this.url = fs.readFileSync(url_file).toString().trim()
     }
 
