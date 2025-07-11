@@ -21,18 +21,12 @@ COPY . .
 # Build
 RUN npm run build
 
-# Create crontab file
-RUN echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" > /etc/cron.d/app-cron && echo "*/2 * * * * cd /app && printenv && /usr/local/bin/npm run run >> /var/log/cron.log 2>&1" >> /etc/cron.d/app-cron && \
-    chmod 0644 /etc/cron.d/app-cron && \
-    crontab /etc/cron.d/app-cron
+RUN chmod +x docker/*.sh
+
+RUN chmod 0644 ./docker/crontab && \
+    crontab ./docker/crontab
 
 # Create log file
 RUN touch /var/log/cron.log
 
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-
-# Run the app once on startup, then start cron
-CMD ["/entrypoint.sh"]
+CMD ["/app/docker/entrypoint.sh"]

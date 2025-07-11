@@ -4,8 +4,8 @@
   "description": "Automatically remove junk from hotmail account",
   "main": "index.js",
   "scripts": {
-    "run:dev": "ts-node src/main.ts",
-    "run": "node ./bin/main.js",
+    "main:dev": "ts-node src/main.ts",
+    "main": "node ./bin/main.js",
     "build": "tsc"
   },
   "keywords": [
