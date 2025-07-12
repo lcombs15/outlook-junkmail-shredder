@@ -69,7 +69,6 @@ export async function getAccessToken(): Promise<string> {
         const result = await pca.acquireTokenByDeviceCode(tokenRequest);
 
         if (result) {
-            console.debug({scopes: result.scopes})
             return result.accessToken
         }
     } catch (error) {
