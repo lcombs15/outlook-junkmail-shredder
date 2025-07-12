@@ -9,16 +9,10 @@ RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
 # Create app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application
 COPY . .
 
-# Build
+RUN npm install
+
 RUN npm run build
 
 RUN chmod +x docker/*.sh

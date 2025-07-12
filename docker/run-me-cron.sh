@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-date
+echo Running app - $(date)
 
 cd /app
 npm run main
