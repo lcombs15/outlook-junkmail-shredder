@@ -46,4 +46,8 @@ async function run() {
     }
 }
 
-run().catch(console.error);
+run().catch((error) => {
+    console.error(error);
+    const discordService = new DiscordNotificationService();
+    discordService.sendDiscordMessage('Unexpected runtime error', [error.toString()]).then(() => console.log('Error sent to discord.'));
+});
