@@ -1,6 +1,6 @@
 # Use Node.js LTS as the base image
 FROM ubuntu
-FROM node:20-slim
+FROM node:24-slim
 
 ENV TZ=America/New_York
 # Install cron
