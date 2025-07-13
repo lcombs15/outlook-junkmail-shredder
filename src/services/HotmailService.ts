@@ -1,7 +1,7 @@
 import {Client} from "@microsoft/microsoft-graph-client";
 import Email from "../entity/email";
 
-export class EmailClient {
+export class HotmailService {
 
     private graphClient;
 
