@@ -5,6 +5,8 @@ deploy () {
 }
 
 # For some reason the docker stack is angry sometimes
-do
+deploy
+while [ ! $? -eq 0 ]; do
+  sleep 5
   deploy
-done while [ ! $? -eq 0 ]
+done
