@@ -12,7 +12,7 @@ export class AuthenticationService {
 
     private msalConfig: Configuration = {
         auth: {
-            clientId: fs.readFileSync(this.environmentService.getValue(EnvironmentVariableName.CLIENT_ID_FILE) || 'no client file').toString().trim() || 'NO CLIENT ID',
+            clientId: (this.environmentService.getValueFromFile(EnvironmentVariableName.CLIENT_ID_FILE) || 'NO CLIENT ID').trim(),
             authority: "https://login.microsoftonline.com/consumers", // For Live.com personal accounts
         },
         cache: {

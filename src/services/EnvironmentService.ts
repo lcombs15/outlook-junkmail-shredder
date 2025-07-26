@@ -1,4 +1,5 @@
 import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
+import * as fs from "node:fs";
 
 export class EnvironmentService {
 
@@ -6,6 +7,22 @@ export class EnvironmentService {
     }
 
     public getValue(key: EnvironmentVariableName): string | null {
-        return this.sysEnv[key.toString()] || null;
+        const value = this.sysEnv[key.toString()];
+
+        if (!value) {
+            console.error('Missing environment variable: ', key.toString());
+        }
+
+        return value || null;
+    }
+
+    public getValueFromFile(key: EnvironmentVariableName): string | null {
+        const fileName = this.getValue(key);
+
+        if (!fileName) {
+            return null;
+        }
+
+        return fs.readFileSync(fileName).toString()
     }
 }
