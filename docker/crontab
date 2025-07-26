@@ -1,1 +1,1 @@
-0 9-18 * * * /app/docker/run-me-cron.sh >> /var/log/cron.log 2>&1
+0 9-18 * * * /app/docker/run-me-cron.sh >> /mnt/logs/cron.log 2>&1
