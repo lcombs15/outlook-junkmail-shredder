@@ -4,13 +4,15 @@ import clipboard from "clipboardy";
 import * as fs from "fs";
 import * as path from "path";
 import {DiscordNotificationService} from "./DiscordNotifcationService";
+import {EnvironmentService} from "./EnvironmentService";
+import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
 
 export class AuthenticationService {
-    private cacheFile = path.join(process.cwd(), "msal-cache.json");
+    private cacheFile = path.join(this.environmentService.getValue(EnvironmentVariableName.AUTH_DIRECTORY) || process.cwd(), "msal-cache.json");
 
     private msalConfig: Configuration = {
         auth: {
-            clientId: fs.readFileSync(process.env.CLIENT_ID_FILE || 'no client file').toString().trim() || 'NO CLIENT ID',
+            clientId: fs.readFileSync(this.environmentService.getValue(EnvironmentVariableName.CLIENT_ID_FILE) || 'no client file').toString().trim() || 'NO CLIENT ID',
             authority: "https://login.microsoftonline.com/consumers", // For Live.com personal accounts
         },
         cache: {
@@ -47,7 +49,7 @@ export class AuthenticationService {
         ],
     };
 
-    constructor(private discordService: DiscordNotificationService) {
+    constructor(private discordService: DiscordNotificationService, private environmentService: EnvironmentService) {
     }
 
     public async getAccessToken(): Promise<string> {

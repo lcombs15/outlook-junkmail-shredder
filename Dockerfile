@@ -20,7 +20,4 @@ RUN chmod +x docker/*.sh
 RUN chmod 0644 ./docker/crontab && \
     crontab ./docker/crontab
 
-# Create log file
-RUN touch /var/log/cron.log
-
 CMD ["/app/docker/entrypoint.sh"]

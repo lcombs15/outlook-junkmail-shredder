@@ -5,15 +5,22 @@ services:
       - TZ=America/New_York
       - CLIENT_ID_FILE=/run/secrets/hotmail_client_id
       - DISCORD_URL_FILE=/run/secrets/discord_url
+      - AUTH_DIRECTORY=/mnt/auth
     secrets:
       - hotmail_client_id
       - discord_url
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+      - auth:/mnt/auth
+      - logs:/mnt/logs
 
 secrets:
   hotmail_client_id:
     external: true
   discord_url:
     external: true
+
+volumes:
+  auth:
+  logs:

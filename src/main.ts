@@ -4,10 +4,12 @@ import {HotmailService} from "./services/HotmailService";
 import {JunkService} from "./services/junk/JunkService";
 import {JunkSummaryReportService} from "./services/JunkSummaryReportService";
 import {DiscordNotificationService} from "./services/DiscordNotifcationService";
+import {EnvironmentService} from "./services/EnvironmentService";
 
 async function run() {
-    const discordService = new DiscordNotificationService();
-    const authService = new AuthenticationService(discordService);
+    const environmentService = new EnvironmentService();
+    const discordService = new DiscordNotificationService(environmentService);
+    const authService = new AuthenticationService(discordService, environmentService);
     const emailClient = new HotmailService(await authService.getAccessToken());
     const junkService = new JunkService();
     const junkReportService = new JunkSummaryReportService();
@@ -49,6 +51,6 @@ async function run() {
 
 run().catch((error) => {
     console.error(error);
-    const discordService = new DiscordNotificationService();
+    const discordService = new DiscordNotificationService(new EnvironmentService());
     discordService.sendDiscordMessage('Unexpected runtime error', [error.toString()]).then(() => console.log('Error sent to discord.'));
 });

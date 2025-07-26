@@ -1,0 +1,5 @@
+export enum EnvironmentVariableName {
+    CLIENT_ID_FILE = 'CLIENT_ID_FILE',
+    DISCORD_URL_FILE = 'DISCORD_URL_FILE',
+    AUTH_DIRECTORY = 'AUTH_DIRECTORY'
+}

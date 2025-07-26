@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+LOG_FILE=/mnt/logs/cron.log
+
+touch $LOG_FILE
+
 # Ensure cron has all the needed env
 export >> /etc/profile
 
@@ -8,10 +12,10 @@ export >> /etc/profile
 date
 
 # Run right away to auth
-npm run main
+npm run main | tee -a $LOG_FILE
 
 # Start cron
 echo "Starting cron service..." && cron
 
 # Keep container running and show logs
-tail -f /var/log/cron.log
+tail -f $LOG_FILE
