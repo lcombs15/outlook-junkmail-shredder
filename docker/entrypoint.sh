@@ -5,6 +5,8 @@ LOG_FILE=/mnt/logs/cron.log
 
 touch $LOG_FILE
 
+cat $LOG_FILE
+
 echo 'Container started!' $(date)  | tee -a $LOG_FILE
 
 # Ensure cron has all the needed env
