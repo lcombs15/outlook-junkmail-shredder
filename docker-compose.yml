@@ -1,5 +1,3 @@
-name: hotmail-junk-removal
-
 services:
   hotmail-junk-removal:
     image: hotmail-junk-removal-tool
