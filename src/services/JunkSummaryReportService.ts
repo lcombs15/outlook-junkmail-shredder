@@ -26,7 +26,7 @@ export class JunkSummaryReportService {
     }
 
     public formatEmailOneLine(email: Email): string {
-        return `${email.from.emailAddress.name.trim()} <${email.from.emailAddress.address}> : ${email.subject}`
+        return `${email.from.emailAddress.name.trim()} [${email.from.emailAddress.address}] : ${email.subject}`
     }
 
     private printSection(title: string, section: JunkReportSection): void {
