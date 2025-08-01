@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`JunkSummaryReportService formatEmailOneLine should format email information into a single line 1`] = `"John Doe [john.doe@example.com]: Test Subject"`;
+
+exports[`JunkSummaryReportService formatEmailOneLine should trim whitespace from sender name 1`] = `"Jane Smith [jane.smith@example.com]: Another Test Subject"`;

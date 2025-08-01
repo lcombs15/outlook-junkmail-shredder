@@ -6,7 +6,8 @@
   "scripts": {
     "main:dev": "ts-node src/main.ts",
     "main": "node ./bin/main.js",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "keywords": [
     "hotmail",
@@ -16,7 +17,11 @@
   "author": "Lucas Combs",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.0.10",
+    "jest": "^30.0.5",
+    "jest-environment-node": "^30.0.5",
+    "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },

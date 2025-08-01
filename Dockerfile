@@ -15,6 +15,8 @@ RUN npm install
 
 RUN npm run build
 
+RUN npm run test
+
 RUN chmod +x docker/*.sh
 
 RUN chmod 0644 ./docker/crontab && \
