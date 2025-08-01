@@ -4,7 +4,7 @@ import Email from "../../../entity/email";
 export class DontKnowMyNameDotInfo implements JunkStrategy {
     appliesTo(email: Email): boolean {
         const emailAddress = email.from.emailAddress.address;
-        const renewInfoRegex = /^(renew|newsletter).....@.*.info$/;
+        const renewInfoRegex = /^(renew|renev|newsletter).....@.*.info$/;
 
         // Check if email address matches the pattern and body contains 'l-combs,'
         return renewInfoRegex.test(emailAddress) &&
