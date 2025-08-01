@@ -35,8 +35,10 @@ export class AuthenticationService {
         deviceCodeCallback: (response) => {
             const title = "🔑 DEVICE CODE LOGIN:";
             console.log(title, response.message); // Shows where to go and what code to enter
-            this.discordService.sendDiscordMessage(title, [response.message]).then()
-            this.discordService.sendDiscordMessage(response.userCode, []).then()
+            this.discordService.sendMessage(title, [{
+                message: response.message
+            }]).then()
+            this.discordService.sendMessage(response.userCode, []).then()
             try {
                 clipboard.writeSync(response.userCode)
             } catch (ignore) {

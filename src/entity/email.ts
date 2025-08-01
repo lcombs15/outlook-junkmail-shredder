@@ -13,7 +13,7 @@ export default interface Email {
     }
 }
 
-interface EmailAddress {
+export interface EmailAddress {
     emailAddress: {
         name: string,
         address: string,

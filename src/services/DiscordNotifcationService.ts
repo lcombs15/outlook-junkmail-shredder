@@ -1,5 +1,6 @@
 import {EnvironmentService} from "./EnvironmentService";
 import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
+import Email, {EmailAddress} from "../entity/email";
 
 export class DiscordNotificationService {
     private readonly url: string;
@@ -8,7 +9,25 @@ export class DiscordNotificationService {
         this.url = environmentService.getValueFromFile(EnvironmentVariableName.DISCORD_URL_FILE) || 'no discord file';
     }
 
-    public async sendDiscordMessage(messageTitle: string, embeds: Array<string>): Promise<void> {
+    private emailToString(address: EmailAddress): string {
+        if (!address?.emailAddress) {
+            return '';
+        }
+
+        return `${address.emailAddress.name} <${address.emailAddress.address}>`
+    }
+
+    public async sendEmailMessage(messageTitle: string, emails: Array<Email>) {
+        return this.sendMessage(messageTitle, emails.map((email) => {
+            return {
+                subject: email.subject,
+                from: this.emailToString(email.from),
+                sender: this.emailToString(email.sender)
+            }
+        }));
+    }
+
+    public async sendMessage(messageTitle: string, embeds: Array<Record<string, string>>): Promise<void> {
         if (!this.url) {
             console.warn('Discord URL not provided, skipping notification');
             return Promise.resolve();
@@ -16,9 +35,18 @@ export class DiscordNotificationService {
 
         const payload = {
             content: messageTitle,
-            embeds: embeds.map(embed => ({
-                description: embed
-            }))
+            embeds: embeds.map(embed => {
+                return {
+                    fields: Object.entries(embed)
+                        .filter(([_, value]) => value)
+                        .map(([key, value]) => {
+                            return {
+                                name: key,
+                                value,
+                            }
+                        })
+                }
+            })
         };
 
         try {

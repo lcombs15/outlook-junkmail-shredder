@@ -36,21 +36,22 @@ async function run() {
 
     await emailClient.deleteEmails(emailsToDelete).then(
         () => {
-            emailsToDelete.length && discordService.sendDiscordMessage('Deleted messages', emailsToDelete.map(junkReportService.formatEmailOneLine))
+            emailsToDelete.length && discordService.sendEmailMessage('Deleted messages', emailsToDelete)
         }
     );
 
     const ignoredMessages = junkEvaluations.filter(evl => !evl.evaluation.isJunk)
-        .map(evl => evl.email)
-        .map(junkReportService.formatEmailOneLine);
+        .map(evl => evl.email);
 
     if (ignoredMessages.length) {
-        await discordService.sendDiscordMessage('Ignored Messages', ignoredMessages)
+        await discordService.sendEmailMessage('Ignored Messages', ignoredMessages)
     }
 }
 
 run().catch((error) => {
     console.error(error);
     const discordService = new DiscordNotificationService(new EnvironmentService());
-    discordService.sendDiscordMessage('Unexpected runtime error', [error.toString()]).then(() => console.log('Error sent to discord.'));
+    discordService.sendMessage('Unexpected runtime error', [{
+        error: error.toString()
+    }]).then(() => console.log('Error sent to discord.'));
 });
