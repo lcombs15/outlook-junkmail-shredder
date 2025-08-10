@@ -1,3 +1,3 @@
-docker compose down || echo OK
-docker build -t hotmail-junk-removal-tool .
-docker compose up
+export COMPOSE_BAKE=true
+bws run -- "sudo -E docker compose down"
+bws run -- "sudo -E docker compose up --build -d"
