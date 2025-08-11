@@ -15,7 +15,9 @@ export class IllegalDomainStrategy implements JunkStrategy {
 	"brightidzdaseasmd.com",
 	"conferenceplacemat.com",
 	"lindsaykeefeyoga.ca",
-	"deesmobileworkshops.ca"
+	"deesmobileworkshops.ca",
+	"fffoundationltd.com",
+	"viajesalsahara.com"
     ];
 
     appliesTo(email: Email): boolean {
