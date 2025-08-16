@@ -1,6 +1,6 @@
 import "isomorphic-fetch";
 import {AuthenticationService} from "./services/AuthenticationService";
-import {HotmailService} from "./services/HotmailService";
+import {OutlookService} from "./services/OutlookService";
 import {JunkService} from "./services/junk/JunkService";
 import {JunkSummaryReportService} from "./services/JunkSummaryReportService";
 import {DiscordNotificationService} from "./services/DiscordNotifcationService";
@@ -10,7 +10,7 @@ async function run() {
     const environmentService = new EnvironmentService();
     const discordService = new DiscordNotificationService(environmentService);
     const authService = new AuthenticationService(discordService, environmentService);
-    const emailClient = new HotmailService(await authService.getAccessToken());
+    const emailClient = new OutlookService(await authService.getAccessToken());
     const junkService = new JunkService();
     const junkReportService = new JunkSummaryReportService();
 

@@ -1,15 +1,15 @@
 services:
-  hotmail-junk-removal:
+  outlook-junkmail-shredder:
     build: .
-    container_name: hotmail_junk_removal
+    container_name: outlook-junkmail-shredder
     restart: unless-stopped
     environment:
       - TZ=America/New_York
-      - CLIENT_ID_FILE=/run/secrets/hotmail_client_id
+      - CLIENT_ID_FILE=/run/secrets/outlook_app_client_id
       - DISCORD_URL_FILE=/run/secrets/discord_url
       - AUTH_DIRECTORY=/mnt/auth
     secrets:
-      - hotmail_client_id
+      - outlook_app_client_id
       - discord_url
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -18,10 +18,10 @@ services:
       - logs:/mnt/logs
 
 secrets:
-  hotmail_client_id:
-    environment: HOTMAIL_CLIENT_ID
+  outlook_app_client_id:
+    environment: OUTLOOK_APP_CLIENT_ID
   discord_url:
-    environment: DISCORD_URL_HOTMAIL
+    environment: DISCORD_URL_OUTLOOK
 
 volumes:
   auth:

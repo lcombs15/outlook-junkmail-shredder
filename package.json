@@ -1,7 +1,7 @@
 {
-  "name": "hotmail-junk-removal-tool",
+  "name": "outlook-junkmail-shredder",
   "version": "1.0.0",
-  "description": "Automatically remove junk from hotmail account",
+  "description": "Automatically remove junk from Outlook account",
   "main": "index.js",
   "scripts": {
     "main:dev": "ts-node src/main.ts",
@@ -10,9 +10,9 @@
     "test": "jest"
   },
   "keywords": [
-    "hotmail",
     "live",
-    "outlook"
+    "outlook",
+    "junkmail"
   ],
   "author": "Lucas Combs",
   "license": "MIT",
