@@ -34,11 +34,10 @@ async function run() {
         .filter(evaluation => evaluation.evaluation.isJunk)
         .map(({email}) => email);
 
-    await emailClient.deleteEmails(emailsToDelete).then(
-        () => {
-            emailsToDelete.length && discordService.sendEmailMessage('Deleted messages', emailsToDelete)
-        }
-    );
+    if (emailsToDelete.length) {
+        await emailClient.deleteEmails(emailsToDelete)
+            .then(() => discordService.sendEmailMessage('Deleted messages', emailsToDelete));
+    }
 
     const ignoredMessages = junkEvaluations.filter(evl => !evl.evaluation.isJunk)
         .map(evl => evl.email);
