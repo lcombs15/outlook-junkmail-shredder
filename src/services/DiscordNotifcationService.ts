@@ -1,6 +1,7 @@
 import {EnvironmentService} from "./EnvironmentService";
 import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
 import Email, {EmailAddress} from "../entity/email";
+import {JunkEvaluation} from "./junk/JunkService";
 
 export class DiscordNotificationService {
     private readonly url: string;
@@ -17,12 +18,14 @@ export class DiscordNotificationService {
         return `${address.emailAddress.name} <${address.emailAddress.address}>`
     }
 
-    public async sendEmailMessage(messageTitle: string, emails: Array<Email>) {
-        return this.sendMessage(messageTitle, emails.map((email) => {
+    public async sendEmailMessage(messageTitle: string, emails: Array<[Email, JunkEvaluation]>) {
+        return this.sendMessage(messageTitle, emails.map(([email, junkEvaluation]) => {
             return {
                 subject: email.subject,
                 from: this.emailToString(email.from),
-                sender: this.emailToString(email.sender)
+                sender: this.emailToString(email.sender),
+                to: (email.toRecipients || []).map(this.emailToString).join(','),
+                description: junkEvaluation.reason
             }
         }));
     }

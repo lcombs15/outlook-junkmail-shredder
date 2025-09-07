@@ -1,10 +1,11 @@
 import "isomorphic-fetch";
 import {AuthenticationService} from "./services/AuthenticationService";
 import {OutlookService} from "./services/OutlookService";
-import {JunkService} from "./services/junk/JunkService";
+import {JunkEvaluation, JunkService} from "./services/junk/JunkService";
 import {JunkSummaryReportService} from "./services/JunkSummaryReportService";
 import {DiscordNotificationService} from "./services/DiscordNotifcationService";
 import {EnvironmentService} from "./services/EnvironmentService";
+import Email from "./entity/email";
 
 const environmentService = new EnvironmentService();
 const discordService = new DiscordNotificationService(environmentService);
@@ -22,26 +23,28 @@ async function run() {
         return;
     }
 
-    const junkEvaluations = emails.map(email => {
-        return {
-            email,
-            evaluation: junkService.evaluate(email)
-        };
-    });
+    const junkEvaluations: Array<[Email, JunkEvaluation]> = emails.map(email =>
+        [email, junkService.evaluate(email)]
+    );
 
-    junkReportService.printReport(junkReportService.getReport(junkEvaluations));
+    junkReportService.printReport(
+        junkReportService.getReport(
+            junkEvaluations.map(([email, evaluation]) => ({email, evaluation}))
+        )
+    );
 
-    const emailsToDelete = junkEvaluations
-        .filter(evaluation => evaluation.evaluation.isJunk)
-        .map(({email}) => email);
+    const emailsToDelete: Array<[Email, JunkEvaluation]> = [];
+    const ignoredMessages: Array<[Email, JunkEvaluation]> = [];
+
+    junkEvaluations.forEach((entry) => {
+        const destination = entry[1].isJunk ? emailsToDelete : ignoredMessages;
+        destination.push(entry)
+    })
 
     if (emailsToDelete.length) {
-        await emailClient.deleteEmails(emailsToDelete)
+        await emailClient.deleteEmails(emailsToDelete.map(([email]) => email))
             .then(() => discordService.sendEmailMessage('Deleted messages', emailsToDelete));
     }
-
-    const ignoredMessages = junkEvaluations.filter(evl => !evl.evaluation.isJunk)
-        .map(evl => evl.email);
 
     if (ignoredMessages.length) {
         await discordService.sendEmailMessage('Ignored Messages', ignoredMessages)
