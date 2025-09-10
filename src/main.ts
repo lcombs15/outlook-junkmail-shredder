@@ -2,7 +2,6 @@ import "isomorphic-fetch";
 import {AuthenticationService} from "./services/AuthenticationService";
 import {OutlookService} from "./services/OutlookService";
 import {JunkEvaluation, JunkService} from "./services/junk/JunkService";
-import {JunkSummaryReportService} from "./services/JunkSummaryReportService";
 import {DiscordNotificationService} from "./services/DiscordNotifcationService";
 import {EnvironmentService} from "./services/EnvironmentService";
 import Email from "./entity/email";
@@ -11,7 +10,6 @@ const environmentService = new EnvironmentService();
 const discordService = new DiscordNotificationService(environmentService);
 const authService = new AuthenticationService(discordService, environmentService);
 const junkService = new JunkService();
-const junkReportService = new JunkSummaryReportService();
 
 async function run() {
     const emailClient = new OutlookService(await authService.getAccessToken());
@@ -25,12 +23,6 @@ async function run() {
 
     const junkEvaluations: Array<[Email, JunkEvaluation]> = emails.map(email =>
         [email, junkService.evaluate(email)]
-    );
-
-    junkReportService.printReport(
-        junkReportService.getReport(
-            junkEvaluations.map(([email, evaluation]) => ({email, evaluation}))
-        )
     );
 
     const emailsToDelete: Array<[Email, JunkEvaluation]> = [];
