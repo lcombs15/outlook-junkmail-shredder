@@ -63,7 +63,7 @@ export class DiscordNotificationService {
             if (!response.ok) {
                 throw new Error(`Discord notification failed: ${response.status} ${response.statusText}`);
             }
-            console.log('Discord notification sent successfully');
+            console.log('Discord notification sent successfully', embeds);
         } catch (error) {
             console.error('Error sending Discord notification:', error);
             throw error;
