@@ -15,7 +15,7 @@ export class DiscordNotificationService {
             return '';
         }
 
-        return `${address.emailAddress.name} <${address.emailAddress.address}>`
+        return `${address.emailAddress.name} [${address.emailAddress.address}]`
     }
 
     public async sendEmailMessage(messageTitle: string, emails: Array<[Email, JunkEvaluation]>) {
