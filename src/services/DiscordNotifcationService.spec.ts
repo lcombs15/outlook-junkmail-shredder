@@ -78,9 +78,9 @@ describe('DiscordNotificationService', () => {
             ok: true
         })
 
-        await service.sendMessage('msg 2 discord trunc', [{
-            myIncludedData: new Array(2000).fill('abc').join()
-        }]);
+        const myIncludedData = new Array(2000).fill('abc').join();
+
+        await service.sendMessage('msg 2 discord trunc', [{myIncludedData}]);
 
         const [url, request] = http.mock.calls[0];
 
@@ -92,5 +92,6 @@ describe('DiscordNotificationService', () => {
         const mySingleEmbed = embeds[0].fields[0];
         expect(mySingleEmbed.name).toBe('myIncludedData');
         expect(mySingleEmbed.value).toHaveLength(1024);
+        expect(myIncludedData.length).toBeGreaterThan(1024);
     });
 })
