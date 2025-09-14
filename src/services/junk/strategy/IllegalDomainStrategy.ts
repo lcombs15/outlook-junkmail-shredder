@@ -9,16 +9,17 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "adaptiveinfrastructuremanagement.info",
         "langballig.info",
         "unhjkuion.com",
-	"totallydiabetes.com",
-	"frenchmahoroba.com",
-	"cyxtensible.com",
-	"brightidzdaseasmd.com",
-	"conferenceplacemat.com",
-	"lindsaykeefeyoga.ca",
-	"deesmobileworkshops.ca",
-	"fffoundationltd.com",
-	"viajesalsahara.com",
-	"escolaaprendizdofuturo.com.br"
+        "totallydiabetes.com",
+        "frenchmahoroba.com",
+        "cyxtensible.com",
+        "brightidzdaseasmd.com",
+        "conferenceplacemat.com",
+        "lindsaykeefeyoga.ca",
+        "deesmobileworkshops.ca",
+        "fffoundationltd.com",
+        "viajesalsahara.com",
+        "escolaaprendizdofuturo.com.br",
+        "beritamedika.com"
     ];
 
     appliesTo(email: Email): boolean {

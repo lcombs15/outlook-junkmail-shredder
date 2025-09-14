@@ -6,7 +6,7 @@ import {JunkEvaluation} from "./junk/JunkService";
 export class DiscordNotificationService {
     private readonly url: string;
 
-    constructor(environmentService: EnvironmentService) {
+    constructor(environmentService: EnvironmentService, private httpClient = fetch) {
         this.url = environmentService.getValueFromFile(EnvironmentVariableName.DISCORD_URL_FILE) || 'no discord file';
     }
 
@@ -45,7 +45,7 @@ export class DiscordNotificationService {
                         .map(([key, value]) => {
                             return {
                                 name: key,
-                                value,
+                                value: value.substring(0, 1024),
                             }
                         })
                 }
@@ -53,7 +53,7 @@ export class DiscordNotificationService {
         };
 
         try {
-            const response = await fetch(this.url, {
+            const response = await this.httpClient(this.url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,6 +61,7 @@ export class DiscordNotificationService {
                 body: JSON.stringify(payload)
             });
             if (!response.ok) {
+                console.error(JSON.stringify(payload));
                 throw new Error(`Discord notification failed: ${response.status} ${response.statusText}`);
             }
             console.log('Discord notification sent successfully', embeds);
