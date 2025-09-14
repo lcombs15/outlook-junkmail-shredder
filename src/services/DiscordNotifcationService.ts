@@ -6,7 +6,7 @@ import {JunkEvaluation} from "./junk/JunkService";
 export class DiscordNotificationService {
     private readonly url: string;
 
-    constructor(environmentService: EnvironmentService, private httpClient = fetch) {
+    constructor(environmentService: EnvironmentService, private httpClient: typeof fetch) {
         this.url = environmentService.getValueFromFile(EnvironmentVariableName.DISCORD_URL_FILE) || 'no discord file';
     }
 

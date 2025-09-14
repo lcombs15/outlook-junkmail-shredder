@@ -29,7 +29,6 @@
     "@azure/msal-node": "^3.7.3",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "clipboardy": "^4.0.0",
-    "isomorphic-fetch": "^3.0.0",
     "jest-mock-extended": "^4.0.0"
   }
 }

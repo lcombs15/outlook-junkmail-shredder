@@ -1,4 +1,3 @@
-import "isomorphic-fetch";
 import {AuthenticationService} from "./services/AuthenticationService";
 import {OutlookService} from "./services/OutlookService";
 import {JunkEvaluation, JunkService} from "./services/junk/JunkService";
@@ -7,7 +6,7 @@ import {EnvironmentService} from "./services/EnvironmentService";
 import Email from "./entity/email";
 
 const environmentService = new EnvironmentService();
-const discordService = new DiscordNotificationService(environmentService);
+const discordService = new DiscordNotificationService(environmentService, fetch);
 const authService = new AuthenticationService(discordService, environmentService);
 const junkService = new JunkService();
 

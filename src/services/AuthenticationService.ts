@@ -1,5 +1,4 @@
 import {Configuration, DeviceCodeRequest, PublicClientApplication} from "@azure/msal-node";
-import "isomorphic-fetch";
 import clipboard from "clipboardy";
 import * as fs from "fs";
 import * as path from "path";
