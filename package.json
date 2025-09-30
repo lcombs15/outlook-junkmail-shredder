@@ -29,6 +29,6 @@
   "dependencies": {
     "@azure/msal-node": "^3.8.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "clipboardy": "^4.0.0"
+    "clipboardy": "^5.0.0"
   }
 }
