@@ -18,8 +18,9 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "deesmobileworkshops.ca",
         "fffoundationltd.com",
         "viajesalsahara.com",
-        "escolaaprendizdofuturo.com.br",
-        "beritamedika.com"
+        "beritamedika.com",
+	"primeeconomicreview.com",
+	"gurturmadencilik.com"
     ];
 
     appliesTo(email: Email): boolean {
