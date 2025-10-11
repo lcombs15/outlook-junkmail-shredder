@@ -20,7 +20,9 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "viajesalsahara.com",
         "beritamedika.com",
 	"primeeconomicreview.com",
-	"gurturmadencilik.com"
+	"gurturmadencilik.com",
+	"eatcheesecakes.com",
+	"approachcheese.pro"
     ];
 
     appliesTo(email: Email): boolean {
