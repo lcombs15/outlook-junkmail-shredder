@@ -8,6 +8,8 @@ services:
       - CLIENT_ID_FILE=/run/secrets/outlook_app_client_id
       - DISCORD_URL_FILE=/run/secrets/discord_url
       - AUTH_DIRECTORY=/mnt/auth
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
     secrets:
       - outlook_app_client_id
       - discord_url
