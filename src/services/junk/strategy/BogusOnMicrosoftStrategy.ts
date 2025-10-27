@@ -5,7 +5,7 @@ export class BogusOnMicrosoftStrategy implements JunkStrategy {
 
     appliesTo(email: Email): boolean {
         const emailAddress = email.from.emailAddress.address;
-        const onmicrosoftRegex = /^(new).*?[0-9]+\@.*\.onmicrosoft.com$/;
+        const onmicrosoftRegex = /^(new)?.*[0-9]+\@.*\.onmicrosoft.com$/;
 
         return onmicrosoftRegex.test(emailAddress);
     }
