@@ -1,6 +1,7 @@
 import Email from "../../entity/email";
 import {JunkStrategy} from "./strategy/JunkStrategy";
 import {BogusNewsletterStrategy} from "./strategy/BogusNewsletterStrategy";
+import {BogusOnMicrosoftStrategy} from "./strategy/BogusOnMicrosoftStrategy";
 import {IllegalTopLevelDomainStrategy} from "./strategy/IllegalTopLevelDomainStrategy";
 import {IllegalDomainStrategy} from "./strategy/IllegalDomainStrategy";
 import {DontKnowMyNameDotInfo} from "./strategy/DontKnowMyNameDotInfo";
@@ -16,7 +17,8 @@ export class JunkService {
         new BogusNewsletterStrategy(),
         new IllegalTopLevelDomainStrategy(),
         new IllegalDomainStrategy(),
-        new DontKnowMyNameDotInfo()
+        new DontKnowMyNameDotInfo(),
+        new BogusOnMicrosoftStrategy()
     ]) {
     }
 
