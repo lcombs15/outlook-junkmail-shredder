@@ -16,6 +16,16 @@ export class EnvironmentService {
         return value || null;
     }
 
+    public getRequiredValue(key: EnvironmentVariableName): string {
+        const val = this.getValue(key);
+
+        if (val == null) {
+            throw new Error(`Missing environment variable: ${key.toString()}`)
+        }
+
+        return val;
+    }
+
     public getValueFromFile(key: EnvironmentVariableName): string | null {
         const fileName = this.getValue(key);
 

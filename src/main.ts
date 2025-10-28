@@ -4,11 +4,17 @@ import {JunkEvaluation, JunkService} from "./services/junk/JunkService";
 import {DiscordNotificationService} from "./services/DiscordNotifcationService";
 import {EnvironmentService} from "./services/EnvironmentService";
 import Email from "./entity/email";
+import {DataSummaryService} from "./services/DataSummaryService";
+import {JsonFileStore} from "./tools/JsonFileStore";
+import {EnvironmentVariableName} from "./entity/EnvironmentVariable";
 
 const environmentService = new EnvironmentService();
 const discordService = new DiscordNotificationService(environmentService, fetch);
 const authService = new AuthenticationService(discordService, environmentService);
 const junkService = new JunkService();
+const dataSummaryService = new DataSummaryService(
+    new JsonFileStore(environmentService.getRequiredValue(EnvironmentVariableName.SUMMARY_FILE))
+);
 
 async function run() {
     const emailClient = new OutlookService(await authService.getAccessToken());
@@ -34,12 +40,18 @@ async function run() {
 
     if (emailsToDelete.length) {
         await emailClient.deleteEmails(emailsToDelete.map(([email]) => email))
-            .then(() => discordService.sendEmailMessage('Deleted messages', emailsToDelete));
+            .then(() => {
+                discordService.sendEmailMessage('Deleted messages', emailsToDelete);
+                dataSummaryService.recordDeletedMessages(emailsToDelete);
+            });
     }
 
     if (ignoredMessages.length) {
-        await discordService.sendEmailMessage('Ignored Messages', ignoredMessages)
+        await discordService.sendEmailMessage('Ignored Messages', ignoredMessages);
+        dataSummaryService.recordIgnoredMessages(ignoredMessages);
     }
+
+    dataSummaryService.flush();
 }
 
 run().catch((error) => {
