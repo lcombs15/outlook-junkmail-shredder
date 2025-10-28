@@ -25,6 +25,9 @@ describe('JunkService', () => {
         "support@gurturmadencilik.com",
         "theadvancepros7163.activehosted.com@ac-inbox.com",
         "visionnewtime@substack.com",
+        "support.l-combs@skyvb.nicolasmack.fun",
+        "newsletter.tlrcidlnwkdfhdkhvfxfzawem@kjync.octroihereafter.cfd",
+        "Hers+224@gfxdg.plumerpepperish.click"
     ]
 
     const notJunkEmails: Array<string> = [
