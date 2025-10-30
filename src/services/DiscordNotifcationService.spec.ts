@@ -94,4 +94,27 @@ describe('DiscordNotificationService', () => {
         expect(mySingleEmbed.value).toHaveLength(1024);
         expect(myIncludedData.length).toBeGreaterThan(1024);
     });
+
+    it('should split up large numebrs of embeds to multiple messages', async () => {
+        http.mockReturnValue({
+            ok: true
+        })
+
+        const myMockEmbed = {hello: "world"}
+
+        await service.sendMessage('msg 2 discord trunc', new Array(21).fill(myMockEmbed));
+
+        const expectNumberEmbeds = ({callNumber, expectedNumber}: {callNumber: number, expectedNumber: number}) => {
+            const [url, request] = http.mock.calls[callNumber];
+
+            expect(url).toBe(expectedUrl);
+            const {embeds} = JSON.parse(request.body)
+            expect(embeds).toHaveLength(expectedNumber);
+        };
+
+        expectNumberEmbeds({callNumber: 0, expectedNumber: 10});
+        expectNumberEmbeds({callNumber: 1, expectedNumber: 10});
+        expectNumberEmbeds({callNumber: 2, expectedNumber: 1});
+        expect(http.mock.calls).toHaveLength(3);
+    });
 })

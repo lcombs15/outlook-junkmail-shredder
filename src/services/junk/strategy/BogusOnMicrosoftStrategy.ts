@@ -10,7 +10,6 @@ export class BogusOnMicrosoftStrategy implements JunkStrategy {
         return onmicrosoftRegex.test(emailAddress);
     }
 
-
     getReason(email: Email): string {
         return `Bogus onmicrosoft`;
     }

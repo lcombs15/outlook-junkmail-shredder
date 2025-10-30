@@ -27,7 +27,11 @@ describe('JunkService', () => {
         "visionnewtime@substack.com",
         "support.l-combs@skyvb.nicolasmack.fun",
         "newsletter.tlrcidlnwkdfhdkhvfxfzawem@kjync.octroihereafter.cfd",
-        "Hers+224@gfxdg.plumerpepperish.click"
+        "Hers+224@gfxdg.plumerpepperish.click",
+        "McAfee+549@htzmn.popmcebox.store",
+        "Medvi.vvyxslyi@tzspn.pulmdsepeakcraft.motorcycles",
+        "hims_to_l-combs_kDABx5yyw6Ljidz@pzvuf.refelgoggly.life",
+        "noreply+560@kglqu.prayingunstoked.life"
     ]
 
     const notJunkEmails: Array<string> = [

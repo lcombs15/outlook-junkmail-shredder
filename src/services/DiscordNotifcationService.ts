@@ -36,6 +36,10 @@ export class DiscordNotificationService {
             return Promise.resolve();
         }
 
+        // Discord wil 400 if the payload is too large
+        const remaining = embeds.splice(10);
+        embeds = embeds.splice(0, 10);
+
         const payload = {
             content: messageTitle,
             embeds: embeds.map(embed => {
@@ -68,6 +72,10 @@ export class DiscordNotificationService {
         } catch (error) {
             console.error('Error sending Discord notification:', error);
             throw error;
+        }
+
+        if (remaining.length) {
+            await this.sendMessage(messageTitle, remaining);
         }
     }
 }

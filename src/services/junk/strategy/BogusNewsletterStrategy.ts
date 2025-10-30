@@ -7,13 +7,17 @@ export class BogusNewsletterStrategy implements JunkStrategy {
         const emailAddress = email.from.emailAddress.address;
         const newsletterDotInfoRegex = /^newsletters.*@.*info$/;
         const specificJunkNewsletterRegex = /^newsletter\.[a-zA-Z]{25}\@/;
+        // Medvi.vvyxslyi@
+        const mediviSpecificJunkNewsletterRefex = /^Medvi\.[a-zA-Z]{8}\@/;
         //Blood+22@
-        const strangePlusNumbers = /^[A-Z]{1}[a-z]+\+[0-9]+\@/;
+        const strangePlusNumbers = /^[a-zA-Z]+\+[0-9]+\@/;
 
-        return emailAddress.startsWith("newsletter.l-combs") ||
-            newsletterDotInfoRegex.test(emailAddress) ||
-            specificJunkNewsletterRegex.test(emailAddress) ||
-            strangePlusNumbers.test(emailAddress)
+        return emailAddress.startsWith("newsletter.l-combs") || !![
+            newsletterDotInfoRegex,
+            specificJunkNewsletterRegex,
+            mediviSpecificJunkNewsletterRefex,
+            strangePlusNumbers
+        ].find(expr => expr.test(emailAddress))
     }
 
     getReason(email: Email): string {
