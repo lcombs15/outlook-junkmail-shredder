@@ -4,6 +4,7 @@ import Email from "../entity/email";
 export class OutlookService {
 
     private graphClient;
+    private static MAX_BATCH_SIZE = 20;
 
     public constructor(accessToken: string) {
         this.graphClient = Client.init({
@@ -25,6 +26,12 @@ export class OutlookService {
     public async deleteEmails(emails: Array<Email>): Promise<void> {
         if (!emails.length) {
             return;
+        }
+
+        if (emails.length > OutlookService.MAX_BATCH_SIZE) {
+            const remainder = emails.slice(OutlookService.MAX_BATCH_SIZE);
+            emails = emails.slice(0, OutlookService.MAX_BATCH_SIZE);
+            await this.deleteEmails(remainder);
         }
 
         await this.graphClient.api('/$batch').post({
