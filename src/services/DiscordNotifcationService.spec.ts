@@ -95,7 +95,7 @@ describe('DiscordNotificationService', () => {
         expect(myIncludedData.length).toBeGreaterThan(1024);
     });
 
-    it('should split up large numebrs of embeds to multiple messages', async () => {
+    it('should split up large number of embeds to multiple messages', async () => {
         http.mockReturnValue({
             ok: true
         })
@@ -117,4 +117,16 @@ describe('DiscordNotificationService', () => {
         expectNumberEmbeds({callNumber: 2, expectedNumber: 1});
         expect(http.mock.calls).toHaveLength(3);
     });
+
+    it('should not make an http call without a URL', async () => {
+        environmentService.getValueFromFile
+            .calledWith(EnvironmentVariableName.DISCORD_URL_FILE)
+            .mockReturnValue(null);
+
+        service = new DiscordNotificationService(environmentService, http);
+
+        await service.sendMessage('something here', new Array(5).fill({msg: "we ride and never worry about the fall"}));
+
+        expect(http).toHaveBeenCalledTimes(0);
+    })
 })

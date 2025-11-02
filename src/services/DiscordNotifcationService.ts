@@ -4,10 +4,10 @@ import Email, {EmailAddress} from "../entity/email";
 import {JunkEvaluation} from "./junk/JunkService";
 
 export class DiscordNotificationService {
-    private readonly url: string;
+    private readonly url: string | null;
 
     constructor(environmentService: EnvironmentService, private httpClient: typeof fetch) {
-        this.url = environmentService.getValueFromFile(EnvironmentVariableName.DISCORD_URL_FILE) || 'no discord file';
+        this.url = environmentService.getValueFromFile(EnvironmentVariableName.DISCORD_URL_FILE);
     }
 
     private emailToString(address: EmailAddress): string {
@@ -33,7 +33,7 @@ export class DiscordNotificationService {
     public async sendMessage(messageTitle: string, embeds: Array<Record<string, string>>): Promise<void> {
         if (!this.url) {
             console.warn('Discord URL not provided, skipping notification');
-            return Promise.resolve();
+            return;
         }
 
         // Discord wil 400 if the payload is too large
