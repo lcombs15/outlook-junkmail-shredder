@@ -31,8 +31,22 @@ describe('JunkService', () => {
         "McAfee+549@htzmn.popmcebox.store",
         "Medvi.vvyxslyi@tzspn.pulmdsepeakcraft.motorcycles",
         "hims_to_l-combs_kDABx5yyw6Ljidz@pzvuf.refelgoggly.life",
-        "noreply+560@kglqu.prayingunstoked.life"
-    ]
+        "noreply+560@kglqu.prayingunstoked.life",
+        "support@ylfal.hoselesscareless.cfd",
+        "support@admin.·onmicrosoft.·com",
+        "hims.klomgdwa@smrkw.leroyleach.sbs",
+        "support@tmxcm.funnynxriver.fun",
+        "Hims_ED.nawghfpt@crzlc.pulmdselineplus.website",
+        "Hims_ED.dhhdqcri@tzspn.pulmdsepeakcraft.motorcycles",
+        "Hims_ED.usyjihty@nulmz.pulmdsefleetclick.lat",
+        "Hims_Partner@qrnbm.neofetusutopist.boats",
+        "Hims_Partner@hwaau.hypmdeakly.space",
+        "team-support@cqfeb.johnleonelli.biz.id",
+        "team-support@wgurg.efuturenova.my.id",
+        "newsletter.l-combs@nilware.com",
+        "newsletter.l-combs@conferenceplacemat.com",
+        "newsletter.omlpuhisvxkdseypzusmgpkks@ezpys.nexmdcraft.yachts",
+    ];
 
     const notJunkEmails: Array<string> = [
         "12milebeef@gmail.com",
@@ -46,7 +60,7 @@ describe('JunkService', () => {
         "support@myfitnesspal.com",
         "support@restomods.com",
         "firstlast@nku.onmicrosoft.com",
-    ]
+    ];
 
     function getEmail(address: string): Email {
         const tempEmail: Partial<Email> = {
@@ -91,5 +105,10 @@ describe('JunkService', () => {
             .map(result => result.input.from.emailAddress.address);
 
         expect(result).toHaveLength(0);
+    });
+
+    it('should not have any duplicate test data', () => {
+        expect(new Set(junkEmailsAddress).size).toBe(junkEmailsAddress.length)
+        expect(new Set(notJunkEmails).size).toBe(notJunkEmails.length)
     });
 })

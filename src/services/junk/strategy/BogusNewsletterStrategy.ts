@@ -3,24 +3,26 @@ import Email from "../../../entity/email";
 
 export class BogusNewsletterStrategy implements JunkStrategy {
 
-    appliesTo(email: Email): boolean {
-        const emailAddress = email.from.emailAddress.address;
-        const newsletterDotInfoRegex = /^newsletters.*@.*info$/;
-        const specificJunkNewsletterRegex = /^newsletter\.[a-zA-Z]{25}\@/;
-        // Medvi.vvyxslyi@
-        const mediviSpecificJunkNewsletterRefex = /^Medvi\.[a-zA-Z]{8}\@/;
-        //Blood+22@
-        const strangePlusNumbers = /^[a-zA-Z]+\+[0-9]+\@/;
+    private static config: {[reason: string]: RegExp} = {
+        ["Hims.wilddomain"]: /^Hims_(ED|Partner).*@.*(motorcycles|lat|website|space|boats)/,
+        ["Team-support biz"]: /^team-support@.*(my|biz).id$/,
+        ["Newsletter.info"]: /^newsletters.*@.*info$/,
+        ["Newsletter.[25char]@"]: /^newsletter\.[a-zA-Z]{25}@/,
+        ["Medvi.[8char]"]: /^Medvi\.[a-zA-Z]{8}@/,
+        ["Noun+number@"]: /^[a-zA-Z]+\+[0-9]+@/,
+        ["Fun police"]: /^support@.*fun/,
+    };
 
-        return emailAddress.startsWith("newsletter.l-combs") || !![
-            newsletterDotInfoRegex,
-            specificJunkNewsletterRegex,
-            mediviSpecificJunkNewsletterRefex,
-            strangePlusNumbers
-        ].find(expr => expr.test(emailAddress))
+    private calculateReason(email: Email): string | null {
+        const emailAddress = email.from.emailAddress.address;
+        return Object.entries(BogusNewsletterStrategy.config).find(([, expr]) => expr.test(emailAddress))?.[0] || null;
+    }
+
+    appliesTo(email: Email): boolean {
+        return !!this.calculateReason(email);
     }
 
     getReason(email: Email): string {
-        return `Bogus newsletter`;
+        return `Bogus newsletter - ${this.calculateReason(email)}`;
     }
 }

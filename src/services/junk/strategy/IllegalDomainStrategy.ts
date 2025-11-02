@@ -26,7 +26,8 @@ export class IllegalDomainStrategy implements JunkStrategy {
     	"substack.com",
         "abigimdlmore.work",
         'com.br',
-        'ac-inbox.com'
+        'ac-inbox.com',
+        "·onmicrosoft.·com"
     ];
 
     appliesTo(email: Email): boolean {
