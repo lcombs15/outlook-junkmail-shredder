@@ -51,6 +51,13 @@ async function run() {
         dataSummaryService.recordIgnoredMessages(ignoredMessages);
     }
 
+    if (ignoredMessages.length || emailsToDelete.length) {
+        await discordService.sendMessage('Summary', [{
+            'Deleted Count': emailsToDelete.length.toString(),
+            'Ignored Count': ignoredMessages.length.toString()
+        }]);
+    }
+
     dataSummaryService.flush();
 }
 
