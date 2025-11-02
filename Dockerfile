@@ -4,7 +4,7 @@ FROM node:24-slim
 
 ENV TZ=America/New_York
 # Install cron
-RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y cron jq && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
 WORKDIR /app
