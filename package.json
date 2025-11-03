@@ -27,7 +27,7 @@
     "jest-mock-extended": "^4.0.0"
   },
   "dependencies": {
-    "@azure/msal-node": "^3.8.0",
+    "@azure/msal-node": "^3.8.1",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "clipboardy": "^5.0.0"
   }
