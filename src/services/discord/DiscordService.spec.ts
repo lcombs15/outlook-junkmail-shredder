@@ -1,48 +1,10 @@
-import {DiscordNotificationService} from "./DiscordNotifcationService";
-import {EnvironmentService} from "./EnvironmentService";
+import {DiscordService} from "./DiscordService";
+import {EnvironmentService} from "../EnvironmentService";
 import {mock, MockProxy} from 'jest-mock-extended';
-import Email from "../entity/email";
-import {JunkEvaluation} from "./junk/JunkService";
-import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
+import {EnvironmentVariableName} from "../../entity/EnvironmentVariable";
 
-const mockEvaluation: [Email, JunkEvaluation] = [
-    {
-        id: 'aaa-bbb-ccc',
-        receivedDateTime: '2025 Mar 7',
-        toRecipients: [{
-            emailAddress: {
-                name: 'Steve Jobs',
-                address: 'steve@apple.com'
-            }
-        }],
-        bccRecipients: [],
-        ccRecipients: [],
-        subject: '',
-        from: {
-            emailAddress: {
-                name: 'Post Master From',
-                address: 'post+from@postmaster.com'
-            }
-        },
-        body: {
-            content: '<html></html>',
-            contentType: 'html'
-        },
-        sender: {
-            emailAddress: {
-                name: 'Post Master Sender',
-                address: 'post+sender@postmaster.com'
-            }
-        }
-    },
-    {
-        isJunk: false,
-        reason: 'test data is not junk!'
-    }
-]
-
-describe('DiscordNotificationService', () => {
-    let service: DiscordNotificationService;
+describe('DiscordService', () => {
+    let service: DiscordService;
 
     let http = jest.fn();
 
@@ -57,21 +19,8 @@ describe('DiscordNotificationService', () => {
             .calledWith(EnvironmentVariableName.DISCORD_URL_FILE)
             .mockReturnValue(expectedUrl);
 
-        service = new DiscordNotificationService(environmentService, http);
+        service = new DiscordService(environmentService, http);
     })
-
-    it('should send a message to discord', async () => {
-        http.mockReturnValue({
-            ok: true
-        })
-
-        await service.sendEmailMessage('msg 2 discord', [mockEvaluation]);
-
-        const [url, body] = http.mock.calls[0];
-
-        expect(url).toBe(expectedUrl);
-        expect(body).toMatchSnapshot()
-    });
 
     it('should truncate long embeds', async () => {
         http.mockReturnValue({
@@ -104,7 +53,7 @@ describe('DiscordNotificationService', () => {
 
         await service.sendMessage('msg 2 discord trunc', new Array(21).fill(myMockEmbed));
 
-        const expectNumberEmbeds = ({callNumber, expectedNumber}: {callNumber: number, expectedNumber: number}) => {
+        const expectNumberEmbeds = ({callNumber, expectedNumber}: { callNumber: number, expectedNumber: number }) => {
             const [url, request] = http.mock.calls[callNumber];
 
             expect(url).toBe(expectedUrl);
@@ -123,10 +72,16 @@ describe('DiscordNotificationService', () => {
             .calledWith(EnvironmentVariableName.DISCORD_URL_FILE)
             .mockReturnValue(null);
 
-        service = new DiscordNotificationService(environmentService, http);
+        service = new DiscordService(environmentService, http);
 
         await service.sendMessage('something here', new Array(5).fill({msg: "we ride and never worry about the fall"}));
 
         expect(http).toHaveBeenCalledTimes(0);
-    })
+    });
+
+    it('should not make an http call if there are no embeds', async () => {
+        await service.sendMessage('something here', []);
+
+        expect(http).toHaveBeenCalledTimes(0);
+    });
 })

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DiscordEmailNotificationService should send a message to discord 1`] = `
+[
+  {
+    "description": "test data is not junk!",
+    "from": "Post Master From [post+from@postmaster.com]",
+    "sender": "Post Master Sender [post+sender@postmaster.com]",
+    "subject": "here is my subject",
+    "to": "Steve Jobs [steve@apple.com]",
+  },
+]
+`;

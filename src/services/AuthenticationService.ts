@@ -2,7 +2,7 @@ import {Configuration, DeviceCodeRequest, PublicClientApplication} from "@azure/
 import clipboard from "clipboardy";
 import * as fs from "fs";
 import * as path from "path";
-import {DiscordNotificationService} from "./DiscordNotifcationService";
+import {DiscordService} from "./discord/DiscordService";
 import {EnvironmentService} from "./EnvironmentService";
 import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
 
@@ -50,7 +50,7 @@ export class AuthenticationService {
         ],
     };
 
-    constructor(private discordService: DiscordNotificationService, private environmentService: EnvironmentService) {
+    constructor(private discordService: DiscordService, private environmentService: EnvironmentService) {
     }
 
     public async getAccessToken(): Promise<string> {
