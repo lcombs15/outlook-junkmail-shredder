@@ -18,7 +18,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - auth:/mnt/auth
-      - logs:/mnt/logs
+      - /opt/onedrive/outlook-junkmail-shredder:/mnt/logs
 
 secrets:
   outlook_app_client_id:
@@ -28,4 +28,3 @@ secrets:
 
 volumes:
   auth:
-  logs:
