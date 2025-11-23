@@ -15,6 +15,7 @@ export class JunkmailShredderService {
     private readonly authService: AuthenticationService;
     private readonly junkService = new JunkService();
     private readonly dataSummaryService: DataSummaryService;
+    private accessToken: string | undefined = undefined;
 
     constructor(environmentService = new EnvironmentService()) {
         this.discordService = new DiscordService(environmentService, fetch);
@@ -25,15 +26,15 @@ export class JunkmailShredderService {
         );
     }
 
-    private async run() {
-        const emailClient = new OutlookService(await this.authService.getAccessToken());
+    private async getEmailClient() {
+        this.accessToken = this.accessToken || await this.authService.getAccessToken();
+        return new OutlookService(this.accessToken);
+    }
+
+    private async getCurrentEmails() {
+        const emailClient = await this.getEmailClient();
 
         const emails = await emailClient.listJunkEmails();
-
-        if (!emails.length) {
-            console.log('All junk clean!!!');
-            return;
-        }
 
         const junkEvaluations: Array<[Email, JunkEvaluation]> = emails.map(email =>
             [email, this.junkService.evaluate(email)]
@@ -45,7 +46,19 @@ export class JunkmailShredderService {
         junkEvaluations.forEach((entry) => {
             const destination = entry[1].isJunk ? emailsToDelete : ignoredMessages;
             destination.push(entry)
-        })
+        });
+
+        return {emailsToDelete, ignoredMessages};
+    }
+
+    private async run() {
+        const {emailsToDelete, ignoredMessages} = await this.getCurrentEmails();
+        const emailClient = await this.getEmailClient();
+
+        if (!(emailsToDelete.length + ignoredMessages.length)) {
+            console.log('All junk clean!!!');
+            return;
+        }
 
         if (emailsToDelete.length) {
             await emailClient.deleteEmails(emailsToDelete.map(([email]) => email))
@@ -76,5 +89,13 @@ export class JunkmailShredderService {
             this.discordService.sendMessage('Unexpected runtime error', [{error: error.toString()}])
                 .then(() => console.log('Error sent to discord.'));
         });
+    }
+
+    public async deleteIgnoredMessages(): Promise<void> {
+        const {ignoredMessages} = await this.getCurrentEmails();
+
+        const emailClient = await this.getEmailClient();
+        await emailClient.deleteEmails(ignoredMessages.map(([email]) => email));
+        await this.discordEmailService.sendEmailMessage('Cleared Ignored Messages', ignoredMessages);
     }
 }
