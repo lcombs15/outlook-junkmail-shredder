@@ -19,6 +19,7 @@ describe('JunkService', () => {
         "jd@greenlifecashew.com.br",
         "news297806@zeleznockclick.onmicrosoft.com",
         "news343699@MeganMacdonald.onmicrosoft.com",
+        "News121553@zbrdrsqeo21dj7wxnb.onmicrosoft.com",
         "newsletter@eatcheesecakes.com",
         "noreply@01._stenonbloc.online",
         "rbawindows@martingifts.com",
@@ -46,6 +47,11 @@ describe('JunkService', () => {
         "newsletter.l-combs@nilware.com",
         "newsletter.l-combs@conferenceplacemat.com",
         "newsletter.omlpuhisvxkdseypzusmgpkks@ezpys.nexmdcraft.yachts",
+        "Rylee.Schowalter.b6Qx2@lcsjthq.jodycunningham.biz.id",
+        "Athena.Grant.zfrwd@kiowcfua.lenadodge.biz.id",
+        "Tyrique.Wisozk.1xNz3@onkzou.lelandmaske.web.id",
+        "noreply@42._ecoenergi.online",
+        "renewhEEDO@dogchitchat.com"
     ];
 
     const notJunkEmails: Array<string> = [

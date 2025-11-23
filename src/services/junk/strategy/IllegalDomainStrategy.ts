@@ -4,6 +4,7 @@ import Email from "../../../entity/email";
 export class IllegalDomainStrategy implements JunkStrategy {
     private readonly illegalDomains = [
         "_stenonbloc.online",
+        "_ecoenergi.online",
         "martingifts.com",
         "myelectroshops.com",
         "adaptiveinfrastructuremanagement.info",
@@ -19,15 +20,16 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "fffoundationltd.com",
         "viajesalsahara.com",
         "beritamedika.com",
-    	"primeeconomicreview.com",
-    	"gurturmadencilik.com",
-    	"eatcheesecakes.com",
-    	"approachcheese.pro",
-    	"substack.com",
+        "primeeconomicreview.com",
+        "gurturmadencilik.com",
+        "eatcheesecakes.com",
+        "approachcheese.pro",
+        "substack.com",
         "abigimdlmore.work",
         'com.br',
         'ac-inbox.com',
-        "·onmicrosoft.·com"
+        "·onmicrosoft.·com",
+        "dogchitchat.com"
     ];
 
     appliesTo(email: Email): boolean {
