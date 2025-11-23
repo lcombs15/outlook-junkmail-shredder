@@ -3,6 +3,8 @@ services:
     build: .
     container_name: outlook-junkmail-shredder
     restart: unless-stopped
+    ports:
+      - "3000:3000"
     environment:
       - TZ=America/New_York
       - CLIENT_ID_FILE=/run/secrets/outlook_app_client_id

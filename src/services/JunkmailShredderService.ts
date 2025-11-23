@@ -1,0 +1,80 @@
+import {EnvironmentService} from "./EnvironmentService";
+import {DiscordService} from "./discord/DiscordService";
+import {DiscordEmailNotificationService} from "./discord/DiscordEmailNotificationService";
+import {AuthenticationService} from "./AuthenticationService";
+import {JunkEvaluation, JunkService} from "./junk/JunkService";
+import {DataSummaryService} from "./DataSummaryService";
+import {JsonFileStore} from "../tools/JsonFileStore";
+import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
+import {OutlookService} from "./OutlookService";
+import Email from "../entity/email";
+
+export class JunkmailShredderService {
+    private readonly discordService: DiscordService;
+    private readonly discordEmailService: DiscordEmailNotificationService;
+    private readonly authService: AuthenticationService;
+    private readonly junkService = new JunkService();
+    private readonly dataSummaryService: DataSummaryService;
+
+    constructor(environmentService = new EnvironmentService()) {
+        this.discordService = new DiscordService(environmentService, fetch);
+        this.discordEmailService = new DiscordEmailNotificationService(this.discordService);
+        this.authService = new AuthenticationService(this.discordService, environmentService);
+        this.dataSummaryService = new DataSummaryService(
+            new JsonFileStore(environmentService.getRequiredValue(EnvironmentVariableName.SUMMARY_FILE))
+        );
+    }
+
+    private async run() {
+        const emailClient = new OutlookService(await this.authService.getAccessToken());
+
+        const emails = await emailClient.listJunkEmails();
+
+        if (!emails.length) {
+            console.log('All junk clean!!!');
+            return;
+        }
+
+        const junkEvaluations: Array<[Email, JunkEvaluation]> = emails.map(email =>
+            [email, this.junkService.evaluate(email)]
+        );
+
+        const emailsToDelete: Array<[Email, JunkEvaluation]> = [];
+        const ignoredMessages: Array<[Email, JunkEvaluation]> = [];
+
+        junkEvaluations.forEach((entry) => {
+            const destination = entry[1].isJunk ? emailsToDelete : ignoredMessages;
+            destination.push(entry)
+        })
+
+        if (emailsToDelete.length) {
+            await emailClient.deleteEmails(emailsToDelete.map(([email]) => email))
+                .then(() => {
+                    this.discordEmailService.sendEmailMessage('Deleted messages', emailsToDelete);
+                    this.dataSummaryService.recordDeletedMessages(emailsToDelete);
+                });
+        }
+
+        if (ignoredMessages.length) {
+            await this.discordEmailService.sendEmailMessage('Ignored Messages', ignoredMessages);
+            this.dataSummaryService.recordIgnoredMessages(ignoredMessages);
+        }
+
+        if (ignoredMessages.length || emailsToDelete.length) {
+            await this.discordService.sendMessage('Summary', [{
+                'Deleted Count': emailsToDelete.length.toString(),
+                'Ignored Count': ignoredMessages.length.toString()
+            }]);
+        }
+
+        this.dataSummaryService.flush();
+    }
+
+    public sweepJunkEmails(): void {
+        this.run().then().catch((error) => {
+            console.error(error);
+            this.discordService.sendMessage('Unexpected runtime error', [{error: error.toString()}])
+                .then(() => console.log('Error sent to discord.'));
+        });
+    }
+}

@@ -6,6 +6,8 @@
   "scripts": {
     "main:dev": "ts-node src/main.ts",
     "main": "node ./bin/main.js",
+    "api:dev": "ts-node src/api.ts",
+    "api": "node ./bin/api.js",
     "build": "tsc",
     "test": "jest"
   },
@@ -19,16 +21,18 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
+    "@types/express": "^5.0.5",
     "jest": "^30.2.0",
     "jest-environment-node": "^30.2.0",
+    "jest-mock-extended": "^4.0.0",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "jest-mock-extended": "^4.0.0"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@azure/msal-node": "^3.8.2",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "clipboardy": "^5.0.0"
+    "clipboardy": "^5.0.0",
+    "express": "^5.1.0"
   }
 }
