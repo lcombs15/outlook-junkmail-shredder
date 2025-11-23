@@ -8,6 +8,7 @@ import {JsonFileStore} from "../tools/JsonFileStore";
 import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
 import {OutlookService} from "./OutlookService";
 import Email from "../entity/email";
+import {SummaryReport} from "../entity/SummaryReport";
 
 export class JunkmailShredderService {
     private readonly discordService: DiscordService;
@@ -97,5 +98,9 @@ export class JunkmailShredderService {
         const emailClient = await this.getEmailClient();
         await emailClient.deleteEmails(ignoredMessages.map(([email]) => email));
         await this.discordEmailService.sendEmailMessage('Cleared Ignored Messages', ignoredMessages);
+    }
+
+    public getReport(): SummaryReport {
+        return this.dataSummaryService.getReport();
     }
 }

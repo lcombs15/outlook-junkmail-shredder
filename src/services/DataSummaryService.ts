@@ -65,4 +65,8 @@ export class DataSummaryService {
     public flush(): void {
         this.summaryFileStore.write(this.report);
     }
+
+    public getReport(): SummaryReport {
+        return JSON.parse(JSON.stringify(this.report));
+    }
 }
