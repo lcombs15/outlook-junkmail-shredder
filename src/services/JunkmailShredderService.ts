@@ -8,7 +8,7 @@ import {JsonFileStore} from "../tools/JsonFileStore";
 import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
 import {OutlookService} from "./OutlookService";
 import Email from "../entity/email";
-import {SummaryReport} from "../entity/SummaryReport";
+import {GroupEmailSummary, SummaryReport} from "../entity/SummaryReport";
 
 export class JunkmailShredderService {
     private readonly discordService: DiscordService;
@@ -102,5 +102,39 @@ export class JunkmailShredderService {
 
     public getReport(): SummaryReport {
         return this.dataSummaryService.getReport();
+    }
+
+    public searchReport(section: GroupEmailSummary, minTotal?: number, searchTerm?: string) {
+        const retVal: GroupEmailSummary = {
+            details: {},
+            total: 0
+        };
+
+        Object.entries(section.details).forEach(([reason, reasonData]) => {
+            let newTotal = 0;
+            const details = Object.entries(reasonData.summary).filter(([emailAddress, data]) => {
+                let keep = true;
+                if (minTotal && data.total < minTotal) {
+                    keep = false;
+                }
+                if (searchTerm && !emailAddress.includes(searchTerm)) {
+                    keep = false;
+                }
+                return keep;
+            });
+
+            details.forEach(([_, data]) => newTotal += data.total);
+
+            if (details.length) {
+                retVal.details[reason] = {
+                    summary: Object.fromEntries(details),
+                    total: newTotal
+                };
+
+                retVal.total += newTotal;
+            }
+        });
+
+        return retVal;
     }
 }
