@@ -51,7 +51,10 @@ describe('JunkService', () => {
         "Athena.Grant.zfrwd@kiowcfua.lenadodge.biz.id",
         "Tyrique.Wisozk.1xNz3@onkzou.lelandmaske.web.id",
         "noreply@42._ecoenergi.online",
-        "renewhEEDO@dogchitchat.com"
+        "renewhEEDO@dogchitchat.com",
+        "no-reply@mail-donfranklinmitsubishi.intdash.com",
+        "renew.VyRd3@verenagros.com",
+        "enew.F9dTT@verenagros.com"
     ];
 
     const notJunkEmails: Array<string> = [
