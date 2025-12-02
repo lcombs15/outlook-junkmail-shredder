@@ -12,6 +12,8 @@ export class BogusNewsletterStrategy implements JunkStrategy {
         ["Medvi.[8char]"]: /^Medvi\.[a-zA-Z]{8}@/,
         ["Noun+number@"]: /^[a-zA-Z]+\+[0-9]+@/,
         ["Fun police"]: /^support@.*fun/,
+        ["Not hotmail"]: /^(Starbucks|...Rewards).*@hotmail\.com$/,
+        ["first.last@.my.id"]: /^(support.*|([A-Z][a-z].*.){2}.{5})@.*\.my\.id$/
     };
 
     private calculateReason(email: Email): string | null {
