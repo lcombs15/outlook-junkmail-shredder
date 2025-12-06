@@ -1,21 +1,21 @@
 export default interface Email {
-    id: string,
-    receivedDateTime: string,
-    subject: string,
-    from: EmailAddress,
-    sender: EmailAddress,
-    toRecipients: Array<EmailAddress>,
-    ccRecipients: Array<EmailAddress>,
-    bccRecipients: Array<EmailAddress>,
+    id: string;
+    receivedDateTime: string;
+    subject: string;
+    from: EmailAddress;
+    sender: EmailAddress;
+    toRecipients: Array<EmailAddress>;
+    ccRecipients: Array<EmailAddress>;
+    bccRecipients: Array<EmailAddress>;
     body: {
-        contentType: string,
-        content: string
-    }
+        contentType: string;
+        content: string;
+    };
 }
 
 export interface EmailAddress {
     emailAddress: {
-        name: string,
-        address: string,
-    }
+        name: string;
+        address: string;
+    };
 }

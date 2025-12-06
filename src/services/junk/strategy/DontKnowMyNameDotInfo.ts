@@ -1,4 +1,4 @@
-import {JunkStrategy} from "./JunkStrategy";
+import { JunkStrategy } from "./JunkStrategy";
 import Email from "../../../entity/email";
 
 export class DontKnowMyNameDotInfo implements JunkStrategy {
@@ -7,8 +7,10 @@ export class DontKnowMyNameDotInfo implements JunkStrategy {
         const renewInfoRegex = /^(renew|renev|newsletter).....@.*.info$/;
 
         // Check if email address matches the pattern and body contains 'l-combs,'
-        return renewInfoRegex.test(emailAddress) &&
-            email.subject.includes('l-combs,');
+        return (
+            renewInfoRegex.test(emailAddress) &&
+            email.subject.includes("l-combs,")
+        );
     }
 
     getReason(email: Email): string {

@@ -2,7 +2,7 @@ export interface EmailSummary {
     [email: string]: {
         timestamps: Array<string>;
         total: number;
-    }
+    };
 }
 
 export interface GroupEmailSummary {
@@ -10,12 +10,12 @@ export interface GroupEmailSummary {
         [reason: string]: {
             summary: EmailSummary;
             total: number;
-        }
-    }
+        };
+    };
     total: number;
 }
 
 export interface SummaryReport {
-    deleted: GroupEmailSummary,
+    deleted: GroupEmailSummary;
     ignored: GroupEmailSummary;
 }

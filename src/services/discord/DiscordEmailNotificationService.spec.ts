@@ -1,67 +1,71 @@
-import {DiscordService} from "./DiscordService";
-import {mock, MockProxy} from 'jest-mock-extended';
+import { DiscordService } from "./DiscordService";
+import { mock, MockProxy } from "jest-mock-extended";
 import Email from "../../entity/email";
-import {JunkEvaluation} from "../junk/JunkService";
-import {DiscordEmailNotificationService} from "./DiscordEmailNotificationService";
+import { JunkEvaluation } from "../junk/JunkService";
+import { DiscordEmailNotificationService } from "./DiscordEmailNotificationService";
 
 const mockEvaluation: [Email, JunkEvaluation] = [
     {
-        id: 'aaa-bbb-ccc',
-        receivedDateTime: '2025 Mar 7',
-        toRecipients: [{
-            emailAddress: {
-                name: 'Steve Jobs',
-                address: 'steve@apple.com'
-            }
-        }],
+        id: "aaa-bbb-ccc",
+        receivedDateTime: "2025 Mar 7",
+        toRecipients: [
+            {
+                emailAddress: {
+                    name: "Steve Jobs",
+                    address: "steve@apple.com",
+                },
+            },
+        ],
         bccRecipients: [],
         ccRecipients: [],
-        subject: 'here is my subject',
+        subject: "here is my subject",
         from: {
             emailAddress: {
-                name: 'Post Master From',
-                address: 'post+from@postmaster.com'
-            }
+                name: "Post Master From",
+                address: "post+from@postmaster.com",
+            },
         },
         body: {
-            content: '<html></html>',
-            contentType: 'html'
+            content: "<html></html>",
+            contentType: "html",
         },
         sender: {
             emailAddress: {
-                name: 'Post Master Sender',
-                address: 'post+sender@postmaster.com'
-            }
-        }
+                name: "Post Master Sender",
+                address: "post+sender@postmaster.com",
+            },
+        },
     },
     {
         isJunk: false,
-        reason: 'test data is not junk!'
-    }
-]
+        reason: "test data is not junk!",
+    },
+];
 
-describe('DiscordEmailNotificationService', () => {
+describe("DiscordEmailNotificationService", () => {
     let service: DiscordEmailNotificationService;
 
     let http = jest.fn();
 
     let discordService: MockProxy<DiscordService> = mock<DiscordService>();
 
-    const expectedUrl = "mydiscord.com/the-server/stuff"
+    const expectedUrl = "mydiscord.com/the-server/stuff";
 
     beforeEach(() => {
         service = new DiscordEmailNotificationService(discordService);
     });
 
-    it('should send a message to discord', async () => {
+    it("should send a message to discord", async () => {
         http.mockReturnValue({
-            ok: true
-        })
+            ok: true,
+        });
 
-        await service.sendEmailMessage('msg 2 discord', [mockEvaluation]);
+        await service.sendEmailMessage("msg 2 discord", [mockEvaluation]);
 
         expect(discordService.sendMessage).toHaveBeenCalledTimes(1);
-        expect(discordService.sendMessage.mock.calls[0][0]).toBe('msg 2 discord');
+        expect(discordService.sendMessage.mock.calls[0][0]).toBe(
+            "msg 2 discord",
+        );
         expect(discordService.sendMessage.mock.calls[0][1]).toMatchSnapshot();
     });
-})
+});

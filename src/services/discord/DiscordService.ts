@@ -1,22 +1,30 @@
-import {EnvironmentService} from "../EnvironmentService";
-import {EnvironmentVariableName} from "../../entity/EnvironmentVariable";
+import { EnvironmentService } from "../EnvironmentService";
+import { EnvironmentVariableName } from "../../entity/EnvironmentVariable";
 
 export class DiscordService {
     private readonly url: string | null;
 
-    constructor(environmentService: EnvironmentService, private httpClient: typeof fetch) {
-        this.url = environmentService.getValueFromFile(EnvironmentVariableName.DISCORD_URL_FILE);
+    constructor(
+        environmentService: EnvironmentService,
+        private httpClient: typeof fetch,
+    ) {
+        this.url = environmentService.getValueFromFile(
+            EnvironmentVariableName.DISCORD_URL_FILE,
+        );
     }
 
-    private async postMessage(messageTitle: string, embeds: Array<Record<string, string>>): Promise<void> {
+    private async postMessage(
+        messageTitle: string,
+        embeds: Array<Record<string, string>>,
+    ): Promise<void> {
         if (!this.url) {
-            console.warn('Discord URL not provided, skipping notification');
+            console.warn("Discord URL not provided, skipping notification");
             return;
         }
 
         const payload = {
             content: messageTitle,
-            embeds: embeds.map(embed => {
+            embeds: embeds.map((embed) => {
                 return {
                     fields: Object.entries(embed)
                         .filter(([_, value]) => value)
@@ -24,28 +32,31 @@ export class DiscordService {
                             return {
                                 name: key,
                                 value: value.substring(0, 1024),
-                            }
-                        })
-                }
-            })
+                            };
+                        }),
+                };
+            }),
         };
 
         try {
             await this.httpClient(this.url, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
             });
-            console.log('Discord notification sent successfully', embeds);
+            console.log("Discord notification sent successfully", embeds);
         } catch (error) {
-            console.error('Error sending Discord notification:', error);
+            console.error("Error sending Discord notification:", error);
             throw error;
         }
     }
 
-    public async sendMessage(messageTitle: string, embeds: Array<Record<string, string>>): Promise<void> {
+    public async sendMessage(
+        messageTitle: string,
+        embeds: Array<Record<string, string>>,
+    ): Promise<void> {
         if (!embeds.length) {
             return;
         }

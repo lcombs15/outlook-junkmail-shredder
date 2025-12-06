@@ -16,6 +16,8 @@ RUN npm ci
 
 RUN npm run test
 
+RUN npm run lint
+
 RUN npm run build
 
 RUN chmod +x docker/*.sh

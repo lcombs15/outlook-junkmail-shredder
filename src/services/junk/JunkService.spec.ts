@@ -1,7 +1,7 @@
-import {JunkService} from "./JunkService";
+import { JunkService } from "./JunkService";
 import Email from "../../entity/email";
 
-describe('JunkService', () => {
+describe("JunkService", () => {
     const junkEmailsAddress: Array<string> = [
         "12287674@Avadefaultlabsicu.onmicrosoft.com",
         "44516107@cqxstudnthqicu.onmicrosoft.com",
@@ -65,7 +65,7 @@ describe('JunkService', () => {
         "info@omahasteakshpr.com",
         "huddle-website-signup@mail.beehiiv.com",
         "alessandroriccisup@tiscali.it",
-        "paolosannasup@tiscali.it"
+        "paolosannasup@tiscali.it",
     ];
 
     const notJunkEmails: Array<string> = [
@@ -87,48 +87,48 @@ describe('JunkService', () => {
             from: {
                 emailAddress: {
                     address,
-                    name: ''
-                }
-            }
-        }
+                    name: "",
+                },
+            },
+        };
 
-        return tempEmail as Email
+        return tempEmail as Email;
     }
 
     const service = new JunkService();
 
-    it('should mark emails as junk', () => {
+    it("should mark emails as junk", () => {
         const result = junkEmailsAddress
             .map(getEmail)
-            .map(input => {
+            .map((input) => {
                 return {
                     input,
-                    result: service.evaluate(input)
-                }
+                    result: service.evaluate(input),
+                };
             })
-            .filter(result => !result.result.isJunk)
-            .map(result => result.input.from.emailAddress.address);
+            .filter((result) => !result.result.isJunk)
+            .map((result) => result.input.from.emailAddress.address);
 
         expect(result).toHaveLength(0);
     });
 
-    it('should NOT mark emails as junk', () => {
+    it("should NOT mark emails as junk", () => {
         const result = notJunkEmails
             .map(getEmail)
-            .map(input => {
+            .map((input) => {
                 return {
                     input,
-                    result: service.evaluate(input)
-                }
+                    result: service.evaluate(input),
+                };
             })
-            .filter(result => result.result.isJunk)
-            .map(result => result.input.from.emailAddress.address);
+            .filter((result) => result.result.isJunk)
+            .map((result) => result.input.from.emailAddress.address);
 
         expect(result).toHaveLength(0);
     });
 
-    it('should not have any duplicate test data', () => {
-        expect(new Set(junkEmailsAddress).size).toBe(junkEmailsAddress.length)
-        expect(new Set(notJunkEmails).size).toBe(notJunkEmails.length)
+    it("should not have any duplicate test data", () => {
+        expect(new Set(junkEmailsAddress).size).toBe(junkEmailsAddress.length);
+        expect(new Set(notJunkEmails).size).toBe(notJunkEmails.length);
     });
-})
+});
