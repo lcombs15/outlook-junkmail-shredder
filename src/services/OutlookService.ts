@@ -1,23 +1,24 @@
-import {Client} from "@microsoft/microsoft-graph-client";
+import { Client } from "@microsoft/microsoft-graph-client";
 import Email from "../entity/email";
 
 export class OutlookService {
-
     private graphClient;
     private static MAX_BATCH_SIZE = 20;
 
     public constructor(accessToken: string) {
         this.graphClient = Client.init({
-            authProvider: (done) => done(null, accessToken)
+            authProvider: (done) => done(null, accessToken),
         });
     }
 
     public async listJunkEmails(): Promise<Array<Email>> {
         const response = await this.graphClient
             .api("/me/mailFolders/junkemail/messages")
-            .select("subject,from,receivedDateTime,id,sender,body,toRecipients,ccRecipients,bccRecipients")
+            .select(
+                "subject,from,receivedDateTime,id,sender,body,toRecipients,ccRecipients,bccRecipients",
+            )
             .top(100)
-            .orderby('receivedDateTime desc')
+            .orderby("receivedDateTime desc")
             .get();
 
         return response.value as Array<Email>;
@@ -34,15 +35,15 @@ export class OutlookService {
             await this.deleteEmails(remainder);
         }
 
-        await this.graphClient.api('/$batch').post({
+        await this.graphClient.api("/$batch").post({
             requests: emails.map((email, index) => ({
                 id: String(index),
                 method: "DELETE",
-                url: `/me/messages/${email.id}`
-            }))
+                url: `/me/messages/${email.id}`,
+            })),
         });
 
-        emails.forEach(email => {
+        emails.forEach((email) => {
             console.log(`Deleted: ${email.subject.trim()}`);
         });
     }

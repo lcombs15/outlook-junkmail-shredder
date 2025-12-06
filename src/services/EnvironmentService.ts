@@ -1,16 +1,14 @@
-import {EnvironmentVariableName} from "../entity/EnvironmentVariable";
+import { EnvironmentVariableName } from "../entity/EnvironmentVariable";
 import * as fs from "node:fs";
 
 export class EnvironmentService {
-
-    public constructor(private sysEnv = process.env) {
-    }
+    public constructor(private sysEnv = process.env) {}
 
     public getValue(key: EnvironmentVariableName): string | null {
         const value = this.sysEnv[key.toString()];
 
         if (!value) {
-            console.error('Missing environment variable: ', key.toString());
+            console.error("Missing environment variable: ", key.toString());
         }
 
         return value || null;
@@ -20,7 +18,7 @@ export class EnvironmentService {
         const val = this.getValue(key);
 
         if (val == null) {
-            throw new Error(`Missing environment variable: ${key.toString()}`)
+            throw new Error(`Missing environment variable: ${key.toString()}`);
         }
 
         return val;
@@ -33,6 +31,6 @@ export class EnvironmentService {
             return null;
         }
 
-        return fs.readFileSync(fileName).toString()
+        return fs.readFileSync(fileName).toString();
     }
 }

@@ -1,4 +1,4 @@
-import {JunkStrategy} from "./JunkStrategy";
+import { JunkStrategy } from "./JunkStrategy";
 import Email from "../../../entity/email";
 
 export class IllegalDomainStrategy implements JunkStrategy {
@@ -26,22 +26,24 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "approachcheese.pro",
         "substack.com",
         "abigimdlmore.work",
-        'com.br',
-        'ac-inbox.com',
+        "com.br",
+        "ac-inbox.com",
         "·onmicrosoft.·com",
         "dogchitchat.com",
         "mail-donfranklinmitsubishi.intdash.com",
         "verenagros.com",
         "shibeatdoge.com",
         "beehiiv.com",
-        "tiscali.it"
+        "tiscali.it",
     ];
 
     appliesTo(email: Email): boolean {
         const emailAddress = email.from.emailAddress.address;
-        const domain = emailAddress.split('@')[1];
+        const domain = emailAddress.split("@")[1];
 
-        return this.illegalDomains.some(illegalDomain => domain.endsWith(illegalDomain));
+        return this.illegalDomains.some((illegalDomain) =>
+            domain.endsWith(illegalDomain),
+        );
     }
 
     getReason(email: Email): string {

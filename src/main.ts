@@ -1,3 +1,3 @@
-import {JunkmailShredderService} from "./services/JunkmailShredderService";
+import { JunkmailShredderService } from "./services/JunkmailShredderService";
 
 new JunkmailShredderService().sweepJunkEmails();
