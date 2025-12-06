@@ -32,7 +32,9 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "dogchitchat.com",
         "mail-donfranklinmitsubishi.intdash.com",
         "verenagros.com",
-        "shibeatdoge.com"
+        "shibeatdoge.com",
+        "beehiiv.com",
+        "tiscali.it"
     ];
 
     appliesTo(email: Email): boolean {

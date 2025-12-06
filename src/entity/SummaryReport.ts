@@ -1,5 +1,3 @@
-import Email from "./email";
-
 export interface EmailSummary {
     [email: string]: {
         timestamps: Array<string>;
