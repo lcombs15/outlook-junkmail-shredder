@@ -2,9 +2,7 @@ import { BaseRestController } from "./BaseRestController";
 import { RequestHandler, Router } from "express";
 
 export class SummaryRestController extends BaseRestController {
-    constructor() {
-        super("/summary");
-    }
+    protected rootRoute = "/summary";
 
     registerRoutes(router: Router): void {
         router.get("/", this.getSummary);

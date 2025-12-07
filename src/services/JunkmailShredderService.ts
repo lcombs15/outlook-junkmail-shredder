@@ -124,6 +124,9 @@ export class JunkmailShredderService {
     public async deleteIgnoredMessages(): Promise<void> {
         const { ignoredMessages } = await this.getCurrentEmails();
 
+        this.dataSummaryService.recordIgnoredMessages(ignoredMessages);
+        this.dataSummaryService.flush();
+
         const emailClient = await this.getEmailClient();
         await emailClient.deleteEmails(ignoredMessages.map(([email]) => email));
         await this.discordEmailService.sendEmailMessage(

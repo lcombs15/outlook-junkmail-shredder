@@ -2,10 +2,10 @@ import { Router } from "express";
 import { JunkmailShredderService } from "../services/JunkmailShredderService";
 
 export abstract class BaseRestController {
-    protected constructor(private readonly route: string) {}
+    protected abstract rootRoute: string;
 
     public getRoute(): string {
-        return this.route;
+        return this.rootRoute;
     }
 
     public abstract registerRoutes(router: Router): void;
