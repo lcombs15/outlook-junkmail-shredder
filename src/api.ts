@@ -1,5 +1,7 @@
 import express from "express";
 import { JunkmailShredderService } from "./services/JunkmailShredderService";
+import { BaseRestController } from "./controller/BaseRestController";
+import { SummaryRestController } from "./controller/SummaryRestController";
 
 const api = express();
 const port = 3000;
@@ -9,6 +11,14 @@ const port = 3000;
 function getService() {
     return new JunkmailShredderService();
 }
+
+const controllers: Array<BaseRestController> = [new SummaryRestController()];
+
+controllers.forEach((controller) => {
+    const router = express.Router();
+    controller.registerRoutes(router);
+    api.use(controller.getRoute(), router);
+});
 
 api.get("/onDemand", async (_, res) => {
     console.log("On demand run triggered");
@@ -24,46 +34,6 @@ api.get("/deleteIgnoredMessages", async (_, res) => {
     return res
         .status(200)
         .send(`Ignored messages deleted - ${new Date().toISOString()}`);
-});
-
-api.post("/summary/reconcile", async (_, res) => {
-    console.log("Report reconciliation triggered");
-    getService().reconcileReport();
-    return res
-        .status(204)
-        .send(`Completed reconciliation - ${new Date().toISOString()}`);
-});
-
-api.get("/summary", async (_, res) => {
-    return res.status(200).send(getService().getReport());
-});
-
-api.get("/summary/ignored", async (req, res) => {
-    const service = getService();
-    const minTotal = req.query.minTotal as string;
-    return res
-        .status(200)
-        .send(
-            service.searchReport(
-                service.getReport().ignored,
-                minTotal ? Number.parseInt(minTotal) : undefined,
-                req.query.searchTerm as string,
-            ),
-        );
-});
-
-api.get("/summary/deleted", async (req, res) => {
-    const service = getService();
-    const minTotal = req.query.minTotal as string;
-    return res
-        .status(200)
-        .send(
-            service.searchReport(
-                service.getReport().deleted,
-                minTotal ? Number.parseInt(minTotal) : undefined,
-                req.query.searchTerm as string,
-            ),
-        );
 });
 
 api.listen(port, () =>
