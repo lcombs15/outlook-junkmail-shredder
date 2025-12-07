@@ -26,6 +26,14 @@ api.get("/deleteIgnoredMessages", async (_, res) => {
         .send(`Ignored messages deleted - ${new Date().toISOString()}`);
 });
 
+api.post("/summary/reconcile", async (_, res) => {
+    console.log("Report reconciliation triggered");
+    getService().reconcileReport();
+    return res
+        .status(204)
+        .send(`Completed reconciliation - ${new Date().toISOString()}`);
+});
+
 api.get("/summary", async (_, res) => {
     return res.status(200).send(getService().getReport());
 });

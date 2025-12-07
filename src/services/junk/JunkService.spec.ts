@@ -1,5 +1,5 @@
 import { JunkService } from "./JunkService";
-import Email from "../../entity/email";
+import { buildEmail } from "../../tools/buildEmail";
 
 describe("JunkService", () => {
     const junkEmailsAddress: Array<string> = [
@@ -82,24 +82,11 @@ describe("JunkService", () => {
         "firstlast@nku.onmicrosoft.com",
     ];
 
-    function getEmail(address: string): Email {
-        const tempEmail: Partial<Email> = {
-            from: {
-                emailAddress: {
-                    address,
-                    name: "",
-                },
-            },
-        };
-
-        return tempEmail as Email;
-    }
-
     const service = new JunkService();
 
     it("should mark emails as junk", () => {
         const result = junkEmailsAddress
-            .map(getEmail)
+            .map(buildEmail)
             .map((input) => {
                 return {
                     input,
@@ -114,7 +101,7 @@ describe("JunkService", () => {
 
     it("should NOT mark emails as junk", () => {
         const result = notJunkEmails
-            .map(getEmail)
+            .map(buildEmail)
             .map((input) => {
                 return {
                     input,

@@ -2,12 +2,13 @@ import { JsonFileStore } from "../tools/JsonFileStore";
 import { GroupEmailSummary, SummaryReport } from "../entity/SummaryReport";
 import Email from "../entity/email";
 import { JunkEvaluation } from "./junk/JunkService";
+import { buildEmail } from "../tools/buildEmail";
 
 export class DataSummaryService {
     private readonly report: SummaryReport;
 
-    constructor(private summaryFileStore: JsonFileStore<SummaryReport>) {
-        this.report = summaryFileStore.read({
+    private getDefaultReport(): SummaryReport {
+        return {
             deleted: {
                 details: {},
                 total: 0,
@@ -16,7 +17,11 @@ export class DataSummaryService {
                 details: {},
                 total: 0,
             },
-        });
+        };
+    }
+
+    constructor(private summaryFileStore: JsonFileStore<SummaryReport>) {
+        this.report = summaryFileStore.read(this.getDefaultReport());
     }
 
     private updateSection(
@@ -71,6 +76,55 @@ export class DataSummaryService {
         messages: Array<[Email, JunkEvaluation]>,
     ): void {
         this.updateSection(this.report.ignored, messages);
+    }
+
+    /**
+     * Reconcile the ignored messages with the current state of the email client.
+     * This will migrate ignored messages to the deleted section if they are no longer being ignored.
+     *
+     * This helps keep the ignored report slim to new rules can be easily added.
+     * @param reconcileFn
+     */
+    public reconcileIgnoredMessages(
+        reconcileFn: (email: Email) => JunkEvaluation,
+    ): void {
+        const ignoredSection = this.report.ignored;
+
+        this.report.ignored = this.getDefaultReport().ignored;
+
+        let allIgnoredSummaries: Array<{
+            emailAddress: string;
+            timestamps: string[];
+        }> = Object.values(ignoredSection.details)
+            .map((reasonDetails) => {
+                return Object.entries(reasonDetails.summary).map(
+                    ([email, emailDetails]) => {
+                        return {
+                            emailAddress: email,
+                            timestamps: emailDetails.timestamps,
+                        };
+                    },
+                );
+            })
+            .flat();
+
+        allIgnoredSummaries.forEach(({ emailAddress, timestamps }) => {
+            const evaluation = reconcileFn(buildEmail(emailAddress));
+
+            const reportArgs: Array<[Email, JunkEvaluation]> = timestamps.map(
+                (timestamp) => {
+                    const email = buildEmail(emailAddress);
+                    email.receivedDateTime = timestamp;
+                    return [email, evaluation];
+                },
+            );
+
+            if (evaluation.isJunk) {
+                this.recordDeletedMessages(reportArgs);
+            } else {
+                this.recordIgnoredMessages(reportArgs);
+            }
+        });
     }
 
     public flush(): void {

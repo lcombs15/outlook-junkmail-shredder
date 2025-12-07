@@ -1,31 +1,18 @@
 import { BogusNewsletterStrategy } from "./BogusNewsletterStrategy";
-import Email from "../../../entity/email";
+import { buildEmail } from "../../../tools/buildEmail";
 
 describe("BogusNewsletterStrategy", () => {
     const strategy = new BogusNewsletterStrategy();
 
-    function getEmail(address: string): Email {
-        const tempEmail: Partial<Email> = {
-            from: {
-                emailAddress: {
-                    address,
-                    name: "",
-                },
-            },
-        };
-
-        return tempEmail as Email;
-    }
-
     it("should return true and false for appliesTo", () => {
         expect(
-            strategy.appliesTo(getEmail("support@blahblahblah.fun")),
+            strategy.appliesTo(buildEmail("support@blahblahblah.fun")),
         ).toBeTruthy();
-        expect(strategy.appliesTo(getEmail("steve@apple.com"))).toBeFalsy();
+        expect(strategy.appliesTo(buildEmail("steve@apple.com"))).toBeFalsy();
     });
 
     it("should return a proper reason", () => {
-        expect(strategy.getReason(getEmail("support@blahblahblah.fun"))).toBe(
+        expect(strategy.getReason(buildEmail("support@blahblahblah.fun"))).toBe(
             "Bogus newsletter - Fun police",
         );
     });

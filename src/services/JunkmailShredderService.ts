@@ -175,4 +175,12 @@ export class JunkmailShredderService {
 
         return retVal;
     }
+
+    public reconcileReport() {
+        this.dataSummaryService.reconcileIgnoredMessages((email) => {
+            return this.junkService.evaluate(email);
+        });
+
+        this.dataSummaryService.flush();
+    }
 }
