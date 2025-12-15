@@ -35,6 +35,7 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "shibeatdoge.com",
         "beehiiv.com",
         "tiscali.it",
+        "mymobeldz.com",
     ];
 
     appliesTo(email: Email): boolean {

@@ -66,6 +66,8 @@ describe("JunkService", () => {
         "huddle-website-signup@mail.beehiiv.com",
         "alessandroriccisup@tiscali.it",
         "paolosannasup@tiscali.it",
+        "renewbrextg@mymobeldz.com",
+        "AARP.xlUKk@mymobeldz.com",
     ];
 
     const notJunkEmails: Array<string> = [
