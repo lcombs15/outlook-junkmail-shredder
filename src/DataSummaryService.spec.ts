@@ -119,7 +119,8 @@ describe("DataSummaryService", () => {
         );
 
         sut.reconcileIgnoredMessages((email) => {
-            const isJunk = !!email.from.emailAddress.address?.includes("delete");
+            const isJunk =
+                !!email.from.emailAddress.address?.includes("delete");
 
             return {
                 isJunk,

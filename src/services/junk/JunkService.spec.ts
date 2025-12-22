@@ -124,7 +124,7 @@ describe("JunkService", () => {
     });
 
     it("Should handle an invalid email address", () => {
-        const result = service.evaluate(buildEmail(undefined))
+        const result = service.evaluate(buildEmail(undefined));
 
         expect(result).toBeTruthy();
         expect(result.isJunk).toBe(false);
