@@ -122,4 +122,11 @@ describe("JunkService", () => {
         expect(new Set(junkEmailsAddress).size).toBe(junkEmailsAddress.length);
         expect(new Set(notJunkEmails).size).toBe(notJunkEmails.length);
     });
+
+    it("Should handle an invalid email address", () => {
+        const result = service.evaluate(buildEmail(undefined))
+
+        expect(result).toBeTruthy();
+        expect(result.isJunk).toBe(false);
+    });
 });

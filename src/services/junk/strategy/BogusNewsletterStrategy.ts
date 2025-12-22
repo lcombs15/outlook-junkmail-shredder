@@ -19,7 +19,7 @@ export class BogusNewsletterStrategy implements JunkStrategy {
     };
 
     private calculateReason(email: Email): string | null {
-        const emailAddress = email.from.emailAddress.address;
+        const emailAddress = email.from.emailAddress.address || '';
         return (
             Object.entries(BogusNewsletterStrategy.config).find(([, expr]) =>
                 expr.test(emailAddress),

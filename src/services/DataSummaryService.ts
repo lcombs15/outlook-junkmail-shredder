@@ -32,6 +32,10 @@ export class DataSummaryService {
             const senderEmail = email.from.emailAddress.address;
             const reason = evaluation.reason;
 
+            if (!senderEmail) {
+                return;
+            }
+
             if (!section.details[reason]) {
                 section.details[reason] = {
                     summary: {},

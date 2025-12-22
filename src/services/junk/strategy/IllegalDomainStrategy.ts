@@ -41,7 +41,7 @@ export class IllegalDomainStrategy implements JunkStrategy {
 
     appliesTo(email: Email): boolean {
         const emailAddress = email.from.emailAddress.address;
-        const domain = emailAddress.split("@")[1] || "";
+        const domain = emailAddress?.split("@")[1] || "";
 
         return this.illegalDomains.some((illegalDomain) =>
             domain.endsWith(illegalDomain),

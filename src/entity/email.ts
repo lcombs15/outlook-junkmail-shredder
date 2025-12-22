@@ -16,6 +16,6 @@ export default interface Email {
 export interface EmailAddress {
     emailAddress: {
         name: string;
-        address: string;
+        address?: string;
     };
 }
