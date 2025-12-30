@@ -1,32 +1,37 @@
 services:
-    outlook-junkmail-shredder:
-        build: .
-        container_name: outlook-junkmail-shredder
-        restart: unless-stopped
-        ports:
-            - "3000:3000"
-        environment:
-            - TZ=America/New_York
-            - CLIENT_ID_FILE=/run/secrets/outlook_app_client_id
-            - DISCORD_URL_FILE=/run/secrets/discord_url
-            - AUTH_DIRECTORY=/mnt/auth
-            - SUMMARY_FILE=/mnt/logs/summary.json
-        labels:
-            - "com.centurylinklabs.watchtower.enable=false"
-        secrets:
-            - outlook_app_client_id
-            - discord_url
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
-            - auth:/mnt/auth
-            - /opt/onedrive/outlook-junkmail-shredder:/mnt/logs
+  outlook-junkmail-shredder:
+    build: .
+    container_name: outlook-junkmail-shredder
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    environment:
+      - TZ=America/New_York
+      - CLIENT_ID_FILE=/run/secrets/outlook_app_client_id
+      - DISCORD_URL_FILE=/run/secrets/discord_url
+      - AUTH_DIRECTORY=/mnt/auth
+      - SUMMARY_FILE=/mnt/logs/summary.json
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    secrets:
+      - outlook_app_client_id
+      - discord_url
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - auth:/mnt/auth
+      - /opt/onedrive/outlook-junkmail-shredder:/mnt/logs
 
 secrets:
-    outlook_app_client_id:
-        environment: OUTLOOK_APP_CLIENT_ID
-    discord_url:
-        environment: DISCORD_URL_OUTLOOK
+  outlook_app_client_id:
+    environment: OUTLOOK_APP_CLIENT_ID
+  discord_url:
+    environment: DISCORD_URL_OUTLOOK
 
 volumes:
-    auth:
+  auth:

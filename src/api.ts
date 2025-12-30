@@ -2,6 +2,7 @@ import express from "express";
 import { BaseRestController } from "./controller/BaseRestController";
 import { SummaryRestController } from "./controller/SummaryRestController";
 import { OutlookRestController } from "./controller/OutlookRestController";
+import { HealthRestController } from "./controller/HealthRestController";
 
 const api = express();
 const port = 3000;
@@ -9,6 +10,7 @@ const port = 3000;
 const controllers: Array<BaseRestController> = [
     new SummaryRestController(),
     new OutlookRestController(),
+    new HealthRestController(),
 ];
 
 controllers.forEach((controller) => {
