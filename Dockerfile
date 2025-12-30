@@ -4,7 +4,7 @@ FROM node:24-slim
 
 # Install cron
 RUN apt-get update && \
-    apt-get install -y cron \
+    apt-get install -y cron curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
