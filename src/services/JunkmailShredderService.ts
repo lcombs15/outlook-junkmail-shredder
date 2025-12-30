@@ -96,7 +96,7 @@ export class JunkmailShredderService {
             this.dataSummaryService.recordIgnoredMessages(ignoredMessages);
         }
 
-        if (ignoredMessages.length || emailsToDelete.length) {
+        if ((ignoredMessages.length || 0) + (emailsToDelete.length || 0) > 2) {
             await this.discordService.sendMessage("Summary", [
                 {
                     "Deleted Count": emailsToDelete.length.toString(),
