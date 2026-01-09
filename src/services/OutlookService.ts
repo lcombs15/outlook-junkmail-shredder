@@ -44,7 +44,7 @@ export class OutlookService {
         });
 
         emails.forEach((email) => {
-            console.log(`Deleted: ${email.subject.trim()}`);
+            console.log(`Deleted: ${email.subject?.trim() || "empty subject"}`);
         });
     }
 }

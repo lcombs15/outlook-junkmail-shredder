@@ -1,7 +1,7 @@
 export default interface Email {
     id: string;
     receivedDateTime: string;
-    subject: string;
+    subject?: string;
     from: EmailAddress;
     sender: EmailAddress;
     toRecipients: Array<EmailAddress>;

@@ -21,7 +21,7 @@ export class DiscordEmailNotificationService {
             messageTitle,
             emails.map(([email, junkEvaluation]) => {
                 return {
-                    subject: email.subject,
+                    subject: email.subject || "empty subject",
                     from: this.emailToString(email.from),
                     sender: this.emailToString(email.sender),
                     to: (email.toRecipients || [])
