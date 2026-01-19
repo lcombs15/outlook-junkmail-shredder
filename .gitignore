@@ -11,3 +11,6 @@ node_modules/
 # Refresh token files
 *token.json
 *cache.json
+*.sqlite3
+*summary*json
+coverage/

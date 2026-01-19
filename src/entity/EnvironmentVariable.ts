@@ -3,4 +3,5 @@ export enum EnvironmentVariableName {
     DISCORD_URL_FILE = "DISCORD_URL_FILE",
     AUTH_DIRECTORY = "AUTH_DIRECTORY",
     SUMMARY_FILE = "SUMMARY_FILE",
+    DATABASE_FILE = "DATABASE_FILE",
 }
