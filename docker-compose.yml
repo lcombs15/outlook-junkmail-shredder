@@ -16,6 +16,7 @@ services:
             - DISCORD_URL_FILE=/run/secrets/discord_url
             - AUTH_DIRECTORY=/mnt/auth
             - SUMMARY_FILE=/mnt/logs/summary.json
+            - DATABASE_FILE=/mnt/logs/database.sqlite3
         labels:
             - "com.centurylinklabs.watchtower.enable=false"
         secrets:

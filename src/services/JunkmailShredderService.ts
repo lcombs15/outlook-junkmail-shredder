@@ -1,14 +1,13 @@
-import { EnvironmentService } from "./EnvironmentService";
 import { DiscordService } from "./discord/DiscordService";
 import { DiscordEmailNotificationService } from "./discord/DiscordEmailNotificationService";
 import { AuthenticationService } from "./AuthenticationService";
 import { JunkEvaluation, JunkService } from "./junk/JunkService";
 import { DataSummaryService } from "./DataSummaryService";
-import { JsonFileStore } from "../tools/JsonFileStore";
-import { EnvironmentVariableName } from "../entity/EnvironmentVariable";
 import { OutlookService } from "./OutlookService";
 import { Outlook } from "../entity/outlook";
-import { GroupEmailSummary, SummaryReport } from "../entity/SummaryReport";
+import { Email } from "../entity/db/Email";
+import { buildListResource, ListResource } from "../resource/ListResource";
+import { AppContext } from "../context/buildAppContext";
 
 export class JunkmailShredderService {
     private readonly discordService: DiscordService;
@@ -17,22 +16,11 @@ export class JunkmailShredderService {
     private readonly junkService = new JunkService();
     private readonly dataSummaryService: DataSummaryService;
 
-    constructor(environmentService = new EnvironmentService()) {
-        this.discordService = new DiscordService(environmentService, fetch);
-        this.discordEmailService = new DiscordEmailNotificationService(
-            this.discordService,
-        );
-        this.authService = new AuthenticationService(
-            this.discordService,
-            environmentService,
-        );
-        this.dataSummaryService = new DataSummaryService(
-            new JsonFileStore(
-                environmentService.getRequiredValue(
-                    EnvironmentVariableName.SUMMARY_FILE,
-                ),
-            ),
-        );
+    constructor(appContext: AppContext) {
+        this.discordService = appContext.discordService;
+        this.discordEmailService = appContext.discordEmailService;
+        this.authService = appContext.authService;
+        this.dataSummaryService = appContext.dataSummaryService;
     }
 
     private async getEmailClient() {
@@ -78,9 +66,7 @@ export class JunkmailShredderService {
                         "Deleted messages",
                         emailsToDelete,
                     );
-                    this.dataSummaryService.recordDeletedMessages(
-                        emailsToDelete,
-                    );
+                    this.dataSummaryService.record(emailsToDelete);
                 });
         }
 
@@ -89,7 +75,7 @@ export class JunkmailShredderService {
                 "Ignored Messages",
                 ignoredMessages,
             );
-            this.dataSummaryService.recordIgnoredMessages(ignoredMessages);
+            await this.dataSummaryService.record(ignoredMessages);
         }
 
         if ((ignoredMessages.length || 0) + (emailsToDelete.length || 0) > 2) {
@@ -120,7 +106,7 @@ export class JunkmailShredderService {
     public async deleteIgnoredMessages(): Promise<void> {
         const { ignoredMessages } = await this.getCurrentEmails();
 
-        this.dataSummaryService.recordIgnoredMessages(ignoredMessages);
+        await this.dataSummaryService.record(ignoredMessages);
 
         const emailClient = await this.getEmailClient();
         await emailClient.deleteEmails(ignoredMessages.map(([email]) => email));
@@ -130,48 +116,14 @@ export class JunkmailShredderService {
         );
     }
 
-    public getReport(): SummaryReport {
-        return this.dataSummaryService.getReport();
-    }
-
-    public searchReport(
-        section: GroupEmailSummary,
+    public async searchRecords(
+        shredded?: boolean,
         minTotal?: number,
         searchTerm?: string,
-    ) {
-        const retVal: GroupEmailSummary = {
-            details: {},
-            total: 0,
-        };
-
-        Object.entries(section.details).forEach(([reason, reasonData]) => {
-            let newTotal = 0;
-            const details = Object.entries(reasonData.summary).filter(
-                ([emailAddress, data]) => {
-                    let keep = true;
-                    if (minTotal && data.total < minTotal) {
-                        keep = false;
-                    }
-                    if (searchTerm && !emailAddress.includes(searchTerm)) {
-                        keep = false;
-                    }
-                    return keep;
-                },
-            );
-
-            details.forEach(([_, data]) => (newTotal += data.total));
-
-            if (details.length) {
-                retVal.details[reason] = {
-                    summary: Object.fromEntries(details),
-                    total: newTotal,
-                };
-
-                retVal.total += newTotal;
-            }
-        });
-
-        return retVal;
+    ): Promise<ListResource<Email.Model>> {
+        return buildListResource(
+            await this.dataSummaryService.getRecords(searchTerm, shredded),
+        );
     }
 
     public reconcileReport() {
