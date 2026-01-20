@@ -1,10 +1,10 @@
 import { DiscordService } from "./DiscordService";
 import { mock, MockProxy } from "jest-mock-extended";
-import Email from "../../entity/email";
+import { Outlook } from "../../entity/outlook";
 import { JunkEvaluation } from "../junk/JunkService";
 import { DiscordEmailNotificationService } from "./DiscordEmailNotificationService";
 
-const mockEvaluation: [Email, JunkEvaluation] = [
+const mockEvaluation: [Outlook.Email, JunkEvaluation] = [
     {
         id: "aaa-bbb-ccc",
         receivedDateTime: "2025 Mar 7",

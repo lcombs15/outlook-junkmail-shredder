@@ -1,4 +1,4 @@
-import Email from "../../entity/email";
+import { Outlook } from "../../entity/outlook";
 import { JunkStrategy } from "./strategy/JunkStrategy";
 import { BogusNewsletterStrategy } from "./strategy/BogusNewsletterStrategy";
 import { BogusOnMicrosoftStrategy } from "./strategy/BogusOnMicrosoftStrategy";
@@ -24,7 +24,7 @@ export class JunkService {
         ],
     ) {}
 
-    public evaluate(email: Email): JunkEvaluation {
+    public evaluate(email: Outlook.Email): JunkEvaluation {
         const match = this.strategies.find((strat) => strat.appliesTo(email));
 
         return {

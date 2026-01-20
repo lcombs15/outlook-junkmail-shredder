@@ -1,6 +1,6 @@
-import Email from "../../../entity/email";
+import { Outlook } from "../../../entity/outlook";
 
 export interface JunkStrategy {
-    appliesTo(email: Email): boolean;
-    getReason(email: Email): string;
+    appliesTo(email: Outlook.Email): boolean;
+    getReason(email: Outlook.Email): string;
 }

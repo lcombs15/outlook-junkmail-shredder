@@ -1,8 +1,8 @@
 import { JunkStrategy } from "./JunkStrategy";
-import Email from "../../../entity/email";
+import { Outlook } from "../../../entity/outlook";
 
 export class DontKnowMyNameDotInfo implements JunkStrategy {
-    appliesTo({ from, subject }: Email): boolean {
+    appliesTo({ from, subject }: Outlook.Email): boolean {
         const emailAddress = from.emailAddress.address || "";
         const renewInfoRegex = /^(renew|renev|newsletter).....@.*.info$/;
 
@@ -14,7 +14,7 @@ export class DontKnowMyNameDotInfo implements JunkStrategy {
         );
     }
 
-    getReason(email: Email): string {
+    getReason(email: Outlook.Email): string {
         return "Don't know my name .info";
     }
 }

@@ -1,11 +1,11 @@
 import { DiscordService } from "./DiscordService";
-import Email, { EmailAddress } from "../../entity/email";
+import { Outlook } from "../../entity/outlook";
 import { JunkEvaluation } from "../junk/JunkService";
 
 export class DiscordEmailNotificationService {
     public constructor(private discordService: DiscordService) {}
 
-    private emailToString(address: EmailAddress): string {
+    private emailToString(address: Outlook.EmailAddress): string {
         if (!address?.emailAddress) {
             return "";
         }
@@ -15,7 +15,7 @@ export class DiscordEmailNotificationService {
 
     public async sendEmailMessage(
         messageTitle: string,
-        emails: Array<[Email, JunkEvaluation]>,
+        emails: Array<[Outlook.Email, JunkEvaluation]>,
     ) {
         return this.discordService.sendMessage(
             messageTitle,

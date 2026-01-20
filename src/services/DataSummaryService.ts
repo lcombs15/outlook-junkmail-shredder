@@ -1,6 +1,6 @@
 import { JsonFileStore } from "../tools/JsonFileStore";
 import { GroupEmailSummary, SummaryReport } from "../entity/SummaryReport";
-import Email from "../entity/email";
+import { Outlook } from "../entity/outlook";
 import { JunkEvaluation } from "./junk/JunkService";
 import { buildEmail } from "../tools/buildEmail";
 
@@ -26,7 +26,7 @@ export class DataSummaryService {
 
     private updateSection(
         section: GroupEmailSummary,
-        messages: Array<[Email, JunkEvaluation]>,
+        messages: Array<[Outlook.Email, JunkEvaluation]>,
     ): void {
         messages.forEach(([email, evaluation]) => {
             const senderEmail = email.from.emailAddress.address;
@@ -71,13 +71,13 @@ export class DataSummaryService {
     }
 
     public recordDeletedMessages(
-        messages: Array<[Email, JunkEvaluation]>,
+        messages: Array<[Outlook.Email, JunkEvaluation]>,
     ): void {
         this.updateSection(this.report.deleted, messages);
     }
 
     public recordIgnoredMessages(
-        messages: Array<[Email, JunkEvaluation]>,
+        messages: Array<[Outlook.Email, JunkEvaluation]>,
     ): void {
         this.updateSection(this.report.ignored, messages);
     }
@@ -90,7 +90,7 @@ export class DataSummaryService {
      * @param reconcileFn
      */
     public reconcileIgnoredMessages(
-        reconcileFn: (email: Email) => JunkEvaluation,
+        reconcileFn: (email: Outlook.Email) => JunkEvaluation,
     ): void {
         const ignoredSection = this.report.ignored;
 
@@ -115,13 +115,12 @@ export class DataSummaryService {
         allIgnoredSummaries.forEach(({ emailAddress, timestamps }) => {
             const evaluation = reconcileFn(buildEmail(emailAddress));
 
-            const reportArgs: Array<[Email, JunkEvaluation]> = timestamps.map(
-                (timestamp) => {
+            const reportArgs: Array<[Outlook.Email, JunkEvaluation]> =
+                timestamps.map((timestamp) => {
                     const email = buildEmail(emailAddress);
                     email.receivedDateTime = timestamp;
                     return [email, evaluation];
-                },
-            );
+                });
 
             if (evaluation.isJunk) {
                 this.recordDeletedMessages(reportArgs);
