@@ -9,8 +9,7 @@ export class HealthRestController extends BaseRestController {
     }
 
     healthCheck: RequestHandler = async (_, res) => {
-        this.getService();
-
+        this.service.getReport();
         return res.status(202).send();
     };
 }

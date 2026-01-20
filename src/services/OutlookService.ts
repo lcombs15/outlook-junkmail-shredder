@@ -5,9 +5,10 @@ export class OutlookService {
     private graphClient;
     private static MAX_BATCH_SIZE = 20;
 
-    public constructor(accessToken: string) {
+    public constructor(accessTokenProvider: () => Promise<string>) {
         this.graphClient = Client.init({
-            authProvider: (done) => done(null, accessToken),
+            authProvider: (done) =>
+                accessTokenProvider().then((token) => done(null, token)),
         });
     }
 

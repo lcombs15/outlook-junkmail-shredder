@@ -11,7 +11,7 @@ export class OutlookRestController extends BaseRestController {
 
     sweepJunkEmails: RequestHandler = async (_, res) => {
         console.log("On demand run triggered");
-        this.getService().sweepJunkEmails();
+        this.service.sweepJunkEmails();
         return res
             .status(200)
             .send(`Junk email cleanup complete - ${new Date().toISOString()}`);
@@ -19,7 +19,7 @@ export class OutlookRestController extends BaseRestController {
 
     clearIgnoredEmails: RequestHandler = async (_, res) => {
         console.log("Delete ignored messages triggered");
-        await this.getService().deleteIgnoredMessages();
+        await this.service.deleteIgnoredMessages();
         return res
             .status(200)
             .send(`Ignored messages deleted - ${new Date().toISOString()}`);
