@@ -28,7 +28,9 @@ export class JunkmailShredderService {
             environmentService,
         );
         this.dataSummaryService = new DataSummaryService(
-            new EmailPersistenceService(new DatabaseService()),
+            new EmailPersistenceService(
+                new DatabaseService(environmentService),
+            ),
         );
     }
 

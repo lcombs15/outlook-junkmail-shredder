@@ -1,15 +1,20 @@
 import knex, { Knex } from "knex";
+import { EnvironmentService } from "../EnvironmentService";
+import { EnvironmentVariableName } from "../../entity/EnvironmentVariable";
 
 export class DatabaseService {
     private readonly db: Knex<any, any[]>;
 
     private readonly databaseReady: Promise<any>;
 
-    constructor() {
+    constructor(environmentService: EnvironmentService) {
         this.db = knex<any, any[]>({
             client: "better-sqlite3",
             connection: {
-                filename: `./database.sqlite3`,
+                filename:
+                    environmentService.getValue(
+                        EnvironmentVariableName.DATABASE_FILE,
+                    ) || "./database.sqlite3",
             },
         });
 
