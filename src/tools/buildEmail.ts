@@ -1,7 +1,7 @@
-import Email from "../entity/email";
+import { Outlook } from "../entity/outlook";
 
-export function buildEmail(address?: string): Email {
-    const tempEmail: Partial<Email> = {
+export function buildEmail(address?: string): Outlook.Email {
+    const tempEmail: Partial<Outlook.Email> = {
         from: {
             emailAddress: {
                 address,
@@ -10,5 +10,5 @@ export function buildEmail(address?: string): Email {
         },
     };
 
-    return tempEmail as Email;
+    return tempEmail as Outlook.Email;
 }

@@ -1,5 +1,5 @@
 import { JunkStrategy } from "./JunkStrategy";
-import Email from "../../../entity/email";
+import { Outlook } from "../../../entity/outlook";
 
 export class BogusNewsletterStrategy implements JunkStrategy {
     private static config: { [reason: string]: RegExp } = {
@@ -18,7 +18,7 @@ export class BogusNewsletterStrategy implements JunkStrategy {
         ["Omaha Steaks"]: /^info@omahasteaks.*\.com$/,
     };
 
-    private calculateReason(email: Email): string | null {
+    private calculateReason(email: Outlook.Email): string | null {
         const emailAddress = email.from.emailAddress.address || "";
         return (
             Object.entries(BogusNewsletterStrategy.config).find(([, expr]) =>
@@ -27,11 +27,11 @@ export class BogusNewsletterStrategy implements JunkStrategy {
         );
     }
 
-    appliesTo(email: Email): boolean {
+    appliesTo(email: Outlook.Email): boolean {
         return !!this.calculateReason(email);
     }
 
-    getReason(email: Email): string {
+    getReason(email: Outlook.Email): string {
         return `Bogus newsletter - ${this.calculateReason(email)}`;
     }
 }

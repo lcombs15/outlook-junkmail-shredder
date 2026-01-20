@@ -1,5 +1,5 @@
 import { Client } from "@microsoft/microsoft-graph-client";
-import Email from "../entity/email";
+import { Outlook } from "../entity/outlook";
 
 export class OutlookService {
     private graphClient;
@@ -12,7 +12,7 @@ export class OutlookService {
         });
     }
 
-    public async listJunkEmails(): Promise<Array<Email>> {
+    public async listJunkEmails(): Promise<Array<Outlook.Email>> {
         const response = await this.graphClient
             .api("/me/mailFolders/junkemail/messages")
             .select(
@@ -22,10 +22,10 @@ export class OutlookService {
             .orderby("receivedDateTime desc")
             .get();
 
-        return response.value as Array<Email>;
+        return response.value as Array<Outlook.Email>;
     }
 
-    public async deleteEmails(emails: Array<Email>): Promise<void> {
+    public async deleteEmails(emails: Array<Outlook.Email>): Promise<void> {
         if (!emails.length) {
             return;
         }

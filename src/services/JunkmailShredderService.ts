@@ -7,7 +7,7 @@ import { DataSummaryService } from "./DataSummaryService";
 import { JsonFileStore } from "../tools/JsonFileStore";
 import { EnvironmentVariableName } from "../entity/EnvironmentVariable";
 import { OutlookService } from "./OutlookService";
-import Email from "../entity/email";
+import { Outlook } from "../entity/outlook";
 import { GroupEmailSummary, SummaryReport } from "../entity/SummaryReport";
 
 export class JunkmailShredderService {
@@ -44,12 +44,11 @@ export class JunkmailShredderService {
 
         const emails = await emailClient.listJunkEmails();
 
-        const junkEvaluations: Array<[Email, JunkEvaluation]> = emails.map(
-            (email) => [email, this.junkService.evaluate(email)],
-        );
+        const junkEvaluations: Array<[Outlook.Email, JunkEvaluation]> =
+            emails.map((email) => [email, this.junkService.evaluate(email)]);
 
-        const emailsToDelete: Array<[Email, JunkEvaluation]> = [];
-        const ignoredMessages: Array<[Email, JunkEvaluation]> = [];
+        const emailsToDelete: Array<[Outlook.Email, JunkEvaluation]> = [];
+        const ignoredMessages: Array<[Outlook.Email, JunkEvaluation]> = [];
 
         junkEvaluations.forEach((entry) => {
             const destination = entry[1].isJunk

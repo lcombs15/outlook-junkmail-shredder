@@ -3,7 +3,7 @@ import { JsonFileStore } from "./tools/JsonFileStore";
 import { SummaryReport } from "./entity/SummaryReport";
 import { mock, MockProxy } from "jest-mock-extended";
 import { buildEmail } from "./tools/buildEmail";
-import Email from "./entity/email";
+import { Outlook } from "./entity/outlook";
 import { JunkEvaluation } from "./services/junk/JunkService";
 
 describe("DataSummaryService", () => {
@@ -14,7 +14,7 @@ describe("DataSummaryService", () => {
         junkReason: string;
         emailAddress: string;
         timestamp: string;
-    }): [Email, JunkEvaluation] {
+    }): [Outlook.Email, JunkEvaluation] {
         const email = buildEmail(args.emailAddress);
 
         email.receivedDateTime = args.timestamp;

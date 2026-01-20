@@ -1,5 +1,5 @@
 import { JunkStrategy } from "./JunkStrategy";
-import Email from "../../../entity/email";
+import { Outlook } from "../../../entity/outlook";
 
 export class IllegalDomainStrategy implements JunkStrategy {
     private readonly illegalDomains = [
@@ -39,7 +39,7 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "supervivedoob.info",
     ];
 
-    appliesTo(email: Email): boolean {
+    appliesTo(email: Outlook.Email): boolean {
         const emailAddress = email.from.emailAddress.address;
         const domain = emailAddress?.split("@")[1] || "";
 
@@ -48,7 +48,7 @@ export class IllegalDomainStrategy implements JunkStrategy {
         );
     }
 
-    getReason(email: Email): string {
+    getReason(email: Outlook.Email): string {
         return "Email from known illegal domain";
     }
 }

@@ -1,8 +1,8 @@
 import { JunkStrategy } from "./JunkStrategy";
-import Email from "../../../entity/email";
+import { Outlook } from "../../../entity/outlook";
 
 export class IllegalTopLevelDomainStrategy implements JunkStrategy {
-    appliesTo(email: Email): boolean {
+    appliesTo(email: Outlook.Email): boolean {
         const emailAddress = email.from.emailAddress.address || "";
         return [
             ".de",
@@ -16,7 +16,7 @@ export class IllegalTopLevelDomainStrategy implements JunkStrategy {
         ].some((tld) => emailAddress.endsWith(tld));
     }
 
-    getReason(email: Email): string {
+    getReason(email: Outlook.Email): string {
         return "Illegal top-level domain";
     }
 }
