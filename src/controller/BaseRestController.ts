@@ -3,7 +3,8 @@ import { JunkmailShredderService } from "../services/JunkmailShredderService";
 
 export abstract class BaseRestController {
     protected abstract rootRoute: string;
-    protected service: JunkmailShredderService = new JunkmailShredderService();
+
+    constructor(protected service: JunkmailShredderService) {}
 
     public getRoute(): string {
         return this.rootRoute;
