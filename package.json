@@ -5,7 +5,6 @@
     "main": "index.js",
     "scripts": {
         "main:dev": "ts-node src/main.ts",
-        "lucas:dev": "SUMMARY_FILE=./summary.json ts-node src/lucas.ts",
         "main": "node ./bin/main.js",
         "api:dev": "ts-node src/api.ts",
         "api": "node ./bin/api.js",

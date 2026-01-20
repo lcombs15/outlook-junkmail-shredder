@@ -12,7 +12,9 @@ export class SummaryRestController extends BaseRestController {
     }
 
     getSummary: RequestHandler = async (_, res) => {
-        return res.status(200).send(this.service.getReport());
+        return res
+            .status(200)
+            .send(await this.service.searchRecords(undefined, undefined));
     };
 
     queryReport: (reportType: "ignored" | "deleted") => RequestHandler =
@@ -22,8 +24,8 @@ export class SummaryRestController extends BaseRestController {
             return res
                 .status(200)
                 .send(
-                    service.searchReport(
-                        service.getReport()[reportType],
+                    await service.searchRecords(
+                        reportType === "deleted",
                         minTotal ? Number.parseInt(minTotal) : undefined,
                         req.query.searchTerm as string,
                     ),

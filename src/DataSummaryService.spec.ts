@@ -5,10 +5,12 @@ import { mock, MockProxy } from "jest-mock-extended";
 import { buildEmail } from "./tools/buildEmail";
 import { Outlook } from "./entity/outlook";
 import { JunkEvaluation } from "./services/junk/JunkService";
+import { EmailPersistenceService } from "./services/db/EmailPersistenceService";
 
 describe("DataSummaryService", () => {
     let sut: DataSummaryService;
     let fileStore: MockProxy<JsonFileStore<SummaryReport>>;
+    let persistenceService: MockProxy<EmailPersistenceService>;
 
     function getMockMessage(args: {
         junkReason: string;
@@ -30,8 +32,9 @@ describe("DataSummaryService", () => {
 
     beforeEach(() => {
         fileStore = mock();
+        persistenceService = mock();
         fileStore.read.mockImplementation((defaultValue) => defaultValue);
-        sut = new DataSummaryService(fileStore);
+        sut = new DataSummaryService(persistenceService);
     });
 
     it("should initialize the report with the correct values", () => {
@@ -44,7 +47,7 @@ describe("DataSummaryService", () => {
     it("should handle some deletions", () => {
         // This should only record the 'yesterday' deletion once
         for (let i = 0; i < 5; i++) {
-            sut.recordDeletedMessages([
+            sut.record([
                 getMockMessage({
                     junkReason: "junk reason 1",
                     emailAddress: "deleted1@junk.com",
@@ -53,7 +56,7 @@ describe("DataSummaryService", () => {
             ]);
         }
 
-        sut.recordDeletedMessages([
+        sut.record([
             getMockMessage({
                 junkReason: "junk reason 1",
                 emailAddress: "deleted1@junk.com",
@@ -61,7 +64,7 @@ describe("DataSummaryService", () => {
             }),
         ]);
 
-        sut.recordDeletedMessages([
+        sut.record([
             getMockMessage({
                 junkReason: "junk reason 2",
                 emailAddress: "deleted3@junk.com",
@@ -80,7 +83,7 @@ describe("DataSummaryService", () => {
         const REASON_2 = "reason 2";
         const REASON_IGNORED = "ignored";
 
-        sut.recordIgnoredMessages([
+        sut.record([
             getMockMessage({
                 junkReason: REASON_IGNORED,
                 timestamp: "LAST WEEK",
@@ -98,7 +101,7 @@ describe("DataSummaryService", () => {
             }),
         ]);
 
-        sut.recordDeletedMessages([
+        sut.record([
             getMockMessage({
                 junkReason: REASON_1,
                 timestamp: "TODAY",
