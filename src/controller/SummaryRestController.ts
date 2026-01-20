@@ -12,12 +12,12 @@ export class SummaryRestController extends BaseRestController {
     }
 
     getSummary: RequestHandler = async (_, res) => {
-        return res.status(200).send(this.getService().getReport());
+        return res.status(200).send(this.service.getReport());
     };
 
     queryReport: (reportType: "ignored" | "deleted") => RequestHandler =
         (reportType) => async (req, res) => {
-            const service = this.getService();
+            const service = this.service;
             const minTotal = req.query.minTotal as string;
             return res
                 .status(200)
@@ -32,7 +32,7 @@ export class SummaryRestController extends BaseRestController {
 
     reconcile: RequestHandler = async (_, res) => {
         console.log("Report reconciliation triggered");
-        this.getService().reconcileReport();
+        this.service.reconcileReport();
         return res
             .status(204)
             .send(`Completed reconciliation - ${new Date().toISOString()}`);

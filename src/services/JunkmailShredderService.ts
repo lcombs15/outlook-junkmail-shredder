@@ -16,7 +16,6 @@ export class JunkmailShredderService {
     private readonly authService: AuthenticationService;
     private readonly junkService = new JunkService();
     private readonly dataSummaryService: DataSummaryService;
-    private accessToken: string | undefined = undefined;
 
     constructor(environmentService = new EnvironmentService()) {
         this.discordService = new DiscordService(environmentService, fetch);
@@ -37,9 +36,7 @@ export class JunkmailShredderService {
     }
 
     private async getEmailClient() {
-        this.accessToken =
-            this.accessToken || (await this.authService.getAccessToken());
-        return new OutlookService(this.accessToken);
+        return new OutlookService(() => this.authService.getAccessToken());
     }
 
     private async getCurrentEmails() {
