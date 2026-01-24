@@ -69,9 +69,7 @@ describe("DataSummaryService", () => {
             }),
         ]);
 
-        sut.flush();
-
-        expect(fileStore.write).toHaveBeenCalledTimes(1);
+        expect(fileStore.write).toHaveBeenCalledTimes(7);
         expect(fileStore.write.mock.calls[0][0]).toMatchSnapshot(
             "Handful of deletions",
         );
@@ -113,7 +111,6 @@ describe("DataSummaryService", () => {
             }),
         ]);
 
-        sut.flush();
         expect(fileStore.write.mock.calls[0][0]).toMatchSnapshot(
             "Pre reconcile",
         );
@@ -127,8 +124,6 @@ describe("DataSummaryService", () => {
                 reason: isJunk ? REASON_1 : REASON_IGNORED,
             };
         });
-
-        sut.flush();
 
         expect(fileStore.write.mock.calls[1][0]).toMatchSnapshot(
             "After reconcile",

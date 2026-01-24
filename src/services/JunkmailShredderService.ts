@@ -100,13 +100,13 @@ export class JunkmailShredderService {
                 },
             ]);
         }
-
-        this.dataSummaryService.flush();
     }
 
     public sweepJunkEmails(): void {
         this.run()
-            .then()
+            .then(() => {
+                console.log("Run Complete.");
+            })
             .catch((error) => {
                 console.error(error);
                 this.discordService
@@ -121,7 +121,6 @@ export class JunkmailShredderService {
         const { ignoredMessages } = await this.getCurrentEmails();
 
         this.dataSummaryService.recordIgnoredMessages(ignoredMessages);
-        this.dataSummaryService.flush();
 
         const emailClient = await this.getEmailClient();
         await emailClient.deleteEmails(ignoredMessages.map(([email]) => email));
@@ -179,7 +178,5 @@ export class JunkmailShredderService {
         this.dataSummaryService.reconcileIgnoredMessages((email) => {
             return this.junkService.evaluate(email);
         });
-
-        this.dataSummaryService.flush();
     }
 }

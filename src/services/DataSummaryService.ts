@@ -33,6 +33,10 @@ export class DataSummaryService {
             const reason = evaluation.reason;
 
             if (!senderEmail) {
+                console.log(
+                    "Not recording message due to missing from address",
+                    { ...email },
+                );
                 return;
             }
 
@@ -68,6 +72,7 @@ export class DataSummaryService {
                 0,
             );
         });
+        this.flush();
     }
 
     public recordDeletedMessages(
@@ -128,9 +133,12 @@ export class DataSummaryService {
                 this.recordIgnoredMessages(reportArgs);
             }
         });
+
+        this.flush();
     }
 
-    public flush(): void {
+    private flush(): void {
+        console.log("Writing summary report");
         this.summaryFileStore.write(this.report);
     }
 
