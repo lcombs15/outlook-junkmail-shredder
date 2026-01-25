@@ -25,4 +25,10 @@ export class EmailPersistenceService {
                 ["%", query?.searchTerm ?? "", "%"].join(""),
             );
     }
+
+    async getById(id: number): Promise<Email.Model | undefined> {
+        const connection = await this.db.getDatabase();
+
+        return connection("emails").select().where("id", id).first();
+    }
 }

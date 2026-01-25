@@ -1,4 +1,3 @@
-import { EnvironmentService } from "./EnvironmentService";
 import { DiscordService } from "./discord/DiscordService";
 import { DiscordEmailNotificationService } from "./discord/DiscordEmailNotificationService";
 import { AuthenticationService } from "./AuthenticationService";
@@ -7,9 +6,8 @@ import { DataSummaryService } from "./DataSummaryService";
 import { OutlookService } from "./OutlookService";
 import { Outlook } from "../entity/outlook";
 import { Email } from "../entity/db/Email";
-import { DatabaseService } from "./db/DatabaseService";
-import { EmailPersistenceService } from "./db/EmailPersistenceService";
-import { buildListResource, ListResource } from "../Resource/ListResource";
+import { buildListResource, ListResource } from "../resource/ListResource";
+import { AppContext } from "../context/buildAppContext";
 
 export class JunkmailShredderService {
     private readonly discordService: DiscordService;
@@ -18,20 +16,11 @@ export class JunkmailShredderService {
     private readonly junkService = new JunkService();
     private readonly dataSummaryService: DataSummaryService;
 
-    constructor(environmentService = new EnvironmentService()) {
-        this.discordService = new DiscordService(environmentService, fetch);
-        this.discordEmailService = new DiscordEmailNotificationService(
-            this.discordService,
-        );
-        this.authService = new AuthenticationService(
-            this.discordService,
-            environmentService,
-        );
-        this.dataSummaryService = new DataSummaryService(
-            new EmailPersistenceService(
-                new DatabaseService(environmentService),
-            ),
-        );
+    constructor(appContext: AppContext) {
+        this.discordService = appContext.discordService;
+        this.discordEmailService = appContext.discordEmailService;
+        this.authService = appContext.authService;
+        this.dataSummaryService = appContext.dataSummaryService;
     }
 
     private async getEmailClient() {

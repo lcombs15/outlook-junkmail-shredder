@@ -1,22 +1,21 @@
 import express from "express";
-import { BaseRestController } from "./controller/BaseRestController";
-import { SummaryRestController } from "./controller/SummaryRestController";
 import { OutlookRestController } from "./controller/OutlookRestController";
 import { HealthRestController } from "./controller/HealthRestController";
 import { JunkmailShredderService } from "./services/JunkmailShredderService";
+import { buildAppContext } from "./context/buildAppContext";
+import { HistoryRestController } from "./controller/HistoryRestController";
 
 const api = express();
 const port = 3000;
 
-const service = new JunkmailShredderService();
+const appContext = buildAppContext();
+const service = new JunkmailShredderService(appContext);
 
-const controllers: Array<BaseRestController> = [
-    SummaryRestController,
-    OutlookRestController,
-    HealthRestController,
-].map((controller) => new controller(service));
-
-controllers.forEach((controller) => {
+[
+    new OutlookRestController(service),
+    new HealthRestController(service),
+    new HistoryRestController(appContext.historyService),
+].forEach((controller) => {
     const router = express.Router();
     controller.registerRoutes(router);
     api.use(controller.getRoute(), router);
