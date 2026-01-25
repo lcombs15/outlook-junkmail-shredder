@@ -1,8 +1,13 @@
 import { BaseRestController } from "./BaseRestController";
 import { RequestHandler, Router } from "express";
+import { JunkmailShredderService } from "../services/JunkmailShredderService";
 
 export class OutlookRestController extends BaseRestController {
     protected rootRoute: string = "/outlook";
+
+    constructor(private service: JunkmailShredderService) {
+        super();
+    }
 
     registerRoutes(router: Router): void {
         router.post("/sweepJunkmail", this.sweepJunkEmails);
