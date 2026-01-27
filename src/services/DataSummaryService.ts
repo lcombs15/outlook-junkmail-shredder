@@ -21,7 +21,7 @@ export class DataSummaryService {
     }
 
     constructor(private summaryFileStore: JsonFileStore<SummaryReport>) {
-        this.report = summaryFileStore.read(this.getDefaultReport());
+        this.report = this.getReport();
     }
 
     private updateSection(
@@ -143,6 +143,6 @@ export class DataSummaryService {
     }
 
     public getReport(): SummaryReport {
-        return JSON.parse(JSON.stringify(this.report));
+        return this.summaryFileStore.read(this.getDefaultReport());
     }
 }
