@@ -1,0 +1,34 @@
+import { DatabaseService } from "./DatabaseService";
+import { Email } from "../../entity/db/Email";
+
+export class EmailPersistenceService {
+    constructor(private db: DatabaseService) {}
+
+    async create(emails: Array<Email.Create>): Promise<Array<number>> {
+        return (await this.db.getDatabase()).batchInsert("emails", emails);
+    }
+
+    async find(query?: {
+        shredded?: boolean;
+        searchTerm?: string;
+    }): Promise<Email.Model[]> {
+        const connection = await this.db.getDatabase();
+
+        return connection("emails")
+            .select("*")
+            .whereIn(
+                "was_shredded",
+                query?.shredded == undefined ? [true, false] : [query.shredded],
+            )
+            .andWhereLike(
+                "from_address",
+                ["%", query?.searchTerm ?? "", "%"].join(""),
+            );
+    }
+
+    async getById(id: number): Promise<Email.Model | undefined> {
+        const connection = await this.db.getDatabase();
+
+        return connection("emails").select().where("id", id).first();
+    }
+}

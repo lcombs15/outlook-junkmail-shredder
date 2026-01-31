@@ -1,166 +1,30 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`DataSummaryService should handle reconciliation of ignored messages: After reconcile 1`] = `
-{
-  "deleted": {
-    "details": {
-      "reason 1": {
-        "summary": {
-          "delete@me.com": {
-            "timestamps": [
-              "TODAY",
-              "LAST WEEK",
-            ],
-            "total": 2,
-          },
-        },
-        "total": 2,
-      },
-      "reason 2": {
-        "summary": {
-          "anotherDeleted@me.com": {
-            "timestamps": [
-              "TODAY",
-            ],
-            "total": 1,
-          },
-        },
-        "total": 1,
-      },
-    },
-    "total": 3,
+exports[`DataSummaryService should handle some deletions: Handful of records 1`] = `
+[
+  {
+    "from_address": "deleted1@junk.com",
+    "send_date": "YESTERDAY",
+    "shredded_reason": "junk reason 1",
+    "was_shredded": 1,
   },
-  "ignored": {
-    "details": {
-      "ignored": {
-        "summary": {
-          "some2@randon.email": {
-            "timestamps": [
-              "YESTERDAY",
-            ],
-            "total": 1,
-          },
-          "some@randon.email": {
-            "timestamps": [
-              "YESTERDAY",
-            ],
-            "total": 1,
-          },
-        },
-        "total": 2,
-      },
-    },
-    "total": 2,
+  {
+    "from_address": "deleted1@junk.com",
+    "send_date": "TODAY",
+    "shredded_reason": "junk reason 1",
+    "was_shredded": 1,
   },
-}
-`;
-
-exports[`DataSummaryService should handle reconciliation of ignored messages: Pre reconcile 1`] = `
-{
-  "deleted": {
-    "details": {
-      "reason 1": {
-        "summary": {
-          "delete@me.com": {
-            "timestamps": [
-              "TODAY",
-            ],
-            "total": 1,
-          },
-        },
-        "total": 1,
-      },
-      "reason 2": {
-        "summary": {
-          "anotherDeleted@me.com": {
-            "timestamps": [
-              "TODAY",
-            ],
-            "total": 1,
-          },
-        },
-        "total": 1,
-      },
-    },
-    "total": 2,
+  {
+    "from_address": "deleted3@junk.com",
+    "send_date": "TODAY",
+    "shredded_reason": "junk reason 2",
+    "was_shredded": 1,
   },
-  "ignored": {
-    "details": {
-      "ignored": {
-        "summary": {
-          "delete@me.com": {
-            "timestamps": [
-              "LAST WEEK",
-            ],
-            "total": 1,
-          },
-          "some2@randon.email": {
-            "timestamps": [
-              "YESTERDAY",
-            ],
-            "total": 1,
-          },
-          "some@randon.email": {
-            "timestamps": [
-              "YESTERDAY",
-            ],
-            "total": 1,
-          },
-        },
-        "total": 3,
-      },
-    },
-    "total": 3,
+  {
+    "from_address": "legit@mail.com",
+    "send_date": "LAST WEEK",
+    "shredded_reason": "ignored",
+    "was_shredded": 0,
   },
-}
-`;
-
-exports[`DataSummaryService should handle some deletions: Handful of deletions 1`] = `
-{
-  "deleted": {
-    "details": {
-      "junk reason 1": {
-        "summary": {
-          "deleted1@junk.com": {
-            "timestamps": [
-              "YESTERDAY",
-              "TODAY",
-            ],
-            "total": 2,
-          },
-        },
-        "total": 2,
-      },
-      "junk reason 2": {
-        "summary": {
-          "deleted3@junk.com": {
-            "timestamps": [
-              "TODAY",
-            ],
-            "total": 1,
-          },
-        },
-        "total": 1,
-      },
-    },
-    "total": 3,
-  },
-  "ignored": {
-    "details": {},
-    "total": 0,
-  },
-}
-`;
-
-exports[`DataSummaryService should initialize the report with the correct values: Default file store 1`] = `
-{
-  "deleted": {
-    "details": {},
-    "total": 0,
-  },
-  "ignored": {
-    "details": {},
-    "total": 0,
-  },
-}
+]
 `;
