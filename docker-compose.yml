@@ -1,4 +1,14 @@
 services:
+    sqlite-web:
+        container_name: junkmail-db-portal
+        restart: unless-stopped
+        ports:
+            - 3005:8080
+        image: coleifer/sqlite-web
+        environment:
+            - SQLITE_DATABASE=database.sqlite3
+        volumes:
+            - /opt/onedrive/outlook-junkmail-shredder:/data
     outlook-junkmail-shredder:
         build: .
         container_name: outlook-junkmail-shredder
