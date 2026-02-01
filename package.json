@@ -4,14 +4,13 @@
     "description": "Automatically remove junk from Outlook account",
     "main": "index.js",
     "scripts": {
-        "main:dev": "ts-node src/main.ts",
-        "main": "node ./bin/main.js",
-        "api:dev": "ts-node src/api.ts",
-        "api": "node ./bin/api.js",
+        "start:dev": "ts-node src/main.ts",
+        "start": "node ./bin/main.js",
         "lint": "npx prettier . --check",
         "lint:format": "npx prettier . --write",
-        "build": "tsc",
-        "test": "jest"
+        "build": "rm -rf ./bin && tsc",
+        "test": "jest",
+        "make:migration": "knex migrate:make"
     },
     "keywords": [
         "live",

@@ -16,15 +16,38 @@ export class DatabaseService {
                         EnvironmentVariableName.DATABASE_FILE,
                     ) || "./database.sqlite3",
             },
+            useNullAsDefault: true,
         });
 
-        this.databaseReady = this.db.migrate.latest();
+        this.databaseReady = this.handleMigration();
 
         this.databaseReady
-            .then(() => console.log("Database migrated"))
+            .then()
             .catch((error) =>
                 console.error("Error migrating database:", error),
             );
+    }
+
+    private async handleMigration(): Promise<void> {
+        const config = {
+            directory: "src/migrations",
+        };
+
+        const status = await this.db.migrate.status(config).catch((error) => {
+            console.error("Error getting migration status:", error);
+            return -10;
+        });
+
+        if (status < 0) {
+            console.log("Migrating database.");
+            await this.db.migrate.latest(config);
+            console.log("Migration complete.");
+        }
+    }
+
+    public async close(): Promise<void> {
+        await this.databaseReady;
+        await this.db.destroy();
     }
 
     public async getDatabase(): Promise<Knex<any, any[]>> {

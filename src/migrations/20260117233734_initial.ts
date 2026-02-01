@@ -26,7 +26,7 @@ export async function up(knex: Knex): Promise<void> {
         table.datetime("send_date").notNullable();
         table.timestamps(true, true);
         table.string("shredded_reason", 255).notNullable();
-        table.unique(["from_address", "send_date", "was_shredded"]);
+        table.unique(["from_address", "send_date"]);
     });
 
     const summaryFile = process.env[SUMMARY_FILE_VAR];
@@ -40,27 +40,45 @@ export async function up(knex: Knex): Promise<void> {
             isDeleted: boolean,
             section: SummaryContent,
         ) => {
-            const rows: Array<{
-                from_address: string;
-                send_date: string;
-                was_shredded: boolean;
-                shredded_reason: string;
-            }> = [];
+            const rows: Record<
+                string,
+                {
+                    from_address: string;
+                    send_date: string;
+                    was_shredded: boolean;
+                    shredded_reason: string;
+                }
+            > = {};
 
             Object.entries(section.details).forEach(([reason, { summary }]) => {
                 Object.entries(summary).forEach(([address, { timestamps }]) => {
                     timestamps.forEach((timestamp) => {
-                        rows.push({
+                        const hashKey = `${address}-${timestamp}`;
+
+                        const rowToAdd = {
                             from_address: address,
                             send_date: timestamp,
                             was_shredded: isDeleted,
                             shredded_reason: reason,
-                        });
+                        };
+
+                        if (rows[hashKey]) {
+                            const thisReason = rowToAdd.shredded_reason;
+                            const thatReason = rows[hashKey].shredded_reason;
+
+                            // Pick the longest reason
+                            rowToAdd.shredded_reason =
+                                thisReason.length > thatReason.length
+                                    ? thisReason
+                                    : thatReason;
+                        }
+
+                        rows[hashKey] = rowToAdd;
                     });
                 });
             });
 
-            await knex.batchInsert(TABLE_NAME, rows, 100);
+            await knex.batchInsert(TABLE_NAME, Object.values(rows), 100);
         };
 
         await processSection(true, deleted);
