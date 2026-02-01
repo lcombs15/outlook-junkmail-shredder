@@ -32,8 +32,10 @@ export function buildAppContext(
         discordService,
         environmentService,
     );
+
+    const databaseService = new DatabaseService(environmentService);
     const emailPersistenceService = new EmailPersistenceService(
-        new DatabaseService(environmentService),
+        databaseService,
     );
 
     const dataSummaryService = new DataSummaryService(emailPersistenceService);

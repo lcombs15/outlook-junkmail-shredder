@@ -62,11 +62,10 @@ export class JunkmailShredderService {
             await emailClient
                 .deleteEmails(emailsToDelete.map(([email]) => email))
                 .then(() => {
-                    this.discordEmailService.sendEmailMessage(
-                        "Deleted messages",
-                        emailsToDelete,
-                    );
-                    this.dataSummaryService.record(emailsToDelete);
+                    this.discordEmailService
+                        .sendEmailMessage("Deleted messages", emailsToDelete)
+                        .then();
+                    this.dataSummaryService.record(emailsToDelete).then();
                 });
         }
 
@@ -90,9 +89,7 @@ export class JunkmailShredderService {
 
     public sweepJunkEmails(): void {
         this.run()
-            .then(() => {
-                console.log("Run Complete.");
-            })
+            .then()
             .catch((error) => {
                 console.error(error);
                 this.discordService

@@ -4,7 +4,4 @@ source /etc/profile
 
 echo Running app - $(date)
 
-cd /app
-npm run main
-
-ls -al /mnt/logs
+curl -X POST http://localhost:3000/outlook/sweepJunkmail
