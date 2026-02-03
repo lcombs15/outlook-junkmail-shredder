@@ -8,14 +8,20 @@ describe("EmailPersistenceService", () => {
     let environmentService: MockProxy<EnvironmentService> =
         mock<EnvironmentService>();
 
+    let db: DatabaseService;
+
     let service: EmailPersistenceService;
 
     beforeEach(() => {
         environmentService.getValue.mockReturnValue(":memory:");
 
-        service = new EmailPersistenceService(
-            new DatabaseService(environmentService),
-        );
+        db = new DatabaseService(environmentService);
+
+        service = new EmailPersistenceService(db);
+    });
+
+    afterEach(() => {
+        db.close();
     });
 
     it("Can persist a single record and retrieve it", async () => {

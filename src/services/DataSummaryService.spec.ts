@@ -1,9 +1,9 @@
-import { DataSummaryService } from "./services/DataSummaryService";
+import { DataSummaryService } from "./DataSummaryService";
 import { mock, MockProxy } from "jest-mock-extended";
-import { buildEmail } from "./tools/buildEmail";
-import { Outlook } from "./entity/outlook";
-import { JunkEvaluation } from "./services/junk/JunkService";
-import { EmailPersistenceService } from "./services/db/EmailPersistenceService";
+import { buildEmail } from "../tools/buildEmail";
+import { Outlook } from "../entity/outlook";
+import { JunkEvaluation } from "./junk/JunkService";
+import { EmailPersistenceService } from "./db/EmailPersistenceService";
 
 describe("DataSummaryService", () => {
     let sut: DataSummaryService;
