@@ -13,11 +13,13 @@ describe("DataSummaryService", () => {
         junkReason: string;
         emailAddress: string;
         timestamp: string;
+        subject?: string;
         deleted: boolean;
     }): [Outlook.Email, JunkEvaluation] {
         const email = buildEmail(args.emailAddress);
 
         email.receivedDateTime = args.timestamp;
+        email.subject = args.subject;
 
         return [
             email,
@@ -39,6 +41,7 @@ describe("DataSummaryService", () => {
                 junkReason: "junk reason 1",
                 emailAddress: "deleted1@junk.com",
                 timestamp: "YESTERDAY",
+                subject: "Sale starts today",
                 deleted: true,
             }),
             getMockMessage({

@@ -3,4 +3,5 @@ module.exports = {
         directory: "src/migrations",
         extension: "ts",
     },
+    useNullAsDefault: true,
 };

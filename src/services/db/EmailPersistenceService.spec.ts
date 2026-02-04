@@ -30,6 +30,7 @@ describe("EmailPersistenceService", () => {
                 send_date: "2024-01-10",
                 shredded_reason: "I am not buying",
                 from_address: "test@example.com",
+                subject_line: "hello subject line",
                 was_shredded: 1,
             },
         ]);
@@ -43,6 +44,7 @@ describe("EmailPersistenceService", () => {
         expect(persistedRecord?.shredded_reason).toBe("I am not buying");
         expect(persistedRecord?.from_address).toBe("test@example.com");
         expect(persistedRecord?.was_shredded).toBe(1);
+        expect(persistedRecord?.subject_line).toBe("hello subject line");
         expect(persistedRecord?.id).toBe(1);
         expect(persistedRecord?.created_at).toBeTruthy();
         expect(persistedRecord?.updated_at).toBeTruthy();
@@ -70,6 +72,7 @@ describe("EmailPersistenceService", () => {
                     send_date: "2024-01-10",
                     shredded_reason: "I am not buying",
                     from_address: "shred@example.com",
+                    subject_line: "hello world",
                     was_shredded: 1,
                 },
                 {
@@ -131,6 +134,25 @@ describe("EmailPersistenceService", () => {
                 expect(result.length).toEqual(param.expectedIds.length);
                 expect(result.map((row) => row.id)).toEqual(param.expectedIds);
             });
+        });
+    });
+
+    describe("Subject line", () => {
+        it("should truncate large values", async () => {
+            const inputEntity: Email.Create = {
+                send_date: "2024-01-10",
+                shredded_reason: "I am not buying",
+                from_address: "shred@example.com",
+                subject_line: new Array(400).fill("hello").join(""),
+                was_shredded: 1,
+            };
+
+            const result = await service.create([inputEntity]);
+            expect(inputEntity.subject_line?.length).toBeGreaterThan(500);
+
+            const persisted = await service.getById(result[0]);
+            expect(persisted?.subject_line).toBeTruthy();
+            expect(persisted?.subject_line?.length).toBeGreaterThan(500);
         });
     });
 });
