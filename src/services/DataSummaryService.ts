@@ -20,6 +20,7 @@ export class DataSummaryService {
                         from_address: from,
                         was_shredded: evaluation.isJunk ? 1 : 0,
                         send_date: email.receivedDateTime,
+                        subject_line: email.subject,
                         shredded_reason: evaluation.reason,
                     };
 

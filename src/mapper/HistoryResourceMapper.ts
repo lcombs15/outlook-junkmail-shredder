@@ -8,6 +8,7 @@ export class HistoryResourceMapper {
             fromEmail: entity.from_address,
             wasShredded: !!entity.was_shredded,
             shreddedReason: entity.shredded_reason,
+            subject: entity.subject_line,
             receiveAt: entity.send_date,
         };
     }

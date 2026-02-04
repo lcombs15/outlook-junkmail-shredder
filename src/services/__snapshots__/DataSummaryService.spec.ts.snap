@@ -6,24 +6,28 @@ exports[`DataSummaryService should handle some deletions: Handful of records 1`]
     "from_address": "deleted1@junk.com",
     "send_date": "YESTERDAY",
     "shredded_reason": "junk reason 1",
+    "subject_line": "Sale starts today",
     "was_shredded": 1,
   },
   {
     "from_address": "deleted1@junk.com",
     "send_date": "TODAY",
     "shredded_reason": "junk reason 1",
+    "subject_line": undefined,
     "was_shredded": 1,
   },
   {
     "from_address": "deleted3@junk.com",
     "send_date": "TODAY",
     "shredded_reason": "junk reason 2",
+    "subject_line": undefined,
     "was_shredded": 1,
   },
   {
     "from_address": "legit@mail.com",
     "send_date": "LAST WEEK",
     "shredded_reason": "ignored",
+    "subject_line": undefined,
     "was_shredded": 0,
   },
 ]
