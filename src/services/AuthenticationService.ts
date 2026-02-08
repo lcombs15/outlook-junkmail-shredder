@@ -91,7 +91,6 @@ export class AuthenticationService {
                     const silentResult =
                         await pca.acquireTokenSilent(silentRequest);
                     if (silentResult) {
-                        console.debug("Token acquired silently");
                         return silentResult.accessToken;
                     }
                 }

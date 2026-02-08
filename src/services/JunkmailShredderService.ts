@@ -5,8 +5,6 @@ import { JunkEvaluation, JunkService } from "./junk/JunkService";
 import { DataSummaryService } from "./DataSummaryService";
 import { OutlookService } from "./OutlookService";
 import { Outlook } from "../entity/outlook";
-import { Email } from "../entity/db/Email";
-import { buildListResource, ListResource } from "../resource/ListResource";
 import { AppContext } from "../context/buildAppContext";
 
 export class JunkmailShredderService {
@@ -111,21 +109,5 @@ export class JunkmailShredderService {
             "Cleared Ignored Messages",
             ignoredMessages,
         );
-    }
-
-    public async searchRecords(
-        shredded?: boolean,
-        minTotal?: number,
-        searchTerm?: string,
-    ): Promise<ListResource<Email.Model>> {
-        return buildListResource(
-            await this.dataSummaryService.getRecords(searchTerm, shredded),
-        );
-    }
-
-    public reconcileReport() {
-        this.dataSummaryService.reconcileIgnoredMessages((email) => {
-            return this.junkService.evaluate(email);
-        });
     }
 }

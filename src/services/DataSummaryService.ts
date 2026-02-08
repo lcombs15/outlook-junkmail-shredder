@@ -29,27 +29,4 @@ export class DataSummaryService {
                 .filter((result) => !!result),
         );
     }
-
-    /**
-     * Reconcile the ignored messages with the current state of the email client.
-     * This will migrate ignored messages to the deleted section if they are no longer being ignored.
-     *
-     * This helps keep the ignored report slim to new rules can be easily added.
-     * @param reconcileFn
-     */
-    public reconcileIgnoredMessages(
-        reconcileFn: (email: Outlook.Email) => JunkEvaluation,
-    ): void {
-        throw new Error("Method not implemented.");
-    }
-
-    public async getRecords(
-        searchTerm?: string,
-        shredded?: boolean,
-    ): Promise<Array<Email.Model>> {
-        return await this.emailPersistenceService.find({
-            shredded,
-            searchTerm,
-        });
-    }
 }

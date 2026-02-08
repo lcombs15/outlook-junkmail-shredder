@@ -13,7 +13,10 @@ const service = new JunkmailShredderService(appContext);
 
 [
     new OutlookRestController(service),
-    new HealthRestController(service),
+    new HealthRestController(
+        appContext.emailPersistenceService,
+        appContext.authService,
+    ),
     new HistoryRestController(appContext.historyService),
 ].forEach((controller) => {
     const router = express.Router();
