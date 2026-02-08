@@ -13,6 +13,7 @@ export interface AppContext {
     discordEmailService: DiscordEmailNotificationService;
     authService: AuthenticationService;
     dataSummaryService: DataSummaryService;
+    emailPersistenceService: EmailPersistenceService;
     historyService: HistoryService;
 }
 
@@ -50,6 +51,7 @@ export function buildAppContext(
         discordEmailService,
         authService,
         dataSummaryService,
+        emailPersistenceService,
         historyService,
     };
 }

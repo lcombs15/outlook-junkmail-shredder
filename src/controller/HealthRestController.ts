@@ -1,11 +1,15 @@
 import { BaseRestController } from "./BaseRestController";
 import { RequestHandler, Router } from "express";
-import { JunkmailShredderService } from "../services/JunkmailShredderService";
+import { EmailPersistenceService } from "../services/db/EmailPersistenceService";
+import { AuthenticationService } from "../services/AuthenticationService";
 
 export class HealthRestController extends BaseRestController {
     protected rootRoute = "/healthcheck";
 
-    constructor(private service: JunkmailShredderService) {
+    constructor(
+        private emailPersistenceService: EmailPersistenceService,
+        private authService: AuthenticationService,
+    ) {
         super();
     }
 
@@ -14,7 +18,26 @@ export class HealthRestController extends BaseRestController {
     }
 
     healthCheck: RequestHandler = async (_, res) => {
-        await this.service.searchRecords();
-        return res.status(202).send();
+        this.tryOperation(
+            this.authService.getAccessToken(),
+            "Service is unable to authenticate",
+        );
+        this.tryOperation(
+            // Silly search term to make sure the result set isn't large
+            this.emailPersistenceService.find({ searchTerm: "xyz" }),
+            "Database is not available",
+        );
+
+        return res.status(202).send("Junkmail service running.");
     };
+
+    private tryOperation =
+        (operation: Promise<unknown>, errorMessage: string): RequestHandler =>
+        async (_, res) => {
+            try {
+                await operation;
+            } catch (error) {
+                return res.status(503).send(errorMessage);
+            }
+        };
 }
