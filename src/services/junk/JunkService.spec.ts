@@ -72,6 +72,8 @@ describe("JunkService", () => {
         "newsletter@supervivedoob.info",
         "noreply@67._comixstapless.store",
         "Cloud-Storage.team.11686@Account-Services.74394.KLUNIVERSITYH.IN",
+        "news@viewseven.com",
+        "sleepgrambamboosheetsaff@yourbestprofits.com",
     ];
 
     const notJunkEmails: Array<string> = [
