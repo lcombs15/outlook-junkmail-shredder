@@ -40,4 +40,12 @@ export class EmailPersistenceService {
 
         return connection("emails").select().where("id", id).first();
     }
+
+    async markAsShredded(id: number, reason: string): Promise<void> {
+        const connection = await this.db.getDatabase();
+
+        await connection("emails")
+            .where("id", id)
+            .update({ was_shredded: 1, shredded_reason: reason });
+    }
 }

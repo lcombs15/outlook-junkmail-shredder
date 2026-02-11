@@ -32,3 +32,16 @@ exports[`DataSummaryService should handle some deletions: Handful of records 1`]
   },
 ]
 `;
+
+exports[`DataSummaryService should reconcile ignored messages 1`] = `
+[
+  "Reconciled messages",
+  [
+    {
+      "from": "test@example.com",
+      "id": "456",
+      "reason": "crazy subject line",
+    },
+  ],
+]
+`;
