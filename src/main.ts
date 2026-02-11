@@ -12,7 +12,7 @@ const appContext = buildAppContext();
 const service = new JunkmailShredderService(appContext);
 
 [
-    new OutlookRestController(service),
+    new OutlookRestController(service, appContext.dataSummaryService),
     new HealthRestController(
         appContext.emailPersistenceService,
         appContext.authService,

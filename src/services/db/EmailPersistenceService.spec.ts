@@ -155,4 +155,21 @@ describe("EmailPersistenceService", () => {
             expect(persisted?.subject_line?.length).toBeGreaterThan(500);
         });
     });
+
+    it("Should mark as shredded when requested", async () => {
+        const persisted = await service.create([
+            {
+                send_date: "2024-01-10",
+                shredded_reason: "I am not buying",
+                from_address: "test@example.com",
+                subject_line: "hello subject line",
+                was_shredded: 0,
+            },
+        ]);
+        await service.markAsShredded(persisted[0], "I said so");
+
+        const shredded = await service.getById(persisted[0]);
+        expect(shredded?.was_shredded).toBe(1);
+        expect(shredded?.shredded_reason).toBe("I said so");
+    });
 });

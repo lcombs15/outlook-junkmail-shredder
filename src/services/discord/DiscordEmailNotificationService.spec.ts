@@ -49,8 +49,6 @@ describe("DiscordEmailNotificationService", () => {
 
     let discordService: MockProxy<DiscordService> = mock<DiscordService>();
 
-    const expectedUrl = "mydiscord.com/the-server/stuff";
-
     beforeEach(() => {
         service = new DiscordEmailNotificationService(discordService);
     });

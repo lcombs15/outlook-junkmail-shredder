@@ -11,13 +11,14 @@ export class JunkmailShredderService {
     private readonly discordService: DiscordService;
     private readonly discordEmailService: DiscordEmailNotificationService;
     private readonly authService: AuthenticationService;
-    private readonly junkService = new JunkService();
+    private readonly junkService: JunkService;
     private readonly dataSummaryService: DataSummaryService;
 
     constructor(appContext: AppContext) {
         this.discordService = appContext.discordService;
         this.discordEmailService = appContext.discordEmailService;
         this.authService = appContext.authService;
+        this.junkService = appContext.junkService;
         this.dataSummaryService = appContext.dataSummaryService;
     }
 

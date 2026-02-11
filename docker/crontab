@@ -1,1 +1,2 @@
-0 8-19 * * * /app/docker/run-me-cron.sh >> /mnt/logs/cron.log 2>&1
+0 8-19 * * * /app/docker/sweep.sh >> /mnt/logs/cron.log 2>&1
+30 8-19 * * * /app/docker/reconcile.sh >> /mnt/logs/cron.log 2>&1
