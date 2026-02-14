@@ -100,22 +100,22 @@ describe("EmailPersistenceService", () => {
             {
                 filter: undefined,
                 testCase: "find all",
-                expectedIds: [1, 2, 3, 4],
+                expectedIds: [4, 3, 2, 1],
             },
             {
                 filter: { shredded: true },
                 testCase: "shredded",
-                expectedIds: [1, 2],
+                expectedIds: [2, 1],
             },
             {
                 filter: { shredded: false },
                 testCase: "not shredded",
-                expectedIds: [3, 4],
+                expectedIds: [4, 3],
             },
             {
                 filter: { searchTerm: "shred" },
                 testCase: "search term",
-                expectedIds: [1, 2],
+                expectedIds: [2, 1],
             },
             {
                 filter: { searchTerm: "shredd", shredded: true },

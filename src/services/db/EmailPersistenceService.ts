@@ -32,7 +32,8 @@ export class EmailPersistenceService {
             .andWhereLike(
                 "from_address",
                 ["%", query?.searchTerm ?? "", "%"].join(""),
-            );
+            )
+            .orderBy("id", "desc");
     }
 
     async getById(id: number): Promise<Email.Model | undefined> {
