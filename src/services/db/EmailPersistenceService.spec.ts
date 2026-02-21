@@ -135,6 +135,12 @@ describe("EmailPersistenceService", () => {
                 expect(result.map((row) => row.id)).toEqual(param.expectedIds);
             });
         });
+
+        it("Should count", async () => {
+            const result = await service.getCount();
+
+            expect(result.count).toBe(4)
+        });
     });
 
     describe("Subject line", () => {
@@ -172,4 +178,5 @@ describe("EmailPersistenceService", () => {
         expect(shredded?.was_shredded).toBe(1);
         expect(shredded?.shredded_reason).toBe("I said so");
     });
+
 });
