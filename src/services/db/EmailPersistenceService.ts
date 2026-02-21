@@ -49,4 +49,17 @@ export class EmailPersistenceService {
             .where("id", id)
             .update({ was_shredded: 1, shredded_reason: reason });
     }
+
+    async getCount(): Promise<{count: number}> {
+        const connection = await this.db.getDatabase();
+
+        const result = await connection("emails")
+            .count<Record<string, number>>('* as theCount')
+            .whereLike("send_date", "%2024%")
+            .first();
+
+        return {
+            count: (result || {})?.theCount || 0,
+        };
+    }
 }
