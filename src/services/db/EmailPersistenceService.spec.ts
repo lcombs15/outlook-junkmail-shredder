@@ -30,6 +30,7 @@ describe("EmailPersistenceService", () => {
                 send_date: "2024-01-10",
                 shredded_reason: "I am not buying",
                 from_address: "test@example.com",
+                sender_address: "sender@example.com",
                 subject_line: "hello subject line",
                 was_shredded: 1,
             },
@@ -43,6 +44,7 @@ describe("EmailPersistenceService", () => {
         expect(persistedRecord?.send_date).toBe("2024-01-10");
         expect(persistedRecord?.shredded_reason).toBe("I am not buying");
         expect(persistedRecord?.from_address).toBe("test@example.com");
+        expect(persistedRecord?.sender_address).toBe("sender@example.com");
         expect(persistedRecord?.was_shredded).toBe(1);
         expect(persistedRecord?.subject_line).toBe("hello subject line");
         expect(persistedRecord?.id).toBe(1);

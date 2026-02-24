@@ -24,6 +24,7 @@ export class DataSummaryService {
 
                     const record: Email.Create = {
                         from_address: from,
+                        sender_address: email.sender.emailAddress.address,
                         was_shredded: evaluation.isJunk ? 1 : 0,
                         send_date: email.receivedDateTime,
                         subject_line: email.subject,
