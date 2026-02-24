@@ -18,8 +18,13 @@ cron || echo "Cron running already" >> $LOG_FILE
 echo "Starting REST api" >> $LOG_FILE
 npm run start >> $LOG_FILE &
 
+while ! curl http://localhost:3000/healthcheck; do
+  sleep 5
+done
+echo "Service is up and running!"
+
 # Run right away to auth
-/app/docker/run-me-cron.sh | tee -a $LOG_FILE
+/app/docker/sweep.sh | tee -a $LOG_FILE
 
 # Keep container running
 tail -n 0 -f $LOG_FILE
