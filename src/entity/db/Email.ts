@@ -4,6 +4,7 @@ export namespace Email {
     export interface Model {
         id: number;
         from_address: string;
+        sender_address?: string;
         was_shredded: 0 | 1;
         send_date: string;
         subject_line?: string;

@@ -44,8 +44,8 @@ describe("DataSummaryService", () => {
         );
     });
 
-    it("should handle some deletions", () => {
-        sut.record([
+    it("should handle some deletions", async () => {
+        await sut.record([
             getMockMessage({
                 junkReason: "junk reason 1",
                 emailAddress: "deleted1@junk.com",

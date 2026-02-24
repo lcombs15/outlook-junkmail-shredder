@@ -8,6 +8,12 @@ export function buildEmail(address?: string): Outlook.Email {
                 name: "",
             },
         },
+        sender: {
+            emailAddress: {
+                name: "",
+                address: `sender_${address}`,
+            },
+        },
     };
 
     return tempEmail as Outlook.Email;
