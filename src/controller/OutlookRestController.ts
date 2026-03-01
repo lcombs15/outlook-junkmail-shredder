@@ -24,7 +24,9 @@ export class OutlookRestController extends BaseRestController {
         this.junkmailShredderService.sweepJunkEmails();
         return res
             .status(200)
-            .send(`Junk email cleanup complete - ${new Date().toISOString()}`);
+            .send(
+                `Junk email cleanup complete - ${new Date().toISOString()}\n`,
+            );
     };
 
     clearIgnoredEmails: RequestHandler = async (_, res) => {
@@ -32,7 +34,7 @@ export class OutlookRestController extends BaseRestController {
         await this.junkmailShredderService.deleteIgnoredMessages();
         return res
             .status(200)
-            .send(`Ignored messages deleted - ${new Date().toISOString()}`);
+            .send(`Ignored messages deleted - ${new Date().toISOString()}\n`);
     };
 
     reconcileData: RequestHandler = async (_, res) => {
@@ -40,6 +42,6 @@ export class OutlookRestController extends BaseRestController {
 
         return res
             .status(200)
-            .send(`Data reconciled - ${new Date().toISOString()}`);
+            .send(`Data reconciled - ${new Date().toISOString()}\n`);
     };
 }
