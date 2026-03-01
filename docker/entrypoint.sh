@@ -18,7 +18,7 @@ cron || echo "Cron running already" >> $LOG_FILE
 echo "Starting REST api" >> $LOG_FILE
 npm run start >> $LOG_FILE &
 
-while ! curl http://localhost:3000/healthcheck; do
+while ! curl --silent http://localhost:3000/healthcheck; do
   sleep 5
 done
 echo "Service is up and running!"
