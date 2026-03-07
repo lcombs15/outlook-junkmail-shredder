@@ -3,7 +3,6 @@ import {
     DeviceCodeRequest,
     PublicClientApplication,
 } from "@azure/msal-node";
-import clipboard from "clipboardy";
 import * as fs from "fs";
 import * as path from "path";
 import { DiscordService } from "./discord/DiscordService";
@@ -60,9 +59,6 @@ export class AuthenticationService {
                 ])
                 .then();
             this.discordService.sendMessage(response.userCode, []).then();
-            try {
-                clipboard.writeSync(response.userCode);
-            } catch (ignore) {}
         },
         scopes: [
             "https://graph.microsoft.com/Mail.ReadWrite",
