@@ -74,6 +74,7 @@ describe("JunkService", () => {
         "Cloud-Storage.team.11686@Account-Services.74394.KLUNIVERSITYH.IN",
         "news@viewseven.com",
         "sleepgrambamboosheetsaff@yourbestprofits.com",
+        "UnitedHealthcare.5969298969221@Oral-B.DentalKit-700949423401991.SMANEGERI4KENDARI.ONMICROSOFT.COM",
     ];
 
     const notJunkEmails: Array<string> = [
