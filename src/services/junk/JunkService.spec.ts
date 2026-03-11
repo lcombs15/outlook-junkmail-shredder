@@ -75,6 +75,14 @@ describe("JunkService", () => {
         "news@viewseven.com",
         "sleepgrambamboosheetsaff@yourbestprofits.com",
         "UnitedHealthcare.5969298969221@Oral-B.DentalKit-700949423401991.SMANEGERI4KENDARI.ONMICROSOFT.COM",
+        "Account-Protection.Services-5717153534469@Total.Protection-129814014458812.THDEDU.ONMICROSOFT.COM",
+        "CBS-Health.News.7335736462488@Medical.Desk-880091691160419.THDEDU.ONMICROSOFT.COM",
+        "Cloud-Security.4522220898076@Updates.733541193833446.CNCEDUHK.ONMICROSOFT.COM",
+        "Gelatin.Sculpt-Diet.0393266719851@Breaking-News.245123495455033.SLTZN.ONMICROSOFT.COM",
+        "Gundry.MD-8125195668313@Updates.73907.PGKMANDALPUNE.ONMICROSOFT.COM",
+        "Health-Update.7390536499740@Weight-Loss-Discovery.000446696866186.PGKMANDALPUNE.ONMICROSOFT.COM",
+        "Ringing.Ears-Protocol.5359200503755@CNN.World.060501310008260.APSCHEEDU.ONMICROSOFT.COM",
+        "Tinnitus.UPDATE1504003262886@Dr.Oz-269424378562584.CNCEDUHK.ONMICROSOFT.COM",
     ];
 
     const notJunkEmails: Array<string> = [
