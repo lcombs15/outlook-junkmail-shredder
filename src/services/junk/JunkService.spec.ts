@@ -83,6 +83,7 @@ describe("JunkService", () => {
         "Health-Update.7390536499740@Weight-Loss-Discovery.000446696866186.PGKMANDALPUNE.ONMICROSOFT.COM",
         "Ringing.Ears-Protocol.5359200503755@CNN.World.060501310008260.APSCHEEDU.ONMICROSOFT.COM",
         "Tinnitus.UPDATE1504003262886@Dr.Oz-269424378562584.CNCEDUHK.ONMICROSOFT.COM",
+        "renew.5KVO7@ginnybedellphotography.com",
     ];
 
     const notJunkEmails: Array<string> = [
