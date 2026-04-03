@@ -63,7 +63,7 @@ export class DataSummaryService {
 
         if (recordsToUpdate.length) {
             await this.discordService.sendMessage(
-                "Reconciled messages",
+                `Reconciled messages (${recordsToUpdate.length})`,
                 recordsToUpdate.map(({ record, evaluation }) => {
                     return {
                         from: record.from_address,
