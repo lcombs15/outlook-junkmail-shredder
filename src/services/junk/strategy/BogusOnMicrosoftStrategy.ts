@@ -5,10 +5,10 @@ export class BogusOnMicrosoftStrategy implements JunkStrategy {
     appliesTo(email: Outlook.Email): boolean {
         const emailAddress = email.from.emailAddress.address || "";
         const newsOnmicrosoftRegex = /^(new)?.*[0-9]+@.*\.onmicrosoft.com$/;
-        const allCapsOnMicrosoftRegex =
-            /@([A-Za-z-.]+[.-]([0-9]+)\.([A-Z0-9]+).ONMICROSOFT.COM)/;
+        const longFormOnMicrosoftRegex =
+            /@([A-Za-z-.]+[.-]*([0-9]+)\.([a-zA-Z0-9]+).(ONMICROSOFT.COM|onmicrosoft.com))/;
 
-        return [newsOnmicrosoftRegex, allCapsOnMicrosoftRegex].some((regex) =>
+        return [newsOnmicrosoftRegex, longFormOnMicrosoftRegex].some((regex) =>
             regex.test(emailAddress),
         );
     }

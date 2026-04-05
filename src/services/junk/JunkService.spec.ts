@@ -84,6 +84,10 @@ describe("JunkService", () => {
         "Ringing.Ears-Protocol.5359200503755@CNN.World.060501310008260.APSCHEEDU.ONMICROSOFT.COM",
         "Tinnitus.UPDATE1504003262886@Dr.Oz-269424378562584.CNCEDUHK.ONMICROSOFT.COM",
         "renew.5KVO7@ginnybedellphotography.com",
+        "medvisupport@s96qskrgiftspecialty.com",
+        "chargecardwireless@kn07k1bgiftspecialty.com",
+        "Daily.Weight-Loss.8ENSS0GI5Y@Nutrition.1129499538905663.smanegeri4kendari.onmicrosoft.com",
+        "Cloud.Admin.8310350389248555@Data.Retention7173221252609272.SMANEGERI4KENDARI.ONMICROSOFT.COM",
     ];
 
     const notJunkEmails: Array<string> = [
