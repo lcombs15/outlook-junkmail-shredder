@@ -91,6 +91,14 @@ describe("JunkService", () => {
         "keraniquehair@suujr4starlincko.online",
         "bettersleepteam@1kqrlhstarlincko.online",
         "a🅟‍🅟‍le🅘‍d@‍🅘‍d.‍a🅟‍🅟‍le.‍c‍o🅜",
+        "ap🅟‍le🅘‍d@‍🅘‍d.‍ap🅟‍le.‍c‍o🅜",
+        "ap🅟‍le🅘‍d@‍🅘‍d.‍a🅟‍🅟‍le.‍c‍o🅜",
+        "a🅟‍p🅛‍e🅘‍d@‍🅘‍d.‍a🅟‍p🅛‍e.‍c‍o🅜",
+        "a🅟‍p🅛‍🅔‍🅘‍🅓‍@‍🅘‍🅓‍.‍a🅟‍🅟‍🅛‍🅔‍.‍c‍o🅜",
+        "a🅟‍🅟‍le🅘‍d@‍🅘‍d.‍a🅟‍ple.‍c‍o🅜",
+        "🅐‍🅟‍🅟‍🅛‍ei🅓‍@‍🅘‍d.‍a🅟‍🅟‍🅛‍e.‍c‍o🅜",
+        "🅐‍🅟‍🅟‍🅛‍e🅘‍d@‍i🅓‍.‍a🅟‍🅟‍le.‍c‍o🅜",
+        "🅐‍🅟‍🅟‍🅛‍e🅘‍🅓‍@‍i🅓‍.‍a🅟‍🅟‍🅛‍e.‍c‍o🅜",
     ];
 
     const notJunkEmails: Array<string> = [
@@ -105,6 +113,7 @@ describe("JunkService", () => {
         "support@myfitnesspal.com",
         "support@restomods.com",
         "firstlast@nku.onmicrosoft.com",
+        "appleid@id.apple.com",
     ];
 
     const service = new JunkService();
