@@ -88,6 +88,9 @@ describe("JunkService", () => {
         "chargecardwireless@kn07k1bgiftspecialty.com",
         "Daily.Weight-Loss.8ENSS0GI5Y@Nutrition.1129499538905663.smanegeri4kendari.onmicrosoft.com",
         "Cloud.Admin.8310350389248555@Data.Retention7173221252609272.SMANEGERI4KENDARI.ONMICROSOFT.COM",
+        "keraniquehair@suujr4starlincko.online",
+        "bettersleepteam@1kqrlhstarlincko.online",
+        "a🅟‍🅟‍le🅘‍d@‍🅘‍d.‍a🅟‍🅟‍le.‍c‍o🅜",
     ];
 
     const notJunkEmails: Array<string> = [
