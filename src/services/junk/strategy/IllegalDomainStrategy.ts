@@ -31,6 +31,7 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "·onmicrosoft.·com",
         "dogchitchat.com",
         "mail-donfranklinmitsubishi.intdash.com",
+        "mail-donfranklinhardincountyford.intdash.com",
         "verenagros.com",
         "shibeatdoge.com",
         "beehiiv.com",
