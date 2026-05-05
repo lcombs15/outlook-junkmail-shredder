@@ -36,6 +36,6 @@
         "@microsoft/microsoft-graph-client": "^3.0.7",
         "better-sqlite3": "^12.9.0",
         "express": "^5.2.1",
-        "knex": "^3.2.9"
+        "knex": "^3.2.10"
     }
 }
