@@ -10,6 +10,8 @@ import { EnvironmentService } from "./EnvironmentService";
 import { EnvironmentVariableName } from "../entity/EnvironmentVariable";
 
 export class AuthenticationService {
+    private tokenQueue: Promise<string> = Promise.resolve("");
+
     private cacheFile = path.join(
         this.environmentService.getValue(
             EnvironmentVariableName.AUTH_DIRECTORY,
@@ -58,7 +60,14 @@ export class AuthenticationService {
                     },
                 ])
                 .then();
-            this.discordService.sendMessage(response.userCode, []).then();
+            this.discordService
+                .sendMessage(response.userCode, [
+                    {
+                        title,
+                        token: response.userCode,
+                    },
+                ])
+                .then();
         },
         scopes: [
             "https://graph.microsoft.com/Mail.ReadWrite",
@@ -72,7 +81,7 @@ export class AuthenticationService {
         private environmentService: EnvironmentService,
     ) {}
 
-    public async getAccessToken(): Promise<string> {
+    private async acquireToken(): Promise<string> {
         const pca = new PublicClientApplication(this.msalConfig);
         try {
             // Try to acquire token silently first (using refresh token from cache)
@@ -108,5 +117,12 @@ export class AuthenticationService {
             console.log(error);
         }
         return Promise.reject("Access token not found");
+    }
+
+    // Don't prompt for a ton of tokens
+    public async getAccessToken(): Promise<string> {
+        this.tokenQueue = this.tokenQueue.then(() => this.acquireToken());
+
+        return this.tokenQueue;
     }
 }
