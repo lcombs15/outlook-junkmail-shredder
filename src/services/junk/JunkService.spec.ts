@@ -104,6 +104,9 @@ describe("JunkService", () => {
         "reversemortgageassist@y0mya3hskystoria.online",
         "saatvaadvertisement@tnhrsx9alfresku.com",
         "saatvaadvertisement@21drb4talfresku.com",
+        "alert.fe0xG@jillharrelsonphotography.com",
+        "renewnrxfxn@selfdrivingev.com",
+        "appleid@‍id.‍app🅛‍e.‍com",
     ];
 
     const notJunkEmails: Array<string> = [
