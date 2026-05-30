@@ -107,6 +107,16 @@ describe("JunkService", () => {
         "alert.fe0xG@jillharrelsonphotography.com",
         "renewnrxfxn@selfdrivingev.com",
         "appleid@‍id.‍app🅛‍e.‍com",
+        "taxsupportadvisor@flowinhale.xyz",
+        "carowise@flowinhale.xyz",
+        "CloudNotify_89@---SyncService-G0Zxp.33851537.com",
+        "CloudNotify_14@---SyncService-0JelR.12300016.com",
+        "CloudNotify_73@---SyncService-QWOaT.53886773.com",
+        "noreply@universitiselangorunisel.s04.apj1.teams-events.com",
+        "noreply@tridentacademyoftechnology.s06.apj1.teams-events.com",
+        "noreply@paulcmason.s07.eur1.teams-events.com",
+        "noreply@kiara.s08.usa1.teams-events.com",
+        "noreply@natashaderham.s06.eur1.teams-events.com",
     ];
 
     const notJunkEmails: Array<string> = [

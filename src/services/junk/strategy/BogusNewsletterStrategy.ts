@@ -17,6 +17,10 @@ export class BogusNewsletterStrategy implements JunkStrategy {
             /^(support.*|([A-Z][a-z].*.){2}.{5})@.*\.my\.id$/,
         ["Omaha Steaks"]: /^info@omahasteaks.*\.com$/,
         ["Not Apple ID"]: /.*[🅐🅟🅛‍🅔‍🅘‍🅓]+.*@.*[🅐🅟🅛‍🅔‍🅘‍🅓]+.*\..+/,
+        ["noreply@teams-events.com"]:
+            /^noreply@[a-z]+\.s[0-9]{2}\..*teams-events.com$/,
+        ["CloudNotify + SyncService"]:
+            /^CloudNotify_[0-9]+@\-\-\-SyncService.*[0-9]+.com$/,
     };
 
     private calculateReason(email: Outlook.Email): string | null {
