@@ -32,7 +32,7 @@
         "typescript": "^5.9.3"
     },
     "dependencies": {
-        "@azure/msal-node": "^5.2.1",
+        "@azure/msal-node": "^5.2.2",
         "@microsoft/microsoft-graph-client": "^3.0.7",
         "better-sqlite3": "^12.10.0",
         "express": "^5.2.1",
