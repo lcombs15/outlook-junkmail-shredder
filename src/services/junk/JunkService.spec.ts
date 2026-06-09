@@ -117,6 +117,14 @@ describe("JunkService", () => {
         "noreply@paulcmason.s07.eur1.teams-events.com",
         "noreply@kiara.s08.usa1.teams-events.com",
         "noreply@natashaderham.s06.eur1.teams-events.com",
+        "avery.rodriguez@update02.onmicrosoft.com",
+        "emery.martin@bnvfrozenkings25.onmicrosoft.com",
+        "quinn.davis@organisation555.onmicrosoft.com",
+        "parker.jones@organisation88.onmicrosoft.com",
+        "avery.nguyen@update12.onmicrosoft.com",
+        "austin.rodriguez@update08.onmicrosoft.com",
+        "info@purchasingreviews.com",
+        "zYaJV9c4TPew8jO@jwgmedia.com",
     ];
 
     const notJunkEmails: Array<string> = [
