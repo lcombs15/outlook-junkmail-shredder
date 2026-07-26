@@ -9,7 +9,7 @@
         "lint": "npx prettier . --check",
         "lint:format": "npx prettier . --write",
         "build": "rm -rf ./bin && tsc",
-        "test": "jest",
+        "test": "nx jest:test",
         "make:migration": "knex migrate:make"
     },
     "keywords": [
@@ -29,7 +29,10 @@
         "prettier": "^3.9.5",
         "ts-jest": "^29.4.11",
         "ts-node": "^10.9.2",
-        "typescript": "^6.0.3"
+        "typescript": "^6.0.3",
+        "nx": "23.1.0",
+        "@nx/jest": "23.1.0",
+        "@nx/docker": "23.1.0"
     },
     "dependencies": {
         "@azure/msal-node": "^5.4.1",
@@ -37,5 +40,6 @@
         "better-sqlite3": "^12.11.1",
         "express": "^5.2.1",
         "knex": "^3.3.0"
-    }
+    },
+    "nx": {}
 }

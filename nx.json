@@ -1,0 +1,39 @@
+{
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "targetDefaults": {
+        "build": {
+            "outputs": ["{projectRoot}/bin"],
+            "cache": true
+        },
+        "lint": {
+            "cache": true
+        },
+        "lint:format": {
+            "cache": true
+        },
+        "test": {
+            "cache": true
+        }
+    },
+    "defaultBase": "master",
+    "analytics": false,
+    "plugins": [
+        {
+            "plugin": "@nx/jest/plugin",
+            "options": {
+                "targetName": "jest:test"
+            }
+        },
+        {
+            "plugin": "@nx/docker",
+            "options": {
+                "buildTarget": {
+                    "name": "docker:build"
+                },
+                "runTarget": {
+                    "name": "docker:run"
+                }
+            }
+        }
+    ]
+}
