@@ -7,22 +7,26 @@ RUN apt-get update && \
     apt-get install -y cron curl npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Create app directory
-WORKDIR /app
+WORKDIR /code
 
-COPY . .
+COPY *json .
+COPY .prett* .
+
+COPY apps/api ./apps/api
 
 RUN npm ci
 
-RUN npm run test
+RUN npx nx run apps/api:test
 
-RUN npm run lint
+RUN npx nx run apps/api:lint
 
-RUN npm run build
+RUN npx nx run apps/api:build
+
+WORKDIR /code/apps/api
 
 RUN chmod +x docker/*.sh
 
 RUN chmod 0644 ./docker/crontab && \
     crontab ./docker/crontab
 
-CMD ["/app/docker/entrypoint.sh"]
+CMD ["./docker/entrypoint.sh"]
