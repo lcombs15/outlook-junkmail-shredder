@@ -1,45 +1,10 @@
 {
-    "name": "outlook-junkmail-shredder",
-    "version": "1.0.0",
-    "description": "Automatically remove junk from Outlook account",
-    "main": "index.js",
-    "scripts": {
-        "start:dev": "ts-node src/main.ts",
-        "start": "node ./bin/main.js",
-        "lint": "npx prettier . --check",
-        "lint:format": "npx prettier . --write",
-        "build": "rm -rf ./bin && tsc",
-        "test": "nx jest:test",
-        "make:migration": "knex migrate:make"
-    },
-    "keywords": [
-        "live",
-        "outlook",
-        "junkmail"
+    "workspaces": [
+        "apps/*"
     ],
-    "author": "Lucas Combs",
-    "license": "MIT",
     "devDependencies": {
-        "@types/express": "^5.0.6",
-        "@types/jest": "^30.0.0",
-        "@types/node": "^26.1.2",
-        "jest": "^30.4.2",
-        "jest-environment-node": "^30.3.0",
-        "jest-mock-extended": "^4.0.1",
-        "prettier": "^3.9.6",
-        "ts-jest": "^29.4.12",
-        "ts-node": "^10.9.2",
-        "typescript": "^6.0.3",
         "nx": "23.1.0",
         "@nx/jest": "23.1.0",
         "@nx/docker": "23.1.0"
-    },
-    "dependencies": {
-        "@azure/msal-node": "^5.4.2",
-        "@microsoft/microsoft-graph-client": "^3.0.7",
-        "better-sqlite3": "^13.0.2",
-        "express": "^5.2.1",
-        "knex": "^3.3.0"
-    },
-    "nx": {}
+    }
 }

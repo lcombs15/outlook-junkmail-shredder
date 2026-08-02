@@ -1,7 +1,7 @@
 node_modules/
 .npm
 
-/bin
+bin/
 
 *.log
 
@@ -9,8 +9,10 @@ node_modules/
 .DS_Store
 
 # Refresh token files
-*token.json
-*cache.json
+msal-cache.json
+*cache*json
+*token*
+
 *.sqlite3
 *summary*json
 coverage/

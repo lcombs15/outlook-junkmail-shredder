@@ -2,7 +2,7 @@
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
     "targetDefaults": {
         "build": {
-            "outputs": ["{projectRoot}/bin"],
+            "outputs": ["{workspaceRoot}/bin"],
             "cache": true
         },
         "lint": {
