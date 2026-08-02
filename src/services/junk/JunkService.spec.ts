@@ -136,6 +136,7 @@ describe("JunkService", () => {
         "outlet@yovkova.com",
         "outlet@hovnova.com",
         "phietro.oliveira@escola.pr.gov.br",
+        "KaxLnHhkekxl8Fk@blissfulambience.com",
     ];
 
     const notJunkEmails: Array<string> = [
