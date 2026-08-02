@@ -37,7 +37,7 @@
     "dependencies": {
         "@azure/msal-node": "^5.4.2",
         "@microsoft/microsoft-graph-client": "^3.0.7",
-        "better-sqlite3": "^13.0.1",
+        "better-sqlite3": "^13.0.2",
         "express": "^5.2.1",
         "knex": "^3.3.0"
     },
