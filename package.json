@@ -5,6 +5,6 @@
     "devDependencies": {
         "nx": "23.1.1",
         "@nx/jest": "23.1.0",
-        "@nx/docker": "23.1.0"
+        "@nx/docker": "23.1.1"
     }
 }
