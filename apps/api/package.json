@@ -6,8 +6,6 @@
     "scripts": {
         "start:dev": "ts-node src/main.ts",
         "start": "node ./bin/main.js",
-        "lint": "npx prettier . --check",
-        "lint:format": "npx prettier . --write",
         "build": "rm -rf ./bin && tsc",
         "test": "nx jest:test",
         "make:migration": "knex migrate:make"
@@ -26,7 +24,6 @@
         "jest": "^30.4.2",
         "jest-environment-node": "^30.3.0",
         "jest-mock-extended": "^4.0.1",
-        "prettier": "^3.9.6",
         "ts-jest": "^29.4.12",
         "ts-node": "^10.9.2",
         "typescript": "^6.0.3"

@@ -2,6 +2,10 @@
     "workspaces": [
         "apps/*"
     ],
+    "scripts": {
+        "lint": "npx nx format:check",
+        "lint:format": "npx nx format:write"
+    },
     "devDependencies": {
         "nx": "23.1.1",
         "@nx/jest": "23.1.0",
