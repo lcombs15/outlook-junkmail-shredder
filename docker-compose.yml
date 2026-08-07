@@ -38,6 +38,14 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - auth:/mnt/auth
       - /opt/onedrive/outlook-junkmail-shredder:/mnt/logs
+  outlook-junkmail-shredder-portal:
+    build:
+      dockerfile: ./apps/web/Dockerfile
+      context: .
+    container_name: outlook-junkmail-shredder-portal
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
 
 secrets:
   outlook_app_client_id:
