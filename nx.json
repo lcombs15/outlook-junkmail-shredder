@@ -5,12 +5,6 @@
             "outputs": ["{workspaceRoot}/bin"],
             "cache": true
         },
-        "lint": {
-            "cache": true
-        },
-        "lint:format": {
-            "cache": true
-        },
         "test": {
             "cache": true
         }
