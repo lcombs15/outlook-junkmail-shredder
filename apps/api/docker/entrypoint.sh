@@ -24,7 +24,7 @@ done
 echo "Service is up and running!"
 
 # Run right away to auth
-/app/docker/sweep.sh | tee -a $LOG_FILE
+/code/apps/api/docker/sweep.sh | tee -a $LOG_FILE
 
 # Keep container running
 tail -n 0 -f $LOG_FILE

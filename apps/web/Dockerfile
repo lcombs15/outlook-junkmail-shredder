@@ -25,6 +25,6 @@ COPY package.json package-lock.json ./
 COPY apps/web/package.json ./apps/web/package.json
 COPY apps/web ./apps/web
 COPY --from=production-dependencies-env /code/node_modules ./node_modules
-COPY --from=build-env /code/apps/web/build ./code/apps/web/build
+COPY --from=build-env /code/apps/web/build /code/apps/web/build
 WORKDIR /code/apps/web
 CMD ["npm", "run", "start"]

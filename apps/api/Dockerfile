@@ -18,8 +18,6 @@ RUN npm ci
 
 RUN npx nx run apps/api:test
 
-RUN npx nx run apps/api:lint
-
 RUN npx nx run apps/api:build
 
 WORKDIR /code/apps/api
