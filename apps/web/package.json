@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "react-router build && tsc -p ./tsconfig.express.json",
-        "dev": "react-router dev",
+        "start:dev": "react-router dev",
         "start": "node bin/main.js",
         "typecheck": "react-router typegen && tsc"
     },
