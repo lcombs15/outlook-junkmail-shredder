@@ -47,7 +47,7 @@ services:
             - BACKEND_HOST=outlook-junkmail-shredder
         restart: unless-stopped
         ports:
-            - "5174:3000"
+            - "5174:5174"
 
 secrets:
     outlook_app_client_id:
