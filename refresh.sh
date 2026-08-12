@@ -1,3 +1,5 @@
+#!/bin/zsh
+set -e
 npm run lint:format
 npx nx run-many -t test
 
