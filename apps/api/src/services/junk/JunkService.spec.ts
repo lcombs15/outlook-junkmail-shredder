@@ -138,6 +138,13 @@ describe("JunkService", () => {
         "phietro.oliveira@escola.pr.gov.br",
         "KaxLnHhkekxl8Fk@blissfulambience.com",
         "outlet@vuecascade.info",
+        "J2Y44SL6@KQKKZ49J9T1KNBNL0GRF1QV75XMW.com",
+        "0E4U12QP@7MDW70JONS704XP7UMBS0Z3FK1YZ.com",
+        "TR93M387@0AEZ1FGUUUO0DLLQTRH4C2BVKNO9.com",
+        "KAHCC7HU@MHHJPO3PQFRBT2FO6F2PVFC4OFI6.com",
+        "41YN3X2P@2NFUH2N7LRW8Y9420ALBAZDFCKPP.com",
+        "outlet@ityfive.com",
+        "outlet@arzeva.com",
     ];
 
     const notJunkEmails: Array<string> = [
