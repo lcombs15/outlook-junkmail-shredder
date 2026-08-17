@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
 import { useEffect, useState } from "react";
 import { SearchResult } from "~/pages/home/components/SearchResult";
-import { type HistoryResult, useHistory } from "~/services/useHistory";
+import { type HistoryResult, useHistory } from "~/services/history-service";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -25,7 +25,7 @@ export default function Home() {
             <div className="flex flex-row flex-wrap gap-3 justify-around p-8">
                 {!!content ? (
                     content.map((content, index) => (
-                        <div className="flex min-w-min">
+                        <div className="flex min-w-min" key={index}>
                             <SearchResult key={index} content={content} />
                         </div>
                     ))
