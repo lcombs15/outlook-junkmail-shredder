@@ -28,6 +28,12 @@
                     "name": "docker:run"
                 }
             }
+        },
+        {
+            "plugin": "@nx/eslint/plugin",
+            "options": {
+                "targetName": "lint"
+            }
         }
     ]
 }
