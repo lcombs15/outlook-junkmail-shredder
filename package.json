@@ -3,12 +3,15 @@
         "apps/*"
     ],
     "scripts": {
-        "lint": "npx nx format:check",
+        "lint": "npx nx format:check && npx nx run-many -t lint",
         "lint:format": "npx nx format:write"
     },
     "devDependencies": {
-        "nx": "23.1.1",
+        "@nx/docker": "23.1.1",
+        "@nx/eslint": "^23.1.1",
         "@nx/jest": "23.1.1",
-        "@nx/docker": "23.1.1"
-    }
+        "eslint": "^9.8.0",
+        "nx": "23.1.1"
+    },
+    "dependencies": {}
 }

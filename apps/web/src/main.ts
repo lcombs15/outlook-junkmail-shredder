@@ -1,7 +1,7 @@
 import "react-router";
 import express from "express";
 import { createRequestHandler } from "@react-router/express";
-import { createProxyMiddleware } from "http-proxy-middleware"; // @ts-ignore
+import { createProxyMiddleware } from "http-proxy-middleware"; // @ts-expect-error will fix later/never
 import * as build from "../build/server/index.js";
 import morgan from "morgan";
 

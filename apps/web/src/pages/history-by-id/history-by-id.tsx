@@ -1,4 +1,4 @@
-import { type HistoryResult, useHistoryById } from "~/services/history-service";
+import { type HistoryResult, getHistoryById } from "~/services/history-service";
 import { useEffect, useState } from "react";
 
 export default function HistoryById({
@@ -9,12 +9,10 @@ export default function HistoryById({
     const [content, setContent] = useState<HistoryResult>();
     const [notFound, setNotFound] = useState(false);
     useEffect(() => {
-        useHistoryById(Number.parseInt(id))
+        getHistoryById(Number.parseInt(id))
             .then(setContent)
             .catch(() => setNotFound(true));
-    }, [id, setContent, setNotFound]);
-
-    console.log({ content });
+    }, [id]);
 
     return !content ? (
         notFound ? (

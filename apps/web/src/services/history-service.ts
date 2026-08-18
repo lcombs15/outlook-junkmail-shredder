@@ -7,13 +7,13 @@ export interface HistoryResult {
     receiveAt: string;
 }
 
-export async function useHistory(): Promise<Array<HistoryResult>> {
+export async function listHistory(): Promise<Array<HistoryResult>> {
     const response = await fetch("/api/history/ignored");
     const data = await response.json();
     return data.content;
 }
 
-export async function useHistoryById(id: number): Promise<HistoryResult> {
+export async function getHistoryById(id: number): Promise<HistoryResult> {
     const response = await fetch(`/api/history/${id}`);
     return response.json();
 }
