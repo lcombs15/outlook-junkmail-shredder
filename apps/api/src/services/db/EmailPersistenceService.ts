@@ -42,6 +42,12 @@ export class EmailPersistenceService {
         return connection("emails").select().where("id", id).first();
     }
 
+    async deleteById(id: number): Promise<void> {
+        const connection = await this.db.getDatabase();
+
+        await connection("emails").where("id", id).del();
+    }
+
     async markAsShredded(id: number, reason: string): Promise<void> {
         const connection = await this.db.getDatabase();
 

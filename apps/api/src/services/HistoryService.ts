@@ -18,6 +18,10 @@ export class HistoryService {
         return;
     }
 
+    async deleteById(id: number): Promise<void> {
+        await this.emailService.deleteById(id);
+    }
+
     async getAll(query: {
         searchTerm?: string;
         wasShredded?: boolean;

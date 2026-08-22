@@ -24,17 +24,17 @@ describe("EmailPersistenceService", () => {
         db.close();
     });
 
+    const getEmailToCreate = (): Email.Create => ({
+        send_date: "2024-01-10",
+        shredded_reason: "I am not buying",
+        from_address: "test@example.com",
+        sender_address: "sender@example.com",
+        subject_line: "hello subject line",
+        was_shredded: 1,
+    });
+
     it("Can persist a single record and retrieve it", async () => {
-        const persisted = await service.create([
-            {
-                send_date: "2024-01-10",
-                shredded_reason: "I am not buying",
-                from_address: "test@example.com",
-                sender_address: "sender@example.com",
-                subject_line: "hello subject line",
-                was_shredded: 1,
-            },
-        ]);
+        const persisted = await service.create([getEmailToCreate()]);
 
         // A single value list = [1] where [X] and X = the id of the new record
         expect(persisted).toHaveLength(1);
@@ -173,5 +173,25 @@ describe("EmailPersistenceService", () => {
         const shredded = await service.getById(persisted[0]);
         expect(shredded?.was_shredded).toBe(1);
         expect(shredded?.shredded_reason).toBe("I said so");
+    });
+
+    describe("Delete by id", () => {
+        it("Should be able to delete a record which doesn't exist", async () => {
+            await service.deleteById(999999999);
+        });
+
+        it("Should be able to delete a record which exists", async () => {
+            const [persistedId] = await service.create([getEmailToCreate()]);
+
+            expect(persistedId).toBeDefined();
+
+            const persistedRecord = await service.getById(persistedId);
+            expect(persistedRecord).toBeDefined();
+
+            await service.deleteById(persistedId);
+
+            const deletedRecord = await service.getById(persistedId);
+            expect(deletedRecord).toBeUndefined();
+        });
     });
 });

@@ -1,5 +1,5 @@
 import { BaseRestController } from "./BaseRestController";
-import { RequestHandler, Router } from "express";
+import { RequestHandler, Router, Request, Response } from "express";
 import { HistoryService } from "../services/HistoryService";
 import { buildListResource } from "../resource/ListResource";
 
@@ -15,22 +15,42 @@ export class HistoryRestController extends BaseRestController {
         router.get("/ignored", this.getHistory("ignored"));
         router.get("/deleted", this.getHistory("deleted"));
         router.get(`/:id`, this.getById);
+        router.delete(`/:id`, this.deleteById);
     }
 
-    getById: RequestHandler = async (req, res) => {
+    private getIdFromRequest(req: Request, res: Response): number | undefined {
         const { id } = req.params;
 
         if (!id) {
-            return res.status(400).send("Missing id");
+            res.status(400).send("History ID is required.");
+            return;
         }
+
+        return Number(id);
+    }
+
+    getById: RequestHandler = async (req, res) => {
+        const id = this.getIdFromRequest(req, res);
 
         const resource = await this.service.getById(Number(id));
 
         if (!resource) {
-            return res.status(404).send("History not found");
+            return res.status(404).send(`Record not found: ${id}`);
         }
 
         return res.json(resource);
+    };
+
+    deleteById: RequestHandler = async (req, res) => {
+        const id = this.getIdFromRequest(req, res);
+
+        if (!id) {
+            return;
+        }
+
+        await this.service.deleteById(id);
+
+        return res.status(204).send();
     };
 
     getHistory: (route?: "ignored" | "deleted") => RequestHandler =
