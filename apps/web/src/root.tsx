@@ -10,6 +10,13 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 
+export function meta() {
+    return [
+        { title: "Junkmail Shredder" },
+        { name: "description", content: "Outlook Junkmail Shredder" },
+    ];
+}
+
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     {

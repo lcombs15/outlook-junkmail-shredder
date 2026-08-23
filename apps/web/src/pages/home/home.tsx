@@ -2,13 +2,6 @@ import { useEffect, useState } from "react";
 import { SearchResult } from "~/pages/home/components/SearchResult";
 import { type HistoryResult, listHistory } from "~/services/history-service";
 
-export function meta() {
-    return [
-        { title: "New React Router App" },
-        { name: "description", content: "Welcome to React Router!" },
-    ];
-}
-
 export default function Home() {
     const [content, setContent] = useState<Array<HistoryResult> | undefined>(
         undefined,
