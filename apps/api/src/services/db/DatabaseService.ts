@@ -19,30 +19,15 @@ export class DatabaseService {
             useNullAsDefault: true,
         });
 
-        this.databaseReady = this.handleMigration();
+        this.databaseReady = this.db.migrate.latest({
+            directory: "src/migrations",
+        });
 
         this.databaseReady
             .then()
             .catch((error) =>
                 console.error("Error migrating database:", error),
             );
-    }
-
-    private async handleMigration(): Promise<void> {
-        const config = {
-            directory: "src/migrations",
-        };
-
-        const status = await this.db.migrate.status(config).catch((error) => {
-            console.error("Error getting migration status:", error);
-            return -10;
-        });
-
-        if (status < 0) {
-            console.log("Migrating database.");
-            await this.db.migrate.latest(config);
-            console.log("Migration complete.");
-        }
     }
 
     public async close(): Promise<void> {
