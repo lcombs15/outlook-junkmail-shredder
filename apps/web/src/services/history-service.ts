@@ -7,8 +7,17 @@ export interface HistoryResult {
     receiveAt: string;
 }
 
-export async function listHistory(): Promise<Array<HistoryResult>> {
-    const response = await fetch("/api/history/ignored");
+export async function listHistory({
+    searchTerm,
+}: Partial<{
+    searchTerm: string;
+}> = {}): Promise<Array<HistoryResult>> {
+    const params = new URLSearchParams();
+    if (searchTerm) {
+        params.append("searchTerm", searchTerm);
+    }
+
+    const response = await fetch(`/api/history/ignored?${params.toString()}`);
     const data = await response.json();
     return data.content;
 }
