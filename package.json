@@ -13,5 +13,13 @@
         "eslint": "^9.8.0",
         "nx": "23.1.1"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "engines": {
+        "npm": ">=11"
+    },
+    "allowScripts": {
+        "nx@23.1.1": true,
+        "better-sqlite3@13.0.3": true,
+        "unrs-resolver@1.11.1": true
+    }
 }
