@@ -149,6 +149,8 @@ describe("JunkService", () => {
         "no-reply@vphmzetzpqzrgq",
         "no-reply@aogsvjdcbudfkb",
         "no-reply@zbphogllljatxv",
+        "outlet.nort.dkfpahgsjl@reestinkling.xyz",
+        "outlet@reestinkling.xyz",
     ];
 
     const notJunkEmails: Array<string> = [
