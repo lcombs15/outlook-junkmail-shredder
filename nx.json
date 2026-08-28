@@ -1,39 +1,24 @@
 {
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
     "targetDefaults": {
-        "build": {
-            "outputs": ["{workspaceRoot}/bin"],
-            "cache": true
-        },
-        "test": {
-            "cache": true
-        }
+        "build": { "outputs": ["{workspaceRoot}/bin"], "cache": true },
+        "test": { "cache": true }
     },
     "defaultBase": "master",
     "analytics": false,
     "plugins": [
         {
             "plugin": "@nx/jest/plugin",
-            "options": {
-                "targetName": "jest:test"
-            }
+            "options": { "targetName": "jest:test" }
         },
         {
             "plugin": "@nx/docker",
             "options": {
-                "buildTarget": {
-                    "name": "docker:build"
-                },
-                "runTarget": {
-                    "name": "docker:run"
-                }
+                "buildTarget": { "name": "docker:build" },
+                "runTarget": { "name": "docker:run" }
             }
         },
-        {
-            "plugin": "@nx/eslint/plugin",
-            "options": {
-                "targetName": "lint"
-            }
-        }
-    ]
+        { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } }
+    ],
+    "nxCloudId": "6a91dd9c1d9d52b3872613a5"
 }
