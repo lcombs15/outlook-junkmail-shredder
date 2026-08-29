@@ -20,10 +20,11 @@ export class EmailPersistenceService {
     async find(query?: {
         shredded?: boolean;
         searchTerm?: string;
+        afterDate?: Date;
     }): Promise<Email.Model[]> {
         const connection = await this.db.getDatabase();
 
-        return connection("emails")
+        let sql = connection("emails")
             .select("*")
             .whereIn(
                 "was_shredded",
@@ -32,8 +33,17 @@ export class EmailPersistenceService {
             .andWhereLike(
                 "from_address",
                 ["%", query?.searchTerm ?? "", "%"].join(""),
-            )
-            .orderBy("id", "desc");
+            );
+
+        if (query?.afterDate) {
+            sql = sql.andWhere(
+                "send_date",
+                ">=",
+                query.afterDate.toISOString(),
+            );
+        }
+
+        return sql.orderBy("id", "desc");
     }
 
     async getById(id: number): Promise<Email.Model | undefined> {

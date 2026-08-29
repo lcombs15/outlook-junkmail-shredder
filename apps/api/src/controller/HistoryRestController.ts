@@ -56,7 +56,7 @@ export class HistoryRestController extends BaseRestController {
     getHistory: (route?: "ignored" | "deleted") => RequestHandler =
         (reportType) => async (req, res) => {
             const service = this.service;
-            const { searchTerm } = req.query;
+            const { searchTerm, afterDate: afterDate } = req.query;
             return res.status(200).send(
                 buildListResource(
                     await service.getAll({
@@ -64,6 +64,10 @@ export class HistoryRestController extends BaseRestController {
                         wasShredded: !reportType
                             ? undefined
                             : reportType === "deleted",
+                        afterDate:
+                            typeof afterDate == "string"
+                                ? new Date(afterDate)
+                                : undefined,
                     }),
                 ),
             );
