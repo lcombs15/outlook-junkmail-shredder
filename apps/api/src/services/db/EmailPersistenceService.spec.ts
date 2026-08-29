@@ -71,26 +71,26 @@ describe("EmailPersistenceService", () => {
         beforeEach(async () => {
             await service.create([
                 {
-                    send_date: "2024-01-10",
+                    send_date: new Date("2024-01-10").toISOString(),
                     shredded_reason: "I am not buying",
                     from_address: "shred@example.com",
                     subject_line: "hello world",
                     was_shredded: 1,
                 },
                 {
-                    send_date: "2024-01-09",
+                    send_date: new Date("2024-01-09").toISOString(),
                     shredded_reason: "I am not buying",
                     from_address: "shreddd@example.com",
                     was_shredded: 1,
                 },
                 {
-                    send_date: "2024-01-10",
+                    send_date: new Date("2024-01-10").toISOString(),
                     shredded_reason: "I am not buying",
                     from_address: "okay@example.com",
                     was_shredded: 0,
                 },
                 {
-                    send_date: "2024-01-10",
+                    send_date: new Date("2024-01-10").toISOString(),
                     shredded_reason: "I am not buying",
                     from_address: "okay+too@example.com",
                     was_shredded: 0,
@@ -128,6 +128,11 @@ describe("EmailPersistenceService", () => {
                 filter: { searchTerm: "shredd", shredded: false },
                 testCase: "search term and not shredded",
                 expectedIds: [],
+            },
+            {
+                filter: { afterDate: new Date("2024-01-10") },
+                testCase: "after date",
+                expectedIds: [4, 3, 1],
             },
         ].forEach((param) => {
             it(`should: ${param.testCase}`, async () => {
