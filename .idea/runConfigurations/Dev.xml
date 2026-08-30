@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Dev" type="NxRunConfigurationType">
+    <option name="nx-projects" value="apps/api,apps/web" />
+    <option name="nx-targets" value="start:dev" />
+    <option name="nx-target-configuration" value="" />
+    <envs>
+      <env name="AUTH_DIRECTORY" value="$PROJECT_DIR$/apps/api" />
+      <env name="CLIENT_ID_FILE" value="$USER_HOME$/client_id.txt" />
+      <env name="DATABASE_FILE" value="$PROJECT_DIR$/apps/api/database.sqlite3" />
+      <env name="DISCORD_URL_FILE" value="$USER_HOME$/discord_url.txt" />
+    </envs>
+    <option name="arguments" value="" />
+    <method v="2" />
+  </configuration>
+</component>
