@@ -7,7 +7,7 @@
         "lint:format": "npx nx format:write"
     },
     "devDependencies": {
-        "@nx/docker": "23.1.1",
+        "@nx/docker": "23.1.2",
         "@nx/eslint": "^23.1.2",
         "@nx/jest": "23.1.1",
         "eslint": "^9.8.0",
