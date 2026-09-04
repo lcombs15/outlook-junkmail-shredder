@@ -69,6 +69,7 @@ export class IllegalDomainStrategy implements JunkStrategy {
         "jelletching.info",
         "reestinkling.xyz",
         "b.mail-zr.com",
+        "rxvfitmz.onmicrosoft.com",
     ];
 
     appliesTo(email: Outlook.Email): boolean {
