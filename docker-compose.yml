@@ -1,3 +1,4 @@
+name: outlook-junkmail-shredder
 services:
     sqlite-web:
         container_name: junkmail-db-portal
