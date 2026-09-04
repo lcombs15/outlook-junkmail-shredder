@@ -151,6 +151,14 @@ describe("JunkService", () => {
         "no-reply@zbphogllljatxv",
         "outlet.nort.dkfpahgsjl@reestinkling.xyz",
         "outlet@reestinkling.xyz",
+        "GMZ20M6Y@FTKSKGOYDQD8BPOAQ2XI3KDZ61BA",
+        "O9TNXSFF@N3HXK7JU1Z1A4RG4SLN43R1P6DUQ",
+        "G5167KEO@2FPS8Z54VY1LLMBADWIX9BI3W8TP",
+        "no-reply@rrriwlxioyexxuqcktrgwahxa",
+        "no-reply@bygdelohujjkmprotqrjnwkei",
+        "no-reply@umbzwdaiwjsixoaxxcnccajbw",
+        "florabam2877@b.mail-zr.com",
+        "florabam0@b.mail-zr.com",
     ];
 
     const notJunkEmails: Array<string> = [
