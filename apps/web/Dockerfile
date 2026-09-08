@@ -1,16 +1,16 @@
-FROM node:24-alpine AS development-dependencies-env
+FROM node:26-alpine AS development-dependencies-env
 WORKDIR /code
 COPY package.json package-lock.json ./
 COPY apps/web/package.json ./apps/web/package.json
 RUN npm ci
 
-FROM node:24-alpine AS production-dependencies-env
+FROM node:26-alpine AS production-dependencies-env
 WORKDIR /code
 COPY package.json package-lock.json ./
 COPY apps/web/package.json ./apps/web/package.json
 RUN npm ci --omit=dev
 
-FROM node:24-alpine AS build-env
+FROM node:26-alpine AS build-env
 WORKDIR /code
 COPY package.json package-lock.json ./
 COPY tsconfig.base.json ./
@@ -20,7 +20,7 @@ COPY --from=development-dependencies-env /code/node_modules ./node_modules
 WORKDIR /code/apps/web
 RUN npm run build
 
-FROM node:24-alpine
+FROM node:26-alpine
 WORKDIR /code
 COPY package.json package-lock.json ./
 COPY apps/web/package.json ./apps/web/package.json
