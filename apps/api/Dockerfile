@@ -1,6 +1,6 @@
 # Use Node.js LTS as the base image
 FROM ubuntu
-FROM node:24-slim
+FROM node:26-slim
 
 # Install cron
 RUN apt-get update && \
