@@ -6,6 +6,23 @@
 version: 2
 updates:
     - package-ecosystem: "npm"
-      directory: "/" # Location of package manifests
+      directory: "/"
       schedule:
           interval: "weekly"
+          day: "saturday"
+          time: "09:00"
+
+      groups:
+          npm-minor-and-patch:
+              update-types:
+                  - "minor"
+                  - "patch"
+
+    - package-ecosystem: "docker"
+      directories:
+          - "/"
+          - "/apps/*/"
+      schedule:
+          interval: "weekly"
+          day: "saturday"
+          time: "09:00"
