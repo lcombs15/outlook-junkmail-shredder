@@ -13,9 +13,8 @@ updates:
           time: "09:00"
 
       groups:
-          npm-minor-and-patch:
+          npm-patch:
               update-types:
-                  - "minor"
                   - "patch"
 
     - package-ecosystem: "docker"
