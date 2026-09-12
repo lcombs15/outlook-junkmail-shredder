@@ -13,15 +13,18 @@ updates:
           time: "09:00"
 
       groups:
-          npm-patch:
+          react-router-patch:
+              patterns:
+                  - "@react-router*"
               update-types:
                   - "patch"
 
-    - package-ecosystem: "docker"
-      directories:
-          - "/"
-          - "/apps/*/"
-      schedule:
-          interval: "weekly"
-          day: "saturday"
-          time: "09:00"
+          react-router-minor:
+              patterns:
+                  - "@react-router*"
+              update-types:
+                  - "minor"
+
+          npm-patch:
+              update-types:
+                  - "patch"
