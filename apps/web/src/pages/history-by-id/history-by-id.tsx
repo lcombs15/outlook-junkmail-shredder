@@ -1,6 +1,7 @@
 import { type HistoryResult, getHistoryById } from "~/services/history-service";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
+import { LoadingSpinner } from "~/components/LoadingSpinner";
 
 export default function HistoryById({
     params: { id },
@@ -20,7 +21,7 @@ export default function HistoryById({
     }
 
     if (!content) {
-        return "Loading...";
+        return <LoadingSpinner />;
     }
 
     return (
