@@ -32,7 +32,10 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className="h-full w-full dark bg-background">
+        <html
+            lang="en"
+            className="min-h-screen min-w-screen w-full dark bg-background m-0"
+        >
             <head>
                 <meta charSet="utf-8" />
                 <meta
@@ -42,7 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Meta />
                 <Links />
             </head>
-            <body className="max-h-full max-w-full bg-background">
+            <body className="h-full w-full max-h-full max-w-full bg-background m-0">
                 {children}
                 <ScrollRestoration />
                 <Scripts />
