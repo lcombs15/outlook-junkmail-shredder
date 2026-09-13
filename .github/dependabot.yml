@@ -24,6 +24,20 @@ updates:
                   - "@react-router*"
               update-types:
                   - "minor"
+                  -
+          nx-patch:
+              patterns:
+                  - "@nx*"
+                  - "nx*"
+              update-types:
+                  - "patch"
+
+          nx-minor:
+              patterns:
+                  - "@nx*"
+                  - "nx*"
+              update-types:
+                  - "minor"
 
           npm-patch:
               update-types:
