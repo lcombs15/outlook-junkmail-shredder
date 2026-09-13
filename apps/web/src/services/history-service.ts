@@ -11,8 +11,10 @@ export interface HistoryResult {
 
 export async function listHistory({
     searchTerm,
+    shredded,
 }: Partial<{
     searchTerm: string;
+    shredded: boolean;
 }> = {}): Promise<Array<HistoryResult>> {
     const params = new URLSearchParams();
     if (searchTerm) {
@@ -21,7 +23,9 @@ export async function listHistory({
         params.append("afterDate", subMonths(Date.now(), 2).toISOString());
     }
 
-    const response = await fetch(`/api/history/ignored?${params.toString()}`);
+    const response = await fetch(
+        `/api/history/${shredded ? "deleted" : "ignored"}?${params.toString()}`,
+    );
     const data = await response.json();
     return data.content;
 }
