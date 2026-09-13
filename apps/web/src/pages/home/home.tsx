@@ -20,7 +20,7 @@ export default function Home() {
     }, [setContent, debouncedSearchTerm]);
 
     return (
-        <div className="flex flex-col items-center justify-center pt-8 pb-4 h-full w-full overflow-scroll gap-5">
+        <div className="flex flex-col items-center justify-center pt-8 pb-4 h-full w-full overflow-auto gap-5">
             <h1 className="text-5xl">Outlook Junkmail Shredder</h1>
             <div className={"bg-white w-1/3"}>
                 <TextField
