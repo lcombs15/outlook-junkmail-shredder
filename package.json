@@ -7,11 +7,11 @@
         "lint:format": "npx nx format:write"
     },
     "devDependencies": {
-        "@nx/docker": "23.2.0",
-        "@nx/eslint": "23.2.0",
-        "@nx/jest": "23.2.0",
+        "@nx/docker": "23.2.1",
+        "@nx/eslint": "23.2.1",
+        "@nx/jest": "23.2.1",
         "eslint": "^9.8.0",
-        "nx": "23.2.0"
+        "nx": "23.2.1"
     },
     "dependencies": {},
     "engines": {
