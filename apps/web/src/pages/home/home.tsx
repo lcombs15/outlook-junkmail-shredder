@@ -4,6 +4,7 @@ import { type HistoryResult, listHistory } from "~/services/history-service";
 import { FormControlLabel, FormGroup, Switch, TextField } from "@mui/material";
 import { useDebounceValue } from "~/hooks/useDebouceValue";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
+import classNames from "classnames";
 
 export default function Home() {
     const [content, setContent] = useState<Array<HistoryResult> | undefined>(
@@ -22,9 +23,16 @@ export default function Home() {
     }, [setContent, debouncedSearchTerm, shredded]);
 
     return (
-        <div className="flex flex-col items-center justify-center pt-8 pb-4 h-full w-full overflow-auto gap-5">
-            <h1 className="text-5xl">Outlook Junkmail Shredder</h1>
-            <div className={"bg-white w-1/3"}>
+        <div
+            className={classNames(
+                "flex flex-col pt-8 pb-4 h-full w-full overflow-auto gap-5",
+                "items-center",
+                "break-after-all md:break-normal",
+                "wrap-anywhere md:wrap-normal",
+            )}
+        >
+            <h1 className="md:text-5xl text-3xl">Outlook Junkmail Shredder</h1>
+            <div className={"bg-white md:w-1/3 w-8/10"}>
                 <TextField
                     className={"text-orange-500"}
                     id="standard-basic"
@@ -58,7 +66,14 @@ export default function Home() {
                     label="Shredded?"
                 />
             </FormGroup>
-            <div className="flex flex-row flex-wrap gap-3 justify-around p-8">
+            <div
+                className={classNames(
+                    "flex flex-row flex-wrap gap-3",
+                    "max-w-dvw",
+                    "md:justify-around justify-center",
+                    "pr-4 pl-4",
+                )}
+            >
                 {content ? (
                     content.map((content, index) => (
                         <div className="flex min-w-min" key={index}>
