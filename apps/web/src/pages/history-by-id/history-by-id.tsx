@@ -2,6 +2,7 @@ import { type HistoryResult, getHistoryById } from "~/services/history-service";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
+import classNames from "classnames";
 
 export default function HistoryById({
     params: { id },
@@ -25,7 +26,13 @@ export default function HistoryById({
     }
 
     return (
-        <div className="m-5 flex flex-col gap-2 w-1/4">
+        <div
+            className={classNames(
+                "m-5 flex flex-col gap-2 md:w-1/4 sm:p-1",
+                "break-after-all md:break-normal",
+                "wrap-anywhere md:wrap-normal",
+            )}
+        >
             <div>ID: {content?.id}</div>
             <div>From: {content?.fromEmail}</div>
             <div>Subject: {content?.subject}</div>
