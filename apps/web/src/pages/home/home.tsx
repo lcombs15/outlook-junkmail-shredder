@@ -84,7 +84,9 @@ export default function Home() {
                     <LoadingSpinner />
                 )}
             </div>
-            {searchTerm ? <div>{content?.length} results found.</div> : null}
+            {searchTerm && !!content ? (
+                <div>{content?.length} results found.</div>
+            ) : null}
         </div>
     );
 }
