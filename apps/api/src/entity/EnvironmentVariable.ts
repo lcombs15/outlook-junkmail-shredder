@@ -3,4 +3,5 @@ export enum EnvironmentVariableName {
     DISCORD_URL_FILE = "DISCORD_URL_FILE",
     AUTH_DIRECTORY = "AUTH_DIRECTORY",
     DATABASE_FILE = "DATABASE_FILE",
+    NODE_ENV = "NODE_ENV",
 }

@@ -17,6 +17,10 @@ export class DatabaseService {
                     ) || "./database.sqlite3",
             },
             useNullAsDefault: true,
+            debug:
+                environmentService.getValue(
+                    EnvironmentVariableName.NODE_ENV,
+                ) === "dev",
         });
 
         this.databaseReady = this.db.migrate.latest({

@@ -4,7 +4,7 @@
     "description": "Automatically remove junk from Outlook account",
     "main": "index.js",
     "scripts": {
-        "start:dev": "ts-node src/main.ts",
+        "start:dev": "nodemon --watch src --exec NODE_ENV=dev ts-node src/main.ts",
         "start": "node ./bin/main.js",
         "build": "rm -rf ./bin && tsc",
         "test": "nx jest:test",
@@ -26,7 +26,8 @@
         "jest-mock-extended": "^4.0.1",
         "ts-jest": "^29.4.14",
         "ts-node": "^10.9.2",
-        "typescript": "^6.0.3"
+        "typescript": "^6.0.3",
+        "nodemon": "^3.1.14"
     },
     "dependencies": {
         "@azure/msal-node": "^6.0.1",
