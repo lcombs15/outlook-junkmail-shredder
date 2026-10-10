@@ -8,6 +8,7 @@ import { DatabaseService } from "../services/db/DatabaseService";
 import { HistoryService } from "../services/HistoryService";
 import { HistoryResourceMapper } from "../mapper/HistoryResourceMapper";
 import { JunkService } from "../services/junk/JunkService";
+import { AnalyticsService } from "../services/AnalyticsService";
 
 export interface AppContext {
     discordService: DiscordService;
@@ -17,6 +18,7 @@ export interface AppContext {
     emailPersistenceService: EmailPersistenceService;
     historyService: HistoryService;
     junkService: JunkService;
+    analyticsService: AnalyticsService;
 }
 
 /*
@@ -53,6 +55,8 @@ export function buildAppContext(
         new HistoryResourceMapper(),
     );
 
+    const analyticsService = new AnalyticsService(databaseService);
+
     return {
         discordService,
         discordEmailService,
@@ -61,5 +65,6 @@ export function buildAppContext(
         emailPersistenceService,
         historyService,
         junkService,
+        analyticsService,
     };
 }

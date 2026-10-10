@@ -8,4 +8,8 @@ export abstract class BaseRestController {
     }
 
     public abstract registerRoutes(router: Router): void;
+
+    protected getDateOrUndefined(input?: string): Date | undefined {
+        return input ? new Date(input) : undefined;
+    }
 }

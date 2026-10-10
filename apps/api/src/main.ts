@@ -4,6 +4,7 @@ import { HealthRestController } from "./controller/HealthRestController";
 import { JunkmailShredderService } from "./services/JunkmailShredderService";
 import { buildAppContext } from "./context/buildAppContext";
 import { HistoryRestController } from "./controller/HistoryRestController";
+import { AnalyticsRestController } from "./controller/AnalyticsRestController";
 
 const main = express();
 const port = 3000;
@@ -18,6 +19,7 @@ const service = new JunkmailShredderService(appContext);
         appContext.authService,
     ),
     new HistoryRestController(appContext.historyService),
+    new AnalyticsRestController(appContext.analyticsService),
 ].forEach((controller) => {
     const router = express.Router();
     controller.registerRoutes(router);
