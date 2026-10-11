@@ -16,7 +16,7 @@ export class AnalyticResourceMapper {
             period: new Intl.DateTimeFormat("en-US", {
                 month: "short",
                 year: "numeric",
-            }).format(new Date(year, month)),
+            }).format(new Date(year, month - 1)),
         };
     }
 }
