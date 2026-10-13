@@ -8,7 +8,7 @@ import { BarChart, LineChart } from "@mui/x-charts";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
 
 export default function Dashboard() {
-    const { data, isLoading } = useQuery<Array<AnalyticResult>>({
+    const { data, isFetching } = useQuery<Array<AnalyticResult>>({
         initialData: (): Array<AnalyticResult> => {
             return [];
         },
@@ -18,7 +18,7 @@ export default function Dashboard() {
         queryKey: ["analytics"],
     });
 
-    return isLoading ? (
+    return isFetching ? (
         <LoadingSpinner />
     ) : (
         <div

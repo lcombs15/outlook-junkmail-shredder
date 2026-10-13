@@ -1,28 +1,28 @@
-import { type HistoryResult, getHistoryById } from "~/services/history-service";
-import { useEffect, useState } from "react";
+import { getHistoryById } from "~/services/history-service";
 import { Button } from "@mui/material";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
 import classNames from "classnames";
+import { useQuery } from "@tanstack/react-query";
 
 export default function HistoryById({
     params: { id },
 }: {
     params: { id: string };
 }) {
-    const [content, setContent] = useState<HistoryResult>();
-    const [notFound, setNotFound] = useState(false);
-    useEffect(() => {
-        getHistoryById(Number.parseInt(id))
-            .then(setContent)
-            .catch(() => setNotFound(true));
-    }, [id]);
+    const { data: content, isLoading } = useQuery({
+        queryFn: async () => {
+            return getHistoryById(Number.parseInt(id));
+        },
+        queryKey: ["history", id],
+        retry: 1,
+    });
 
-    if (notFound) {
-        return `Not Found: ${id}`;
+    if (isLoading) {
+        return <LoadingSpinner />;
     }
 
     if (!content) {
-        return <LoadingSpinner />;
+        return `Not Found: ${id}`;
     }
 
     return (
