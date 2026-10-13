@@ -51,7 +51,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Links />
                 </head>
                 <body className="h-full w-full max-h-full max-w-full bg-background m-0">
-                    <div className={"float-end md:absolute w-full relative"}>
+                    <div
+                        className={
+                            "float-end md:absolute md:top-0 w-full relative"
+                        }
+                    >
                         <div
                             className={
                                 "flex flex-row sm:justify-end justify-center w-full"
