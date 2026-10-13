@@ -1,26 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SearchResult } from "~/pages/home/components/SearchResult";
 import { type HistoryResult, listHistory } from "~/services/history-service";
 import { FormControlLabel, FormGroup, Switch, TextField } from "@mui/material";
 import { useDebounceValue } from "~/hooks/useDebouceValue";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
 import classNames from "classnames";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
-    const [content, setContent] = useState<Array<HistoryResult> | undefined>(
-        undefined,
-    );
-
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [shredded, setShredded] = useState<boolean>(false);
 
     const debouncedSearchTerm = useDebounceValue(searchTerm);
 
-    useEffect(() => {
-        listHistory({ searchTerm: debouncedSearchTerm, shredded }).then(
-            setContent,
-        );
-    }, [setContent, debouncedSearchTerm, shredded]);
+    const { data: content, isFetching } = useQuery({
+        initialData: [] as Array<HistoryResult>,
+        queryKey: ["history", debouncedSearchTerm, shredded, searchTerm],
+        queryFn: async () => {
+            return await listHistory({
+                searchTerm: debouncedSearchTerm,
+                shredded,
+            });
+        },
+    });
 
     return (
         <div
@@ -41,7 +43,6 @@ export default function Home() {
                     color={"primary"}
                     fullWidth={true}
                     onChange={(event) => {
-                        setContent(undefined);
                         setSearchTerm(event.target.value);
                     }}
                 />
@@ -74,17 +75,17 @@ export default function Home() {
                     "pr-4 pl-4",
                 )}
             >
-                {content ? (
-                    content.map((content, index) => (
+                {isFetching ? (
+                    <LoadingSpinner />
+                ) : (
+                    content.map((singleResult, index) => (
                         <div className="flex min-w-min" key={index}>
-                            <SearchResult key={index} content={content} />
+                            <SearchResult key={index} content={singleResult} />
                         </div>
                     ))
-                ) : (
-                    <LoadingSpinner />
                 )}
             </div>
-            {searchTerm && !!content ? (
+            {searchTerm && !isFetching ? (
                 <div>{content?.length} results found.</div>
             ) : null}
         </div>
