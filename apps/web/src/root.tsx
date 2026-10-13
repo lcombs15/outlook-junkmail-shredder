@@ -51,8 +51,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <Links />
                 </head>
                 <body className="h-full w-full max-h-full max-w-full bg-background m-0">
-                    <div className={"float-start absolute"}>
-                        <div className={"flex flex-row gap-20"}>
+                    <div className={"float-end md:absolute w-full relative"}>
+                        <div
+                            className={
+                                "flex flex-row sm:justify-end justify-center w-full"
+                            }
+                        >
                             {[
                                 {
                                     icon: <HomeIcon fontSize={"inherit"} />,
@@ -71,11 +75,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                                             "decoration-0 hover:text-green-400"
                                         }
                                     >
-                                        <div
-                                            className={
-                                                "w-10 h-10 flex grow text-8xl"
-                                            }
-                                        >
+                                        <div className={"flex text-8xl"}>
                                             {icon}
                                         </div>
                                     </a>
