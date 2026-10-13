@@ -27,7 +27,6 @@ export default function Dashboard() {
                 "items-center",
                 "break-after-all md:break-normal",
                 "wrap-anywhere md:wrap-normal",
-                "!text-white",
             )}
         >
             <h1 className="md:text-5xl text-3xl">Dashboard</h1>
