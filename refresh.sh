@@ -3,6 +3,5 @@ set -e
 npm run lint:format
 npx nx run-many -t test
 
-bws run -- "sudo -E docker compose down"
-bws run -- "sudo -E docker compose up --build -d"
-
+bws run -- "docker compose down"
+bws run -- "docker compose up --build -d"
