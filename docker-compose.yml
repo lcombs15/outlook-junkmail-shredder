@@ -35,8 +35,6 @@ services:
             - outlook_app_client_id
             - discord_url
         volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
             - auth:/mnt/auth
             - /opt/onedrive/outlook-junkmail-shredder:/mnt/logs
     outlook-junkmail-shredder-portal:
