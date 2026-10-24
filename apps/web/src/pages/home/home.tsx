@@ -15,7 +15,7 @@ export default function Home() {
 
     const { data: content, isFetching } = useQuery({
         initialData: [] as Array<HistoryResult>,
-        queryKey: ["history", debouncedSearchTerm, shredded, searchTerm],
+        queryKey: ["history", debouncedSearchTerm, shredded],
         queryFn: async () => {
             return await listHistory({
                 searchTerm: debouncedSearchTerm,
