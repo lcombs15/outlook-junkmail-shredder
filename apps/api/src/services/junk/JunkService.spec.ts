@@ -163,6 +163,17 @@ describe("JunkService", () => {
         "hello@historyquiz.com",
         "rowan.gonzalez@plikhockeyplaying.onmicrosoft.com",
         "max.rivera@plikhockeyplaying.onmicrosoft.com",
+        "alert@combocamgas.com",
+        "alert@combocamgassolutions.com",
+        "alert@combocamgasteam.com",
+        "alert@combocamgasmusic.com",
+        "alert@digitalcombocamgas.com",
+        "alert@getjuachigranov.com",
+        "alert@cojuachigranov.com",
+        "alert@globaljuachigranov.com",
+        "alert@lectrows.com",
+        "alert@nifitshhowcase.com",
+        "alert@niftoarshowcase.com",
     ];
 
     const notJunkEmails: Array<string> = [

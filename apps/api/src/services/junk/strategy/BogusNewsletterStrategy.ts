@@ -25,6 +25,8 @@ export class BogusNewsletterStrategy implements JunkStrategy {
         ["Fixed length all caps"]: /^[A-Z0-9]{8}\@[A-Z0-9]{28}(\.com)?$/,
         ["no-reply @ fixed 23 length"]: /^no-reply@[a-z0-9]{14}$/,
         ["no-reply @ fixed 34 length"]: /^no-reply@[a-z0-9]{25}$/,
+        ["alert@"]:
+            /^alert@.*(combocamgas|juachigranov|lectrows|howcase.com).*/,
     };
 
     private calculateReason(email: Outlook.Email): string | null {
