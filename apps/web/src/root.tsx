@@ -7,6 +7,8 @@ import {
     ScrollRestoration,
 } from "react-router";
 
+import { Toaster } from "sonner";
+
 import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 
@@ -37,6 +39,7 @@ export const links: Route.LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
         <QueryClientProvider client={new QueryClient()}>
+            <Toaster position="bottom-right" />
             <html
                 lang="en"
                 className="min-h-screen min-w-screen w-full dark bg-background m-0"
@@ -53,7 +56,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <body className="h-full w-full max-h-full max-w-full bg-background m-0">
                     <div
                         className={
-                            "float-end md:absolute md:top-0 w-full relative"
+                            "float-end md:absolute md:top-0 w-full relative pointer-events-none"
                         }
                     >
                         <div
@@ -76,7 +79,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                                         key={href}
                                         href={href}
                                         className={
-                                            "decoration-0 hover:text-green-400"
+                                            "decoration-0 hover:text-green-400 pointer-events-auto"
                                         }
                                     >
                                         <div className={"flex text-8xl"}>
