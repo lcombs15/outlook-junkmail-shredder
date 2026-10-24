@@ -4,6 +4,9 @@ import { LoadingSpinner } from "~/components/LoadingSpinner";
 import classNames from "classnames";
 import { useQuery } from "@tanstack/react-query";
 
+import { toast } from "sonner";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
 export default function HistoryById({
     params: { id },
 }: {
@@ -34,7 +37,24 @@ export default function HistoryById({
             )}
         >
             <div>ID: {content?.id}</div>
-            <div>From: {content?.fromEmail}</div>
+            <div className="flex flex-row gap-2">
+                <div>From: {content?.fromEmail}</div>
+                <div
+                    onClick={() => {
+                        navigator.clipboard
+                            .writeText(content?.fromEmail)
+                            .then(() => {
+                                toast.success("Copied to clipboard!");
+                            })
+                            .catch(() => {
+                                toast.error("Failed to copy to clipboard");
+                            });
+                    }}
+                    className="hover:italic"
+                >
+                    <ContentCopyIcon className="cursor-pointer hover:text-green-400" />
+                </div>
+            </div>
             <div>Subject: {content?.subject}</div>
             <div>Date: {content?.receiveAt}</div>
             <div>Shredded?: {content?.wasShredded ? "Yes" : "No"}</div>
