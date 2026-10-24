@@ -13,6 +13,7 @@ export class IllegalTopLevelDomainStrategy implements JunkStrategy {
             ".cfd",
             "sbs",
             "ipep.edu.br",
+            ".🥹🫶",
         ].some((tld) => emailAddress.endsWith(tld));
     }
 
