@@ -41,14 +41,19 @@ export default function HistoryById({
                 <div>From: {content?.fromEmail}</div>
                 <div
                     onClick={() => {
-                        navigator.clipboard
-                            .writeText(content?.fromEmail)
-                            .then(() => {
-                                toast.success("Copied to clipboard!");
-                            })
-                            .catch(() => {
-                                toast.error("Failed to copy to clipboard");
-                            });
+                        try {
+                            navigator.clipboard
+                                .writeText(content?.fromEmail)
+                                .then(() => {
+                                    toast.success("Copied to clipboard!");
+                                })
+                                .catch(() => {
+                                    toast.error("Failed to copy to clipboard");
+                                });
+                        } catch (e) {
+                            toast.error("Error copying to clipboard");
+                            console.error(e);
+                        }
                     }}
                     className="hover:italic"
                 >
