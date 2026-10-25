@@ -9,7 +9,7 @@
       <env name="DATABASE_FILE" value="$PROJECT_DIR$/apps/api/database.sqlite3" />
       <env name="DISCORD_URL_FILE" value="$USER_HOME$/discord_url.txt" />
     </envs>
-    <option name="arguments" value="" />
+    <option name="arguments" value="--host" />
     <method v="2" />
   </configuration>
 </component>
