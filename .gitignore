@@ -22,3 +22,5 @@ coverage/
 .nx/migrate-runs
 
 amazonq.xml
+
+*pem
