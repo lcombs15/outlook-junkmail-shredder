@@ -3,10 +3,20 @@ import express from "express";
 import { createRequestHandler } from "@react-router/express";
 import { createProxyMiddleware } from "http-proxy-middleware"; // @ts-expect-error will fix later/never
 import * as build from "../build/server/index.js";
+import https from "node:https";
 import morgan from "morgan";
+import * as fs from "node:fs";
 
 const app = express();
 const port = 5174;
+
+const server = https.createServer(
+    {
+        key: fs.readFileSync("./cert-key.pem"),
+        cert: fs.readFileSync("./cert.pem"),
+    },
+    app,
+);
 
 app.use(
     "/api",
@@ -32,6 +42,6 @@ app.use(
     }),
 );
 
-app.listen(port, () =>
+server.listen(port, "0.0.0.0", () =>
     console.log(`Api running on port http://localhost:${port}`),
 );
