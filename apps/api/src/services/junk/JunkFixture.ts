@@ -176,6 +176,9 @@ export class JunkFixture {
         "no-reply@KWBkIgP.🥹🫶",
         "uWhuBdgnyiUKDJp@ohiocompact.com",
         "dEaOnfESI09gxDd@ohiocompact.com",
+        "ZWRV1667@---19JWDPAAS1Q5SJ7IF4VFN3KOSWNG.com",
+        "V18SVRFK@---2I7PT1KX5NZP6EV0Q2NJ787709FW.com",
+        "LF1PGICO@---50Y5D2VREKNDM67I4MLNYOVGI5MC.com",
     ];
 
     static notJunkEmailAddresses: Array<string> = [
