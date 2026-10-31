@@ -9,7 +9,7 @@
     "devDependencies": {
         "@nx/docker": "23.3.0",
         "@nx/eslint": "23.3.0",
-        "@nx/jest": "23.3.0",
+        "@nx/jest": "24.0.2",
         "eslint": "^9.8.0",
         "nx": "23.3.0"
     },
