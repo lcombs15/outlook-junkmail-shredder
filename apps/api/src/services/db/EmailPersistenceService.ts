@@ -21,6 +21,7 @@ export class EmailPersistenceService {
         shredded?: boolean;
         searchTerm?: string;
         afterDate?: Date;
+        regexSearch?: boolean;
     }): Promise<Email.Model[]> {
         const connection = await this.db.getDatabase();
 
@@ -29,11 +30,18 @@ export class EmailPersistenceService {
             .whereIn(
                 "was_shredded",
                 query?.shredded == undefined ? [true, false] : [query.shredded],
-            )
-            .andWhereLike(
+            );
+
+        if (query?.regexSearch && query.searchTerm) {
+            sql = sql.andWhereRaw(`regexp(?, from_address)`, [
+                query?.searchTerm,
+            ]);
+        } else {
+            sql = sql.andWhereLike(
                 "from_address",
                 ["%", query?.searchTerm ?? "", "%"].join(""),
             );
+        }
 
         if (query?.afterDate) {
             sql = sql.andWhere(

@@ -134,6 +134,16 @@ describe("EmailPersistenceService", () => {
                 testCase: "after date",
                 expectedIds: [4, 3, 1],
             },
+            {
+                filter: { searchTerm: ".{6,}@.*", regexSearch: true },
+                testCase: "regex search term, 6 or more chars before @",
+                expectedIds: [4, 2],
+            },
+            {
+                filter: { searchTerm: "\\+.*@.*", regexSearch: true },
+                testCase: "regex search term, + before @",
+                expectedIds: [4],
+            },
         ].forEach((param) => {
             it(`should: ${param.testCase}`, async () => {
                 const result = await service.find(param.filter);

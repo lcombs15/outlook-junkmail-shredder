@@ -1,5 +1,5 @@
 import { BaseRestController } from "./BaseRestController";
-import { RequestHandler, Router, Request, Response } from "express";
+import { Request, RequestHandler, Response, Router } from "express";
 import { HistoryService } from "../services/HistoryService";
 import { buildListResource } from "../resource/ListResource";
 
@@ -56,7 +56,7 @@ export class HistoryRestController extends BaseRestController {
     getHistory: (route?: "ignored" | "deleted") => RequestHandler =
         (reportType) => async (req, res) => {
             const service = this.service;
-            const { searchTerm, afterDate: afterDate } = req.query;
+            const { searchTerm, afterDate: afterDate, regexSearch } = req.query;
             return res.status(200).send(
                 buildListResource(
                     await service.getAll({
@@ -68,6 +68,7 @@ export class HistoryRestController extends BaseRestController {
                             typeof afterDate == "string"
                                 ? new Date(afterDate)
                                 : undefined,
+                        regexSearch: regexSearch === "true",
                     }),
                 ),
             );

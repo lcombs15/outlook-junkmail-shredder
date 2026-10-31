@@ -1,6 +1,7 @@
 import knex, { Knex } from "knex";
 import { EnvironmentService } from "../EnvironmentService";
 import { EnvironmentVariableName } from "../../entity/EnvironmentVariable";
+import type Database from "better-sqlite3";
 
 export class DatabaseService {
     private readonly db: Knex<any, any[]>;
@@ -21,6 +22,21 @@ export class DatabaseService {
                 environmentService.getValue(
                     EnvironmentVariableName.NODE_ENV,
                 ) === "dev",
+            pool: {
+                afterCreate: (
+                    connection: Database.Database,
+                    done: () => void,
+                ) => {
+                    connection.function(
+                        "regexp",
+                        (pattern: string, value: string) => {
+                            if (!value) return 0;
+                            return new RegExp(pattern).test(value) ? 1 : 0;
+                        },
+                    );
+                    done();
+                },
+            },
         });
 
         this.databaseReady = this.db.migrate.latest({

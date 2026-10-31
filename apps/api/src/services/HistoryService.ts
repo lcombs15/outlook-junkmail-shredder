@@ -26,11 +26,13 @@ export class HistoryService {
         searchTerm?: string;
         wasShredded?: boolean;
         afterDate?: Date;
+        regexSearch?: boolean;
     }): Promise<HistoryResource[]> {
         const entities = await this.emailService.find({
             shredded: query.wasShredded,
             searchTerm: query.searchTerm,
             afterDate: query.afterDate,
+            regexSearch: query.regexSearch,
         });
         return entities.map(this.mapper.toResource);
     }
