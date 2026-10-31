@@ -22,11 +22,14 @@ export class BogusNewsletterStrategy implements JunkStrategy {
         ["CloudNotify + SyncService"]:
             /^CloudNotify_[0-9]+@\-\-\-SyncService.*[0-9]+.com$/,
         ["Outlet @ evo.com"]: /^outlet@(.{3,4}(evo|ova)|kivene|meneave)\.com$/,
-        ["Fixed length all caps"]: /^[A-Z0-9]{8}\@(---)?[A-Z0-9]{28}(\.com)?$/,
+        ["Fixed length all caps"]:
+            /^[A-Z0-9]{8}\@(---)?([A-Z0-9]{28}|[A-Z0-9]{60})\.?(com|net)?$/,
         ["no-reply @ fixed 23 length"]: /^no-reply@[a-z0-9]{14}$/,
         ["no-reply @ fixed 34 length"]: /^no-reply@[a-z0-9]{25}$/,
         ["alert@"]:
-            /^alert@.*(combocamgas|juachigranov|lectrows|howcase.com).*/,
+            /^alert@.*(combocamgas|juachigranov|lectrows|howcase.com|nishk?a|centern).*/,
+        ["Not so trusty partner"]:
+            /Thd?eOfficials?TrustedPartneratall\.[a-z]+@[a-z]+/,
     };
 
     private calculateReason(email: Outlook.Email): string | null {

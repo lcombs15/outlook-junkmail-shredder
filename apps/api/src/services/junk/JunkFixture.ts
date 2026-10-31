@@ -179,6 +179,21 @@ export class JunkFixture {
         "ZWRV1667@---19JWDPAAS1Q5SJ7IF4VFN3KOSWNG.com",
         "V18SVRFK@---2I7PT1KX5NZP6EV0Q2NJ787709FW.com",
         "LF1PGICO@---50Y5D2VREKNDM67I4MLNYOVGI5MC.com",
+        "CKQU7PIB@9O5RZSIUJZMOG8J2IAW8E019CNGHRGIC6LIA6C03K76YNUWJA0H5LL1K8PR8.com",
+        "HQO3BBFX@VWH00649LHYRWLGE3KI95DXCLQZXLD9CMFZBM3PWPD6IOZZ3CT10JH1HWNVT.com",
+        "ZS733L1S@AQQB1WAZ4ZDE08BU7QJMCHMACT9KQ62CEOLX9AG6PAHMJ8OKLVBGF68EYABK.com",
+        "alert@nishkatravelagency.com",
+        "alert@nishachayideas.com",
+        "alert@nishanthrive.com",
+        "alert@centernoon.com",
+        "alert@centerned.com",
+        "M7WAFC22@OP7A6LDZI8IK3HFKRRV8KI3QXQHF.net",
+        "TheOfficialTrustedPartneratall.qfysqngjjvzxuq@hhqqmodpwwfchw",
+        "ThdeOfficialsTrustedPartneratall.dcqblraeouieom@eyejftymovjhee",
+        "TheOfficialTrustedPartneratall.hbdqbckvofwdqn@fzaqnzqvjqjxwv",
+        "TheOfficialTrustedPartneratall.kuugcntmdbeidl@uszdqxshzsozor",
+        "newsletter@mixedpedia.com",
+        "support@mixedpedia.com",
     ];
 
     static notJunkEmailAddresses: Array<string> = [
