@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { SearchResult } from "~/pages/home/components/SearchResult";
 import { type HistoryResult, listHistory } from "~/services/history-service";
-import { FormControlLabel, FormGroup, Switch, TextField } from "@mui/material";
+import {
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    Switch,
+    TextField,
+} from "@mui/material";
 import { useDebounceValue } from "~/hooks/useDebouceValue";
 import { LoadingSpinner } from "~/components/LoadingSpinner";
 import classNames from "classnames";
@@ -10,16 +16,18 @@ import { useQuery } from "@tanstack/react-query";
 export default function Home() {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [shredded, setShredded] = useState<boolean>(false);
+    const [isRegex, setIsRegex] = useState<boolean>(false);
 
     const debouncedSearchTerm = useDebounceValue(searchTerm);
 
     const { data: content, isFetching } = useQuery({
         initialData: [] as Array<HistoryResult>,
-        queryKey: ["history", debouncedSearchTerm, shredded],
+        queryKey: ["history", debouncedSearchTerm, shredded, isRegex],
         queryFn: async () => {
             return await listHistory({
                 searchTerm: debouncedSearchTerm,
                 shredded,
+                isRegex,
             });
         },
     });
@@ -48,24 +56,40 @@ export default function Home() {
                 />
             </div>
             <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            defaultChecked={shredded}
-                            onChange={() => setShredded(!shredded)}
-                            sx={{
-                                "& .MuiSwitch-switchBase.Mui-checked": {
-                                    color: "var(--color-primary)",
-                                },
-                                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
-                                    {
-                                        backgroundColor: "var(--color-primary)",
+                <div>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                defaultChecked={shredded}
+                                onChange={() => setShredded(!shredded)}
+                                sx={{
+                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                        color: "var(--color-primary)",
                                     },
-                            }}
-                        />
-                    }
-                    label="Shredded?"
-                />
+                                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track":
+                                        {
+                                            backgroundColor:
+                                                "var(--color-primary)",
+                                        },
+                                }}
+                            />
+                        }
+                        label="Shredded?"
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                onChange={() => setIsRegex(!isRegex)}
+                                sx={{
+                                    "&.Mui-checked": {
+                                        color: "var(--color-primary)",
+                                    },
+                                }}
+                            />
+                        }
+                        label={"Regular Expression?"}
+                    />
+                </div>
             </FormGroup>
             <div
                 className={classNames(

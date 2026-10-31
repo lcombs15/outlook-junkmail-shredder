@@ -12,9 +12,11 @@ export interface HistoryResult {
 export async function listHistory({
     searchTerm,
     shredded,
+    isRegex,
 }: Partial<{
     searchTerm: string;
     shredded: boolean;
+    isRegex: boolean;
 }> = {}): Promise<Array<HistoryResult>> {
     const params = new URLSearchParams();
     if (searchTerm) {
@@ -22,6 +24,8 @@ export async function listHistory({
     } else {
         params.append("afterDate", subMonths(Date.now(), 2).toISOString());
     }
+
+    params.append("regexSearch", isRegex ? "true" : "false");
 
     const response = await fetch(
         `/api/history/${shredded ? "deleted" : "ignored"}?${params.toString()}`,
