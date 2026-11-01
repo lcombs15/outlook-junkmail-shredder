@@ -11,9 +11,7 @@ services:
         volumes:
             - /opt/onedrive/outlook-junkmail-shredder:/data
     outlook-junkmail-shredder:
-        build:
-            dockerfile: ./apps/api/Dockerfile
-            context: .
+        image: lcombs15/junkmail-apps-api
         container_name: outlook-junkmail-shredder
         restart: unless-stopped
         ports:
@@ -38,9 +36,7 @@ services:
             - auth:/mnt/auth
             - /opt/onedrive/outlook-junkmail-shredder:/mnt/logs
     outlook-junkmail-shredder-portal:
-        build:
-            dockerfile: ./apps/web/Dockerfile
-            context: .
+        image: lcombs15/junkmail-apps-web
         container_name: outlook-junkmail-shredder-portal
         environment:
             - BACKEND_HOST=outlook-junkmail-shredder
