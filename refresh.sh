@@ -14,5 +14,7 @@ if [[ ! -f "$CERT" ]]; then
     mkcert -cert-file "$CERT" -key-file "$KEY" $(hostname -I | awk '{print $1}')
 fi
 
+sudo npx nx run-many -t docker:build --outputStyle=static 
+
 bws run -- "docker compose down"
-bws run -- "docker compose up --build -d"
+bws run -- "docker compose up -d"
