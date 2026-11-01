@@ -10,7 +10,7 @@
         "@nx/docker": "23.3.1",
         "@nx/eslint": "24.0.3",
         "@nx/jest": "24.0.3",
-        "eslint": "^9.39.5",
+        "eslint": "^10.13.0",
         "nx": "24.0.3"
     },
     "dependencies": {},
