@@ -27,7 +27,8 @@ jobs:
 
             - name: Lint
               run: npm run lint
-
+              env:
+                  NX_NO_CLOUD: true
             - name: Build
               run: npx nx run-many -t build
 
