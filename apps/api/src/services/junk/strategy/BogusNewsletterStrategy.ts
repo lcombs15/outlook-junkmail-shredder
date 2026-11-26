@@ -30,6 +30,7 @@ export class BogusNewsletterStrategy implements JunkStrategy {
             /^alert@.*(combocamgas|juachigranov|lectrows|howcase.com|nishk?a|centern).*/,
         ["Not so trusty partner"]:
             /Thd?eOfficials?TrustedPartneratall\.[a-z]+@[a-z]+/,
+        ["no-reply--"]: /no-reply@--[a-zA-Z0-9.]{15,16}.*\.(uk|com|us)$/,
     };
 
     private calculateReason(email: Outlook.Email): string | null {
