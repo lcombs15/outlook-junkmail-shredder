@@ -194,6 +194,13 @@ export class JunkFixture {
         "TheOfficialTrustedPartneratall.kuugcntmdbeidl@uszdqxshzsozor",
         "newsletter@mixedpedia.com",
         "support@mixedpedia.com",
+        "no-reply@--CDDDhiAfMNhBfVK.HagPRPaPjdmlwUj.us",
+        "no-reply@--YsJf5gA0dHiy1X3.EOijGnkf.uk",
+        "no-reply@--8jD7kuAheXnspDU.com",
+        "fqxyhouepbxybh@dtvdbdxorcrrgl",
+        "alerta@detran413479",
+        "TheOriginalStartPage.EEGAQBR8@S4Q4O15UVO0ODWU8EF8DOYWUPDUJ",
+        "debito@pedagiodigital480970",
     ];
 
     static notJunkEmailAddresses: Array<string> = [
